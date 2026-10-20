@@ -18,8 +18,7 @@ import Journal from './components/Journal';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { removeVideo, touchVideo, updateVideoNotes } from '../../store/lovedVideosSlice';
-import { markPracticed } from '../../store/ritualSlice';
-import { todayKey } from '../../utils/ritual';
+import { logPractice } from '../../store/ritualSlice';
 import { STAGE_LABEL, stageOf } from '../../utils/garden';
 import { springSnappy } from '../../styles/motion';
 
@@ -90,6 +89,7 @@ const Garden = () => {
   const dispatch = useAppDispatch();
   const savedVideos = useAppSelector((state) => state.lovedVideos.videos);
   const pathProgress = useAppSelector((state) => state.paths.progress);
+  const weekNotes = useAppSelector((state) => state.ritual.weekNotes);
   const [params, setParams] = useSearchParams();
   const view = (VIEWS.some((v) => v.id === params.get('view')) ? params.get('view') : 'garden') as View;
   const setView = (v: View) => setParams(v === 'garden' ? {} : { view: v }, { replace: true });
@@ -108,8 +108,10 @@ const Garden = () => {
 
   const closePlayer = useCallback(() => setPlaying(null), []);
   const endPlayer = useCallback(() => {
-    if (playing) dispatch(touchVideo(playing.id));
-    dispatch(markPracticed(todayKey()));
+    if (playing) {
+      dispatch(touchVideo(playing.id));
+      dispatch(logPractice({ kind: 'watch', at: Date.now(), id: playing.id }));
+    }
     setPlaying(null);
   }, [dispatch, playing]);
 
@@ -168,7 +170,7 @@ const Garden = () => {
               </>
             )}
 
-            {view === 'journal' && <Journal videos={savedVideos} progress={pathProgress} />}
+            {view === 'journal' && <Journal videos={savedVideos} progress={pathProgress} weekNotes={weekNotes} />}
           </>
         )}
 

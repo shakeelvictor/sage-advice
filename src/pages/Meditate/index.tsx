@@ -7,8 +7,7 @@ import PageTransition from '../../components/PageTransition';
 import { Eyebrow, PageHeader, PageTitle, PageIntro, Chip, IconButton } from '../../components/ui';
 import { useWakeLock } from '../../hooks/useWakeLock';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { markPracticed } from '../../store/ritualSlice';
-import { todayKey } from '../../utils/ritual';
+import { logPractice } from '../../store/ritualSlice';
 import { PATTERNS, PHASE_LABEL, PatternId, breathAt } from '../../utils/breathing';
 
 const Container = styled.div`
@@ -239,9 +238,9 @@ const Meditate = () => {
   useEffect(() => {
     if (finished && finishedRef.current) {
       finishedRef.current = false;
-      dispatch(markPracticed(todayKey()));
+      dispatch(logPractice({ kind: 'sit', at: Date.now(), minutes: duration, pattern: patternId }));
     }
-  }, [finished, dispatch]);
+  }, [finished, dispatch, duration, patternId]);
 
   useEffect(() => {
     setTimeLeft(duration * 60);

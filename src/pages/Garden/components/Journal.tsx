@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Search, Sprout, Compass } from 'lucide-react';
+import { Search, Sprout, Compass, CalendarDays } from 'lucide-react';
 import { SavedVideo } from '../../../types/video';
 import { PathProgress } from '../../../store/pathsSlice';
 import { paths, videoForStep } from '../../../data/paths';
 import { Surface, Eyebrow } from '../../../components/ui';
+import { questionForWeek } from '../../../utils/week';
 
 interface Entry {
   id: string;
   date: number;
-  kind: 'line' | 'path';
+  kind: 'line' | 'path' | 'week';
   title: string;
   context: string;
   question?: string;
@@ -182,10 +183,11 @@ const monthLabel = (d: number) => new Date(d).toLocaleDateString(undefined, { mo
 interface JournalProps {
   videos: SavedVideo[];
   progress: Record<string, PathProgress>;
+  weekNotes?: Record<string, { text: string; at: number }>;
 }
 
-/** Everything you have written, in one place: notes on kept lines and reflections on path steps. */
-const Journal = ({ videos, progress }: JournalProps) => {
+/** Everything you have written, in one place: notes on kept lines, reflections on path steps, and answers to the week's question. */
+const Journal = ({ videos, progress, weekNotes = {} }: JournalProps) => {
   const [query, setQuery] = useState('');
 
   const entries = useMemo<Entry[]>(() => {
@@ -219,8 +221,18 @@ const Journal = ({ videos, progress }: JournalProps) => {
         };
       });
     });
-    return [...lines, ...steps].sort((a, b) => b.date - a.date);
-  }, [videos, progress]);
+    const weeks: Entry[] = Object.entries(weekNotes).map(([week, note]) => ({
+      id: `week-${week}`,
+      date: note.at,
+      kind: 'week',
+      title: `Week of ${new Date(`${week}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long' })}`,
+      context: 'Weekly reflection',
+      question: questionForWeek(week),
+      text: note.text,
+      to: '/week',
+    }));
+    return [...lines, ...steps, ...weeks].sort((a, b) => b.date - a.date);
+  }, [videos, progress, weekNotes]);
 
   const q = query.trim().toLowerCase();
   const shown = q
@@ -265,7 +277,7 @@ const Journal = ({ videos, progress }: JournalProps) => {
                 <Card key={e.id}>
                   <Top>
                     <span>
-                      {e.kind === 'line' ? <Sprout aria-hidden /> : <Compass aria-hidden />}
+                      {e.kind === 'line' ? <Sprout aria-hidden /> : e.kind === 'week' ? <CalendarDays aria-hidden /> : <Compass aria-hidden />}
                       {e.kind === 'line' ? 'Kept line' : e.context}
                     </span>
                     <span>{dayLabel(e.date)}</span>

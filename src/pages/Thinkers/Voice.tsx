@@ -11,8 +11,7 @@ import { Eyebrow } from '../../components/ui';
 import { Video } from '../../data/videos';
 import { Tradition, TRADITIONS, thinkerBySlug, traditionMeta, videosByThinker, videosByTradition } from '../../data/thinkers';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { markPracticed } from '../../store/ritualSlice';
-import { todayKey } from '../../utils/ritual';
+import { logPractice } from '../../store/ritualSlice';
 
 const Container = styled.div`
   max-width: 1000px;
@@ -83,9 +82,9 @@ const usePlayer = () => {
   const close = useCallback(() => setPlaying(null), []);
   const closeShare = useCallback(() => setSharing(null), []);
   const ended = useCallback(() => {
-    dispatch(markPracticed(todayKey()));
+    if (playing) dispatch(logPractice({ kind: 'watch', at: Date.now(), id: playing.id }));
     setPlaying(null);
-  }, [dispatch]);
+  }, [dispatch, playing]);
   return { playing, setPlaying, close, ended, sharing, setSharing, closeShare };
 };
 

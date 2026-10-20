@@ -10,8 +10,7 @@ import { pathById, videoForStep } from '../../data/paths';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { completeStep, resetPath } from '../../store/pathsSlice';
-import { markPracticed } from '../../store/ritualSlice';
-import { todayKey } from '../../utils/ritual';
+import { logPractice } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
 
 const Container = styled.div`
@@ -252,10 +251,11 @@ const PathWalk = () => {
 
   const closePlayer = useCallback(() => setWatching(null), []);
   const endPlayer = useCallback(() => {
-    dispatch(markPracticed(todayKey()));
+    const id = watching !== null ? path?.steps[watching]?.videoId : undefined;
+    if (id) dispatch(logPractice({ kind: 'watch', at: Date.now(), id }));
     setOpenStep(watching);
     setWatching(null);
-  }, [dispatch, watching]);
+  }, [dispatch, watching, path]);
 
   if (!path) return <Navigate to="/paths" replace />;
 

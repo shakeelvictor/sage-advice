@@ -15,7 +15,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 import { addVideo, removeVideo } from '../../store/lovedVideosSlice';
-import { markPracticed, setToday } from '../../store/ritualSlice';
+import { logPractice, setToday } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
 
 type Stage = 'intent' | 'line' | 'watch' | 'after';
@@ -292,9 +292,9 @@ const Home = () => {
 
   const closePlayer = useCallback(() => setStage('line'), []);
   const endPlayer = useCallback(() => {
-    dispatch(markPracticed(date));
+    if (video) dispatch(logPractice({ kind: 'watch', at: Date.now(), id: video.id }));
     setStage('after');
-  }, [date, dispatch]);
+  }, [dispatch, video]);
 
   if (allLoved) {
     return (
@@ -416,6 +416,12 @@ const Home = () => {
           {practiceDays > 0 && saved.length > 0 && <span aria-hidden>·</span>}
           {saved.length > 0 && <span>{saved.length} {saved.length === 1 ? 'line' : 'lines'} kept</span>}
           {practiceDays === 0 && saved.length === 0 && <span>Watch one short to the end and the day counts</span>}
+          {(practiceDays > 0 || saved.length > 0) && (
+            <>
+              <span aria-hidden>·</span>
+              <Link to="/week">Your week</Link>
+            </>
+          )}
         </Footer>
 
         <WisdomCardModal video={sharing} onClose={() => setSharing(null)} />

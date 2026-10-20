@@ -7,6 +7,7 @@ import Paths from '../pages/Paths';
 import PathWalk from '../pages/Paths/PathWalk';
 import Thinkers from '../pages/Thinkers';
 import { ThinkerPage, TraditionPage } from '../pages/Thinkers/Voice';
+import Week from '../pages/Week';
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Route path="/thinkers" element={<Thinkers />} />
       <Route path="/thinkers/:thinkerId" element={<ThinkerPage />} />
       <Route path="/traditions/:tradition" element={<TraditionPage />} />
+      <Route path="/week" element={<Week />} />
       <Route path="/garden" element={<Garden />} />
       <Route path="/loved" element={<Navigate to="/garden" replace />} />
       <Route path="/meditate" element={<Meditate />} />
