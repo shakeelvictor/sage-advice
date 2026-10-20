@@ -83,6 +83,37 @@ const Action = styled.span<{ $finished?: boolean }>`
   }
 `;
 
+const Voices = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding: 1.5rem 1.6rem;
+  border-radius: var(--radius-l);
+  border: 1px dashed ${({ theme }) => theme.colors.moss};
+  color: inherit;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.ink2};
+    font-size: 0.95rem;
+    max-width: 52ch;
+  }
+
+  &:hover {
+    border-style: solid;
+    border-color: ${({ theme }) => theme.colors.amber};
+    background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 5%, transparent);
+  }
+`;
+
 const list = { show: { transition: { staggerChildren: 0.06 } } };
 const item = { hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: spring } };
 
@@ -124,6 +155,17 @@ const Paths = () => {
             );
           })}
         </Grid>
+
+        <Voices to="/thinkers">
+          <div>
+            <Eyebrow>Or browse by voice</Eyebrow>
+            <h2>Thinkers</h2>
+            <p>Who is speaking in these shorts, from which tradition, and everything else they said here.</p>
+          </div>
+          <Action>
+            Browse <ArrowRight />
+          </Action>
+        </Voices>
       </Container>
     </PageTransition>
   );

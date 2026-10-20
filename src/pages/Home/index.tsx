@@ -9,6 +9,7 @@ import IntentPicker from '../../components/IntentPicker';
 import { Eyebrow, Button, IconButton, TextButton, Surface, Chip } from '../../components/ui';
 import { videos, Video } from '../../data/videos';
 import { Intent, intentLabel, pickAnother, pickDaily, todayKey } from '../../utils/ritual';
+import { thinkerSlug } from '../../data/thinkers';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
@@ -92,6 +93,16 @@ const Attribution = styled(motion.div)`
   strong {
     color: ${({ theme }) => theme.colors.ink};
     font-weight: 700;
+  }
+
+  a strong {
+    border-bottom: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.amber} 50%, transparent);
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+
+  a:hover strong {
+    color: ${({ theme }) => theme.colors.amber};
+    border-color: ${({ theme }) => theme.colors.amber};
   }
 `;
 
@@ -333,7 +344,13 @@ const Home = () => {
                 </Line>
 
                 <Attribution initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt }}>
-                  <strong>{video.thinker ?? video.title}</strong>
+                  {video.thinker ? (
+                    <Link to={`/thinkers/${thinkerSlug(video.thinker)}`}>
+                      <strong>{video.thinker}</strong>
+                    </Link>
+                  ) : (
+                    <strong>{video.title}</strong>
+                  )}
                   {video.thinker && <> · {video.title}</>}
                   {video.creatorChannel && <> · via {video.creatorChannel}</>}
                 </Attribution>
