@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sunrise, Heart, Wind, BookOpen, Sun, Moon, Monitor } from 'lucide-react';
+import { Sunrise, Compass, Heart, Wind, BookOpen, Sun, Moon, Monitor } from 'lucide-react';
 import { Mark } from '../Logo';
 import { useTheme } from '../../context/ThemeContext';
 import { springSnappy } from '../../styles/motion';
 
 const items = [
   { to: '/', label: 'Today', Icon: Sunrise },
+  { to: '/paths', label: 'Paths', Icon: Compass },
   { to: '/loved', label: 'Loved', Icon: Heart },
   { to: '/meditate', label: 'Still', Icon: Wind },
   { to: '/about', label: 'About', Icon: BookOpen },
@@ -183,7 +184,7 @@ const Links = ({ layoutId }: { layoutId: string }) => {
       {items.map(({ to, label, Icon }) => (
         <li key={to} style={{ position: 'relative' }}>
           <Item to={to} end={to === '/'}>
-            {pathname === to && <ActivePill layoutId={layoutId} transition={springSnappy} />}
+            {(pathname === to || (to !== '/' && pathname.startsWith(to + '/'))) && <ActivePill layoutId={layoutId} transition={springSnappy} />}
             <Icon aria-hidden />
             <span>{label}</span>
           </Item>
