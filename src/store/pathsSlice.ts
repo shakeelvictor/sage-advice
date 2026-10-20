@@ -5,6 +5,8 @@ export interface PathProgress {
   done: number[];
   /** What you wrote after each step, by step index. */
   reflections: Record<number, string>;
+  /** When each step was walked, by step index. */
+  completedAt?: Record<number, number>;
   startedAt: number;
   finishedAt?: number;
 }
@@ -25,7 +27,11 @@ const pathsSlice = createSlice({
     ) => {
       const { pathId, step, reflection, totalSteps } = action.payload;
       const progress = (state.progress[pathId] ??= { done: [], reflections: {}, startedAt: Date.now() });
-      if (!progress.done.includes(step)) progress.done.push(step);
+      progress.completedAt ??= {};
+      if (!progress.done.includes(step)) {
+        progress.done.push(step);
+        progress.completedAt[step] = Date.now();
+      }
       if (reflection.trim()) progress.reflections[step] = reflection.trim();
       else delete progress.reflections[step];
       if (progress.done.length >= totalSteps && !progress.finishedAt) progress.finishedAt = Date.now();

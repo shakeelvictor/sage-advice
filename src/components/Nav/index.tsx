@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sunrise, Compass, Heart, Wind, BookOpen, Sun, Moon, Monitor } from 'lucide-react';
+import { Sunrise, Compass, Sprout, Wind, BookOpen, Sun, Moon, Monitor } from 'lucide-react';
 import { Mark } from '../Logo';
 import { useTheme } from '../../context/ThemeContext';
 import { springSnappy } from '../../styles/motion';
@@ -9,7 +9,7 @@ import { springSnappy } from '../../styles/motion';
 const items = [
   { to: '/', label: 'Today', Icon: Sunrise },
   { to: '/paths', label: 'Paths', Icon: Compass },
-  { to: '/loved', label: 'Loved', Icon: Heart },
+  { to: '/garden', label: 'Garden', Icon: Sprout },
   { to: '/meditate', label: 'Still', Icon: Wind },
   { to: '/about', label: 'About', Icon: BookOpen },
 ];

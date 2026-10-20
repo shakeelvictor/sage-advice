@@ -302,8 +302,8 @@ const Home = () => {
             <Done>
               <Eyebrow>Every line, kept</Eyebrow>
               <h2>You have loved the whole library.</h2>
-              <p>Revisit what stayed with you. New shorts arrive as the library grows.</p>
-              <Button as={Link} to="/loved">Open Loved</Button>
+              <p>Tend what stayed with you. New shorts arrive as the library grows.</p>
+              <Button as={Link} to="/garden">Open the Garden</Button>
             </Done>
           </Centre>
         </Scene>

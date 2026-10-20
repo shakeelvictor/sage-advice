@@ -19,15 +19,15 @@ const Container = styled(motion(Surface))`
 
   p {
     color: ${({ theme }) => theme.colors.ink2};
-    max-width: 36ch;
+    max-width: 38ch;
   }
 `;
 
 const EmptyState = () => (
   <Container initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
     <Mark size={44} />
-    <h2>Nothing kept yet</h2>
-    <p>When a line stays with you, love it. It will wait for you here, with room for a note.</p>
+    <h2>Nothing planted yet</h2>
+    <p>When a line stays with you, love it. It takes root here, and grows as you write about it and return to it.</p>
     <Button as={Link} to="/">Find a line</Button>
   </Container>
 );

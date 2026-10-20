@@ -84,7 +84,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpe
           onClick={(e) => e.stopPropagation()}
         >
           <h2 id="delete-title">Let this one go?</h2>
-          <p>“{title}” and any note you wrote will be removed from Loved.</p>
+          <p>“{title}” and any note you wrote will be pulled from the Garden.</p>
           <Actions>
             <GhostButton onClick={onClose} whileTap={{ scale: 0.97 }}>Keep it</GhostButton>
             <DangerButton

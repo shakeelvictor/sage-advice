@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
-import Loved from '../pages/Loved';
+import Garden from '../pages/Garden';
 import Meditate from '../pages/Meditate';
 import About from '../pages/About';
 import Paths from '../pages/Paths';
@@ -17,7 +17,8 @@ const AppRoutes = () => {
       <Route path="/thinkers" element={<Thinkers />} />
       <Route path="/thinkers/:thinkerId" element={<ThinkerPage />} />
       <Route path="/traditions/:tradition" element={<TraditionPage />} />
-      <Route path="/loved" element={<Loved />} />
+      <Route path="/garden" element={<Garden />} />
+      <Route path="/loved" element={<Navigate to="/garden" replace />} />
       <Route path="/meditate" element={<Meditate />} />
       <Route path="/about" element={<About />} />
     </Routes>
