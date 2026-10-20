@@ -1,112 +1,62 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaPlay, FaEdit, FaTrashAlt } from 'react-icons/fa';
-import { SavedVideo } from '../../../components/VideoPlayer';
+import { Play, Pencil, Trash2 } from 'lucide-react';
+import { SavedVideo } from '../../../types/video';
+import { Surface, Tag, IconButton } from '../../../components/ui';
+import { spring } from '../../../styles/motion';
 
-const Card = styled(motion.div)<{ $background?: string }>`
-  position: relative;
-  background: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: 1rem;
-  padding: 1.5rem;
-  overflow: hidden;
-  color: ${({ theme }) => theme.colors.text.primary};
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: ${({ $background }) => $background ? `url(${$background})` : 'none'};
-    background-size: cover;
-    background-position: center;
-    opacity: 0.15;
-    z-index: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: ${({ theme }) => 
-      theme.colors.text.primary === '#ffffff' 
-        ? 'rgba(0, 0, 0, 0.7)' 
-        : 'rgba(255, 255, 255, -0.3)'};
-    z-index: 1;
-  }
-
-  & > * {
-    position: relative;
-    z-index: 2;
-  }
+const Card = styled(motion(Surface))`
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.35rem 1.35rem 1.1rem;
+  min-width: 0;
 `;
 
-const CategoryTags = styled.div`
+const Tags = styled.div`
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-`;
-
-const CategoryTag = styled.span`
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border-radius: 1rem;
-  font-size: 0.875rem;
-  text-transform: capitalize;
-`;
-
-const Title = styled.h3`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-const WisdomText = styled.p`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-style: italic;
-  margin: 1rem 0;
-  line-height: 1.6;
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const NotesContent = styled.div`
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: ${({ theme }) => theme.colors.background.primary}80;
-  border-radius: 0.5rem;
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.text.secondary};
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 `;
 
-const IconButton = styled.button`
+const Wisdom = styled.p`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 70;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: ${({ theme }) => theme.colors.ink};
+  text-wrap: pretty;
+`;
+
+const Meta = styled.div`
+  font-size: 0.82rem;
+  color: ${({ theme }) => theme.colors.ink2};
+
+  strong {
+    color: ${({ theme }) => theme.colors.ink};
+    font-weight: 700;
+  }
+`;
+
+const Note = styled.div`
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: ${({ theme }) => theme.colors.ink2};
+  padding: 0.8rem 1rem;
+  border-left: 2px solid ${({ theme }) => theme.colors.amber};
+  background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 6%, transparent);
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  white-space: pre-wrap;
+`;
+
+const Actions = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  transition: all 0.3s ease;
+  margin-top: 0.25rem;
 
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
+  > :last-child {
+    margin-left: auto;
   }
 `;
 
@@ -117,43 +67,34 @@ interface VideoCardProps {
   onPlay: () => void;
 }
 
-const VideoCard = ({ video, onEdit, onDelete, onPlay }: VideoCardProps) => {
-  if (!video) return null;
-
-  return (
-    <Card
-      $background={video.background}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      layout
-    >
-      {video.categories && video.categories.length > 0 && (
-        <CategoryTags>
-          {video.categories.map(category => (
-            <CategoryTag key={category}>{category}</CategoryTag>
-          ))}
-        </CategoryTags>
-      )}
-      <Title>{video.title}</Title>
-      <WisdomText>{video.wisdom}</WisdomText>
-      {video.notes && <NotesContent>{video.notes}</NotesContent>}
-      <ButtonGroup>
-        <IconButton onClick={onPlay}>
-          <FaPlay size={16} />
-          Play
-        </IconButton>
-        <IconButton onClick={onEdit}>
-          <FaEdit size={16} />
-          Edit Notes
-        </IconButton>
-        <IconButton onClick={onDelete}>
-          <FaTrashAlt size={16} />
-          Delete
-        </IconButton>
-      </ButtonGroup>
-    </Card>
-  );
-};
+const VideoCard = ({ video, onEdit, onDelete, onPlay }: VideoCardProps) => (
+  <Card layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} transition={spring}>
+    {video.categories?.length > 0 && (
+      <Tags>
+        {video.categories.map((category) => (
+          <Tag key={category}>{category}</Tag>
+        ))}
+      </Tags>
+    )}
+    <Wisdom>{video.wisdom}</Wisdom>
+    <Meta>
+      <strong>{video.thinker ?? video.title}</strong>
+      {video.thinker && <> · {video.title}</>}
+      {video.creatorChannel && <> · via {video.creatorChannel}</>}
+    </Meta>
+    {video.notes && <Note>{video.notes}</Note>}
+    <Actions>
+      <IconButton $tone="amber" onClick={onPlay} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
+        <Play />
+      </IconButton>
+      <IconButton onClick={onEdit} aria-label={video.notes ? 'Edit note' : 'Add a note'} whileTap={{ scale: 0.92 }}>
+        <Pencil />
+      </IconButton>
+      <IconButton $tone="danger" onClick={onDelete} aria-label="Remove from loved" whileTap={{ scale: 0.92 }}>
+        <Trash2 />
+      </IconButton>
+    </Actions>
+  </Card>
+);
 
 export default VideoCard;

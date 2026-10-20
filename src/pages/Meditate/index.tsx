@@ -1,281 +1,194 @@
 import { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { BsPlayFill, BsPauseFill, BsArrowCounterclockwise, BsVolumeUp } from 'react-icons/bs';
-import { TiWeatherDownpour } from 'react-icons/ti';
-import { FaWater } from 'react-icons/fa';
-import { IoMusicalNotes } from 'react-icons/io5';
+import { Play, Pause, RotateCcw, Volume2, Bell, CloudRain, Waves } from 'lucide-react';
 import useSound from 'use-sound';
 import PageTransition from '../../components/PageTransition';
+import { Eyebrow, PageHeader, PageTitle, PageIntro, Chip, IconButton } from '../../components/ui';
 import { useWakeLock } from '../../hooks/useWakeLock';
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: grid;
+  gap: 2rem;
 `;
 
-const Title = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  text-align: center;
-`;
-
-const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.text.secondary};
-  margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-`;
-
-const Section = styled.div`
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-const SectionTitle = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.text.secondary};
-  text-align: center;
-`;
-
-const DurationButtons = styled.div`
+const Row = styled.div`
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
-`;
-
-const DurationButton = styled(motion.button)<{ $active?: boolean }>`
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: ${({ $active, theme }) =>
-    $active ? theme.colors.primary : theme.colors.background.secondary};
-  color: ${({ $active }) => ($active ? 'white' : 'inherit')};
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: ${({ $active, theme }) =>
-      $active ? theme.colors.primary : `${theme.colors.background.secondary}dd`};
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-`;
-
-const TimerCircle = styled.div`
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto 2rem;
-  display: flex;
-  align-items: center;
   justify-content: center;
 `;
 
-const CIRCLE_RADIUS = 140;
-const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
-
-const CircleBackground = styled.circle`
-  fill: none;
-  stroke: ${({ theme }) => theme.colors.background.secondary};
-  stroke-width: 8;
+const Section = styled.section`
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
 `;
 
-const CircleProgress = styled(motion.circle)`
-  fill: none;
-  stroke: ${({ theme }) => theme.colors.primary};
-  stroke-width: 8;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-  transition: stroke-dashoffset 1s linear;
+const SectionLabel = styled(Eyebrow)`
+  color: ${({ theme }) => theme.colors.ink3};
 `;
 
-const TimeDisplay = styled.div`
+const Ring = styled.div`
+  position: relative;
+  width: min(78vw, 300px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+`;
+
+const Glow = styled(motion.div)`
   position: absolute;
-  font-size: 3rem;
-  font-family: ${({ theme }) => theme.fonts.secondary};
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow), transparent 70%);
+  filter: blur(10px);
+`;
+
+const Svg = styled.svg`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+`;
+
+const Track = styled.circle`
+  fill: none;
+  stroke: ${({ theme }) => theme.colors.line};
+  stroke-width: 3;
+`;
+
+const Progress = styled(motion.circle)`
+  fill: none;
+  stroke: ${({ theme }) => theme.colors.amber};
+  stroke-width: 3;
+  stroke-linecap: round;
+`;
+
+const Time = styled.div`
+  position: relative;
+  font-size: clamp(3rem, 12vw, 4.25rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: ${({ theme }) => theme.colors.ink};
+  line-height: 1;
+`;
+
+const State = styled.div`
+  position: absolute;
+  bottom: 24%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.sage};
 `;
 
 const Controls = styled.div`
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-`;
-
-const ControlButton = styled(motion.button)`
-  width: 48px;
-  height: 48px;
-  border: none;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  gap: 1rem;
+`;
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary}dd;
+const Volume = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: min(100%, 280px);
+  color: ${({ theme }) => theme.colors.ink2};
+
+  svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
   }
-`;
 
-const VolumeControl = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  max-width: 300px;
-  margin: 0 auto 2rem;
-`;
-
-const VolumeSlider = styled.input`
-  flex: 1;
-  height: 4px;
-  appearance: none;
-  background: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: 2px;
-  outline: none;
-  transition: all 0.3s ease;
-
-  &::-webkit-slider-thumb {
+  input {
+    flex: 1;
+    height: 4px;
     appearance: none;
-    width: 16px;
-    height: 16px;
-    background: ${({ theme }) => theme.colors.primary};
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--amber) 0%, var(--amber) var(--v), var(--line) var(--v), var(--line) 100%);
+    outline: none;
+  }
+
+  input::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
+    background: ${({ theme }) => theme.colors.surface};
+    border: 2px solid ${({ theme }) => theme.colors.amber};
     cursor: pointer;
-    transition: transform 0.3s ease;
   }
 
-  &::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-  }
-`;
-
-const SoundButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-
-const SoundButton = styled(motion.button)<{ $active?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: ${({ $active, theme }) =>
-    $active ? theme.colors.primary : theme.colors.background.secondary};
-  color: ${({ $active }) => ($active ? 'white' : 'inherit')};
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: ${({ $active, theme }) =>
-      $active ? theme.colors.primary : `${theme.colors.background.secondary}dd`};
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
+  input::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.surface};
+    border: 2px solid ${({ theme }) => theme.colors.amber};
+    cursor: pointer;
   }
 `;
 
+const RADIUS = 46;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const durations = [1, 5, 10, 15, 20];
 
 type CompletionSound = 'bell' | 'rain' | 'waves';
+const sounds: { id: CompletionSound; label: string; Icon: typeof Bell }[] = [
+  { id: 'bell', label: 'Bell', Icon: Bell },
+  { id: 'rain', label: 'Rain', Icon: CloudRain },
+  { id: 'waves', label: 'Waves', Icon: Waves },
+];
+
+const format = (seconds: number) => `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')}`;
 
 const Meditate = () => {
-  const [duration, setDuration] = useState(1);
+  const [duration, setDuration] = useState(5);
   const [timeLeft, setTimeLeft] = useState(duration * 60);
   const [isActive, setIsActive] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [completionSound, setCompletionSound] = useState<CompletionSound>('bell');
 
-  // Keep screen active while timer is running
   useWakeLock(isActive);
 
-  const [playBell, { stop: stopBell }] = useSound('/sounds/meditation-bell.mp3', {
-    volume,
-    interrupt: true
-  });
+  const [playBell, { stop: stopBell }] = useSound('/sounds/meditation-bell.mp3', { volume, interrupt: true });
+  const [playRain, { stop: stopRain }] = useSound('/sounds/rain.mp3', { volume, interrupt: true });
+  const [playWaves, { stop: stopWaves }] = useSound('/sounds/waves.mp3', { volume, interrupt: true });
 
-  const [playRain, { stop: stopRain }] = useSound('/sounds/rain.mp3', {
-    volume,
-    interrupt: true
-  });
-
-  const [playWaves, { stop: stopWaves }] = useSound('/sounds/waves.mp3', {
-    volume,
-    interrupt: true
-  });
-
-  const stopAllSounds = useCallback(() => {
+  const stopAll = useCallback(() => {
     stopBell();
     stopRain();
     stopWaves();
   }, [stopBell, stopRain, stopWaves]);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const reset = useCallback(() => {
     setTimeLeft(duration * 60);
     setIsActive(false);
-    stopAllSounds();
-  }, [duration, stopAllSounds]);
+    stopAll();
+  }, [duration, stopAll]);
 
   useEffect(() => {
-    let interval: number;
-
-    if (isActive && timeLeft > 0) {
-      interval = window.setInterval(() => {
-        setTimeLeft((time) => {
-          const newTime = time - 1;
-
-          if (newTime <= 0) {
-            setIsActive(false);
-            switch (completionSound) {
-              case 'bell':
-                playBell();
-                break;
-              case 'rain':
-                playRain();
-                break;
-              case 'waves':
-                playWaves();
-                break;
-            }
-            return 0;
-          }
-          return newTime;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    if (!isActive || timeLeft <= 0) return;
+    const interval = window.setInterval(() => {
+      setTimeLeft((t) => {
+        if (t - 1 <= 0) {
+          setIsActive(false);
+          ({ bell: playBell, rain: playRain, waves: playWaves })[completionSound]();
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => window.clearInterval(interval);
   }, [isActive, timeLeft, playBell, playRain, playWaves, completionSound]);
 
   useEffect(() => {
@@ -283,129 +196,87 @@ const Meditate = () => {
   }, [duration]);
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopAllSounds();
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', stopAllSounds);
-
+    const onHide = () => document.hidden && stopAll();
+    document.addEventListener('visibilitychange', onHide);
+    window.addEventListener('blur', stopAll);
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', stopAllSounds);
+      document.removeEventListener('visibilitychange', onHide);
+      window.removeEventListener('blur', stopAll);
     };
-  }, [stopAllSounds]);
+  }, [stopAll]);
 
-  const strokeDashoffset = CIRCLE_CIRCUMFERENCE * (1 - timeLeft / (duration * 60));
+  const progress = 1 - timeLeft / (duration * 60);
+  const finished = timeLeft === 0;
 
   return (
     <PageTransition>
       <Container>
-        <Title>Meditation Timer</Title>
-        <Subtitle>
-          Choose your preferred completion sound below. When the timer ends, your selected sound will play.
-          If no sound is selected, the meditation bell will play by default.
-        </Subtitle>
+        <PageHeader style={{ marginBottom: 0 }}>
+          <Eyebrow>Be still</Eyebrow>
+          <PageTitle>Still</PageTitle>
+          <PageIntro>A quiet timer. The screen stays awake, and a sound tells you when the time is done.</PageIntro>
+        </PageHeader>
 
         <Section>
-          <SectionTitle>Duration</SectionTitle>
-          <DurationButtons>
+          <SectionLabel>Minutes</SectionLabel>
+          <Row role="group" aria-label="Duration">
             {durations.map((d) => (
-              <DurationButton
-                key={d}
-                $active={duration === d}
-                onClick={() => {
-                  setDuration(d);
-                  reset();
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {d} min
-              </DurationButton>
+              <Chip key={d} $active={duration === d} aria-pressed={duration === d} onClick={() => { setDuration(d); setIsActive(false); stopAll(); }}>
+                {d}
+              </Chip>
             ))}
-          </DurationButtons>
+          </Row>
         </Section>
 
-        <TimerCircle>
-          <svg width="300" height="300" viewBox="0 0 300 300">
-            <CircleBackground cx="150" cy="150" r={CIRCLE_RADIUS} />
-            <CircleProgress
-              cx="150"
-              cy="150"
-              r={CIRCLE_RADIUS}
-              strokeDasharray={CIRCLE_CIRCUMFERENCE}
-              strokeDashoffset={strokeDashoffset}
-              initial={{ strokeDashoffset: CIRCLE_CIRCUMFERENCE }}
-              animate={{ strokeDashoffset }}
-              transition={{ duration: 1, ease: "linear" }}
+        <Ring>
+          <Glow
+            animate={isActive ? { scale: [1, 1.12, 1], opacity: [0.55, 1, 0.55] } : { scale: 1, opacity: 0.45 }}
+            transition={isActive ? { duration: 6, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.8 }}
+          />
+          <Svg viewBox="0 0 100 100" aria-hidden>
+            <Track cx="50" cy="50" r={RADIUS} />
+            <Progress
+              cx="50"
+              cy="50"
+              r={RADIUS}
+              strokeDasharray={CIRCUMFERENCE}
+              animate={{ strokeDashoffset: CIRCUMFERENCE * (1 - progress) }}
+              transition={{ duration: 1, ease: 'linear' }}
             />
-          </svg>
-          <TimeDisplay>{formatTime(timeLeft)}</TimeDisplay>
-        </TimerCircle>
+          </Svg>
+          <Time aria-live="polite">{format(timeLeft)}</Time>
+          <State>{finished ? 'Done' : isActive ? 'Breathing' : 'Ready'}</State>
+        </Ring>
 
         <Controls>
-          <ControlButton
-            onClick={reset}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+          <IconButton $size={52} onClick={reset} aria-label="Reset" whileTap={{ scale: 0.9 }}>
+            <RotateCcw />
+          </IconButton>
+          <IconButton
+            $tone="amber"
+            $size={72}
+            onClick={() => (finished ? reset() : setIsActive(!isActive))}
+            aria-label={isActive ? 'Pause' : 'Begin'}
+            whileTap={{ scale: 0.92 }}
           >
-            <BsArrowCounterclockwise size={24} />
-          </ControlButton>
-          <ControlButton
-            onClick={() => setIsActive(!isActive)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {isActive ? <BsPauseFill size={24} /> : <BsPlayFill size={24} />}
-          </ControlButton>
+            {isActive ? <Pause /> : <Play style={{ marginLeft: 3 }} />}
+          </IconButton>
+          <span style={{ width: 52 }} aria-hidden />
         </Controls>
 
         <Section>
-          <SectionTitle>Volume</SectionTitle>
-          <VolumeControl>
-            <BsVolumeUp size={20} />
-            <VolumeSlider
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={volume}
-              onChange={(e) => setVolume(parseFloat(e.target.value))}
-            />
-          </VolumeControl>
-        </Section>
-
-        <Section>
-          <SectionTitle>Completion Sound</SectionTitle>
-          <SoundButtons>
-            <SoundButton
-              $active={completionSound === 'bell'}
-              onClick={() => setCompletionSound('bell')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <IoMusicalNotes size={20} /> Bell
-            </SoundButton>
-            <SoundButton
-              $active={completionSound === 'rain'}
-              onClick={() => setCompletionSound('rain')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <TiWeatherDownpour size={20} /> Rain
-            </SoundButton>
-            <SoundButton
-              $active={completionSound === 'waves'}
-              onClick={() => setCompletionSound('waves')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <FaWater size={20} /> Waves
-            </SoundButton>
-          </SoundButtons>
+          <SectionLabel>Ends with</SectionLabel>
+          <Row role="group" aria-label="Completion sound">
+            {sounds.map(({ id, label, Icon }) => (
+              <Chip key={id} $active={completionSound === id} aria-pressed={completionSound === id} onClick={() => setCompletionSound(id)}>
+                <Icon aria-hidden /> {label}
+              </Chip>
+            ))}
+          </Row>
+          <Volume style={{ ['--v' as string]: `${volume * 100}%` }}>
+            <Volume2 aria-hidden />
+            <input type="range" min="0" max="1" step="0.1" value={volume} onChange={(e) => setVolume(parseFloat(e.target.value))} aria-label="Volume" />
+          </Volume>
         </Section>
       </Container>
     </PageTransition>

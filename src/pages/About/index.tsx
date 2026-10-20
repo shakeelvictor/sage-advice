@@ -1,157 +1,134 @@
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Home } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
+import Logo from '../../components/Logo';
+import { Eyebrow, Button } from '../../components/ui';
+import { springSoft } from '../../styles/motion';
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 640px;
   margin: 0 auto;
-  position: relative;
+  display: grid;
+  gap: 2.5rem;
+  padding-block: 1rem 2rem;
 `;
 
-const Title = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.primary};
-  font-size: 3rem;
-  margin-bottom: 2rem;
+const Hero = styled.div`
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
   text-align: center;
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+const Tagline = styled.p`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-weight: 300;
+  font-variation-settings: 'SOFT' 80;
+  font-size: clamp(1.4rem, 3.6vw, 1.9rem);
+  line-height: 1.3;
+  color: ${({ theme }) => theme.colors.ink2};
+  max-width: 28ch;
+  text-wrap: balance;
+`;
+
+const Body = styled.div`
+  display: grid;
+  gap: 1.5rem;
 `;
 
 const Paragraph = styled(motion.p)`
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: ${({ theme }) => theme.colors.text.secondary};
-  font-weight: 300;
-  letter-spacing: 0.01em;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: ${({ theme }) => theme.colors.ink2};
+  max-width: 62ch;
+
+  strong {
+    color: ${({ theme }) => theme.colors.ink};
+  }
+`;
+
+const Principles = styled.dl`
+  display: grid;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+
+  div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  dt {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-size: 1.15rem;
+    color: ${({ theme }) => theme.colors.ink};
+  }
+
+  dd {
+    color: ${({ theme }) => theme.colors.ink2};
+    font-size: 0.98rem;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 1rem;
+    div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
   }
 `;
 
-const FloatingButtonWrapper = styled(motion.div)`
-  position: relative;
-  margin-top: 2rem;
-  left: 40%;
-  transform: translateX(-50%);
-  z-index: 50;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    left: 46%;
-  }
-`;
-
-const FloatingButton = styled(motion.button)`
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  cursor: pointer;
+const Cta = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1),
-              0 4px 8px -4px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-
-  svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primary}dd;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.2),
-                0 8px 12px -4px rgba(0, 0, 0, 0.12);
-  }
+  padding-top: 0.5rem;
 `;
-
-const bounceAnimation = {
-  initial: { opacity: 0, scale: 0, y: 100 },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 20,
-      duration: 1.5
-    }
-  }
-};
-
-const floatAnimation = {
-  animate: {
-    y: [0, -12, 0],
-    transition: {
-      duration: 2.5,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-};
 
 const About = () => {
   const navigate = useNavigate();
-  const [showHomeButton, setShowHomeButton] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowHomeButton(true);
-    }, 20000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <PageTransition>
       <Container>
-        <Title>About</Title>
-        <Content>
-          <Paragraph
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            We live in a world overwhelmed by crises—ecological, political, economic, and social. As trust in our institutions continues to erode and the promises of modernity and the deconstructions of postmodernity leave many feeling adrift, it can be hard to find a place to turn for wisdom and hope. <strong>Sage Advice</strong> is designed to be that place—a small sanctuary where you can find inspiration, motivation, and a reminder that life is truly worth living.
-          </Paragraph>
-          <Paragraph
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            In an age where technology often fuels division and negativity, this app aims to harmonize ethics, technology, and the pursuit of virtuous living. The clips you'll find here have been carefully chosen, not to rehash watered-down platitudes, but to spark genuine reflection. Begin your journey toward a clearer mind, a stronger sense of purpose, and a better life.
-          </Paragraph>
-        </Content>
+        <Hero>
+          <Logo size="medium" showText={false} />
+          <Eyebrow>Sage Advice</Eyebrow>
+          <h1>Where to go for wisdom</h1>
+          <Tagline>One line a day, a short worth watching, and a place to be still.</Tagline>
+        </Hero>
 
-        {showHomeButton && (
-          <FloatingButtonWrapper
-            variants={bounceAnimation}
-            initial="initial"
-            animate="animate"
-          >
-            <FloatingButton
-              onClick={() => navigate('/')}
-              variants={floatAnimation}
-              animate="animate"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Home />
-            </FloatingButton>
-          </FloatingButtonWrapper>
-        )}
+        <Body>
+          <Paragraph initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: 0.15 }}>
+            We live in a world overwhelmed by crises: ecological, political, economic and social. As trust in our institutions erodes, it can be hard to find somewhere to turn for wisdom and hope. <strong>Sage Advice</strong> is meant to be that place. A small sanctuary where you can find perspective, steadiness and a reminder that life is worth living well.
+          </Paragraph>
+          <Paragraph initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: 0.3 }}>
+            The clips here are chosen by hand. Not watered-down platitudes, but ideas from people who thought carefully about how to live, offered in under a minute so you can carry one into your day and actually practise it.
+          </Paragraph>
+
+          <Principles>
+            <div>
+              <dt>Curated</dt>
+              <dd>Every short is picked and credited. You always see who is speaking and where it came from.</dd>
+            </div>
+            <div>
+              <dt>Unhurried</dt>
+              <dd>No feed, no streaks, no badges. One line, one short, and the choice to keep it.</dd>
+            </div>
+            <div>
+              <dt>Yours</dt>
+              <dd>What you love and what you write stays on your device.</dd>
+            </div>
+          </Principles>
+        </Body>
+
+        <Cta>
+          <Button onClick={() => navigate('/')} whileTap={{ scale: 0.97 }}>
+            Begin <ArrowRight />
+          </Button>
+        </Cta>
       </Container>
     </PageTransition>
   );

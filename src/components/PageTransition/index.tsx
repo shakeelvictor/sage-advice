@@ -2,53 +2,24 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { fadeUp, spring } from '../../styles/motion';
 
-const PageContainer = styled(motion.div)`
+const Page = styled(motion.div)`
   position: relative;
   width: 100%;
-  min-height: 100vh;
 `;
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
-
-const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
-  duration: 0.5,
-};
-
-interface PageTransitionProps {
-  children: React.ReactNode;
-}
-
-const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
-  const location = useLocation();
+const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    // Scroll to top on every route change
     window.scrollTo(0, 0);
-  }, [location.pathname]); // Dependency on pathname ensures scroll on route change
+  }, [pathname]);
 
   return (
-    <PageContainer
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <Page variants={fadeUp} initial="initial" animate="animate" exit="exit" transition={spring}>
       {children}
-    </PageContainer>
+    </Page>
   );
 };
 

@@ -1,17 +1,15 @@
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { MotionConfig } from 'framer-motion';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, useNavigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
-import { SidebarProvider } from './context/SidebarContext';
 import GlobalStyles from './styles/GlobalStyles';
 import { theme } from './styles/theme';
 import Layout from './components/Layout';
 import AppRoutes from './routes';
-import Loader from './components/Loader';
 
-// Wrapper component to handle navigation
-const NavigationHandler = () => {
+/** First visit opens on About so the purpose lands before the first line of wisdom. */
+const FirstVisit = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,35 +25,18 @@ const NavigationHandler = () => {
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <ThemeProvider>
       <StyledThemeProvider theme={theme}>
-        <SidebarProvider>
+        <MotionConfig reducedMotion="user">
           <Router>
-            <NavigationHandler />
+            <FirstVisit />
             <GlobalStyles />
-            <AnimatePresence mode="wait">
-              {isLoading ? (
-                <Loader key="loader" />
-              ) : (
-                <Layout key="content">
-                  <AppRoutes />
-                </Layout>
-              )}
-            </AnimatePresence>
+            <Layout>
+              <AppRoutes />
+            </Layout>
           </Router>
-        </SidebarProvider>
+        </MotionConfig>
       </StyledThemeProvider>
     </ThemeProvider>
   );

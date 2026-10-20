@@ -1,99 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaEdit } from 'react-icons/fa';
+import { Button, GhostButton, Eyebrow } from '../ui';
+import { spring, fade } from '../../styles/motion';
 
 const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2000;
+  display: grid;
+  place-items: center;
   padding: 1rem;
   overflow-y: auto;
-`;
-
-const ModalWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
-  display: flex;
-  min-height: 100%;
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    min-height: auto;
-    padding: 2rem 1rem;
-  }
+  background: ${({ theme }) => theme.colors.scrim};
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 `;
 
 const Modal = styled(motion.div)`
-  background: ${({ theme }) => theme.colors.background.primary};
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 100%;
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
-`;
+  width: min(100%, 560px);
+  display: grid;
+  gap: 1rem;
+  padding: 1.75rem;
+  border-radius: var(--radius-l);
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6);
 
-const Title = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  h2 {
+    font-size: 1.5rem;
+  }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  min-height: 200px;
+  min-height: 180px;
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.text.primary}22;
-  border-radius: 0.5rem;
-  background: ${({ theme }) => theme.colors.background.secondary};
-  color: ${({ theme }) => theme.colors.text.primary};
-  font-family: ${({ theme }) => theme.fonts.primary};
-  font-size: 1rem;
+  border-radius: var(--radius-m);
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  background: ${({ theme }) => theme.colors.ground};
+  color: ${({ theme }) => theme.colors.ink};
+  line-height: 1.6;
   resize: vertical;
-  margin-bottom: 1.5rem;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.ink3};
+  }
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.amber};
   }
 `;
 
-const ButtonGroup = styled.div`
+const Actions = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   justify-content: flex-end;
-`;
-
-const Button = styled(motion.button)<{ $variant?: 'primary' | 'secondary' }>`
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: ${({ theme, $variant }) =>
-    $variant === 'secondary' ? theme.colors.background.secondary : theme.colors.primary};
-  color: ${({ theme, $variant }) =>
-    $variant === 'secondary' ? theme.colors.text.primary : 'white'};
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  transition: all 0.3s ease;
-  min-width: 100px;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
 `;
 
 interface EditNotesModalProps {
@@ -104,65 +67,54 @@ interface EditNotesModalProps {
   title: string;
 }
 
-const EditNotesModal: React.FC<EditNotesModalProps> = ({
-  isOpen,
-  onClose,
-  onSave,
-  initialNotes,
-  title,
-}) => {
+const EditNotesModal: React.FC<EditNotesModalProps> = ({ isOpen, onClose, onSave, initialNotes, title }) => {
   const [notes, setNotes] = useState(initialNotes);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
-      <Overlay
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-      >
-        <ModalWrapper>
+      {isOpen && (
+        <Overlay variants={fade} initial="initial" animate="animate" exit="exit" onClick={onClose}>
           <Modal
-            initial={{ scale: 0.9, opacity: 0, y: -20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="edit-notes-title"
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.98 }}
+            transition={spring}
             onClick={(e) => e.stopPropagation()}
           >
-            <Title>
-              <FaEdit /> Edit Notes for "{title}"
-            </Title>
+            <Eyebrow>Your note</Eyebrow>
+            <h2 id="edit-notes-title">{title}</h2>
             <TextArea
+              id="edit-notes-textarea"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Add your notes here..."
+              placeholder="What did this stir? Where does it apply in your life right now?"
               autoFocus
             />
-            <ButtonGroup>
+            <Actions>
+              <GhostButton onClick={onClose} whileTap={{ scale: 0.97 }}>Cancel</GhostButton>
               <Button
-                $variant="secondary"
-                onClick={onClose}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Cancel
-              </Button>
-              <Button
-                $variant="primary"
                 onClick={() => {
                   onSave(notes);
                   onClose();
                 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.97 }}
               >
-                Save Notes
+                Save note
               </Button>
-            </ButtonGroup>
+            </Actions>
           </Modal>
-        </ModalWrapper>
-      </Overlay>
+        </Overlay>
+      )}
     </AnimatePresence>
   );
 };

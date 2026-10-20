@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SavedVideo } from '../components/VideoPlayer';
+import { SavedVideo } from '../types/video';
 
 interface LovedVideosState {
   videos: SavedVideo[];

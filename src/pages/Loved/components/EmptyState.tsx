@@ -1,51 +1,35 @@
 import styled from 'styled-components';
-import { FaHeart } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Mark } from '../../../components/Logo';
+import { Surface, Button } from '../../../components/ui';
+import { spring } from '../../../styles/motion';
 
-const Container = styled(motion.div)`
+const Container = styled(motion(Surface))`
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
   text-align: center;
-  padding: 4rem;
-  background: ${({ theme }) => theme.colors.background.secondary};
-  border-radius: 1rem;
-  margin-top: 2rem;
-`;
+  padding: 3.5rem 1.5rem;
+  color: ${({ theme }) => theme.colors.amber};
 
-const Icon = styled.div`
-  svg {
-    width: 48px;
-    height: 48px;
-    color: ${({ theme }) => theme.colors.primary};
-    margin-bottom: 1rem;
-    justify-self: center;
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.ink2};
+    max-width: 36ch;
   }
 `;
 
-const Title = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.text.primary};
-`;
-
-const Description = styled.p`
-  color: ${({ theme }) => theme.colors.text.secondary};
-  font-size: 1.125rem;
-`;
-
-const EmptyState = () => {
-  return (
-    <Container
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <Icon>
-        <FaHeart />
-      </Icon>
-      <Title>No saved wisdom yet</Title>
-      <Description>Your loved videos and notes will appear here</Description>
-    </Container>
-  );
-};
+const EmptyState = () => (
+  <Container initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
+    <Mark size={44} />
+    <h2>Nothing kept yet</h2>
+    <p>When a line stays with you, love it. It will wait for you here, with room for a note.</p>
+    <Button as={Link} to="/">Find a line</Button>
+  </Container>
+);
 
 export default EmptyState;

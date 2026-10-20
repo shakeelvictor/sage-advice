@@ -14,9 +14,9 @@ export default defineConfig({
       manifest: {
         name: 'Sage Advice',
         short_name: 'Sage',
-        description: 'A mindful journey through wisdom and meditation',
-        theme_color: '#d4a373',
-        background_color: '#ffffff',
+        description: 'A line of wisdom a day, a short worth watching, and a place to be still.',
+        theme_color: '#0F1A17',
+        background_color: '#0F1A17',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',

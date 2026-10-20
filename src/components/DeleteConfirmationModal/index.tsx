@@ -1,97 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BiErrorCircle } from 'react-icons/bi';
+import { GhostButton } from '../ui';
+import { spring, fade } from '../../styles/motion';
 
 const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2000;
+  display: grid;
+  place-items: center;
   padding: 1rem;
-  overflow-y: auto;
-`;
-
-const ModalWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-  display: flex;
-  min-height: 100%;
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    min-height: auto;
-    padding: 2rem 1rem;
-  }
+  background: ${({ theme }) => theme.colors.scrim};
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 `;
 
 const Modal = styled(motion.div)`
-  background: ${({ theme }) => theme.colors.background.primary};
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 100%;
+  width: min(100%, 400px);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.75rem;
   text-align: center;
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+  border-radius: var(--radius-l);
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6);
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.ink2};
+  }
 `;
 
-const Title = styled.h2`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
-
-const Message = styled.p`
-  margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.text.secondary};
-  line-height: 1.5;
-`;
-
-const ButtonGroup = styled.div`
+const Actions = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   justify-content: center;
-  flex-wrap: wrap;
+  margin-top: 0.5rem;
 `;
 
-const Button = styled(motion.button)<{ $variant?: 'danger' }>`
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: ${({ theme, $variant }) =>
-    $variant === 'danger' ? '#dc3545' : theme.colors.primary};
-  color: white;
-  cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.primary};
-  transition: all 0.3s ease;
-  min-width: 100px;
-  font-size: 0.9375rem;
+const DangerButton = styled(GhostButton)`
+  color: ${({ theme }) => theme.colors.danger};
+  border-color: color-mix(in srgb, ${({ theme }) => theme.colors.danger} 50%, transparent);
 
-  &:hover {
-    background: ${({ theme, $variant }) =>
-      $variant === 'danger' ? '#c82333' : `${theme.colors.primary}dd`};
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-`;
-
-const IconWrapper = styled.div`
-  color: #dc3545;
-  margin-bottom: 1rem;
-  justify-self: center;
-
-  svg {
-    width: 48px;
-    height: 48px;
+  &:hover:not(:disabled) {
+    color: ${({ theme }) => theme.colors.danger};
+    border-color: ${({ theme }) => theme.colors.danger};
+    background: color-mix(in srgb, ${({ theme }) => theme.colors.danger} 10%, transparent);
   }
 `;
 
@@ -102,60 +61,46 @@ interface DeleteConfirmationModalProps {
   title: string;
 }
 
-const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  title,
-}) => {
-  if (!isOpen) return null;
+const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({ isOpen, onClose, onConfirm, title }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
 
   return (
-    <AnimatePresence>
-      <Overlay
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-      >
-        <ModalWrapper>
-          <Modal
-            initial={{ scale: 0.9, opacity: 0, y: -20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <IconWrapper>
-              <BiErrorCircle />
-            </IconWrapper>
-            <Title>Delete Confirmation</Title>
-            <Message>
-              Are you sure you want to delete "{title}"? This action cannot be undone.
-            </Message>
-            <ButtonGroup>
-              <Button
-                onClick={onClose}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Cancel
-              </Button>
-              <Button
-                $variant="danger"
-                onClick={() => {
-                  onConfirm();
-                  onClose();
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Delete
-              </Button>
-            </ButtonGroup>
-          </Modal>
-        </ModalWrapper>
+  <AnimatePresence>
+    {isOpen && (
+      <Overlay variants={fade} initial="initial" animate="animate" exit="exit" onClick={onClose}>
+        <Modal
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-title"
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 16, scale: 0.98 }}
+          transition={spring}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2 id="delete-title">Let this one go?</h2>
+          <p>“{title}” and any note you wrote will be removed from Loved.</p>
+          <Actions>
+            <GhostButton onClick={onClose} whileTap={{ scale: 0.97 }}>Keep it</GhostButton>
+            <DangerButton
+              onClick={() => {
+                onConfirm();
+                onClose();
+              }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Remove
+            </DangerButton>
+          </Actions>
+        </Modal>
       </Overlay>
-    </AnimatePresence>
+    )}
+  </AnimatePresence>
   );
 };
 
