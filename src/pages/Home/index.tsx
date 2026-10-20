@@ -1,20 +1,22 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Heart, RotateCcw, SkipForward, Shuffle } from 'lucide-react';
+import { Play, Heart, RotateCcw, SkipForward, Shuffle, Undo2 } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
-import { Eyebrow, Button, IconButton, TextButton, Surface } from '../../components/ui';
+import IntentPicker from '../../components/IntentPicker';
+import { Eyebrow, Button, IconButton, TextButton, Surface, Chip } from '../../components/ui';
 import { videos, Video } from '../../data/videos';
-import { getRandomVideo } from '../../utils/videoUtils';
+import { Intent, intentLabel, pickAnother, pickDaily, todayKey } from '../../utils/ritual';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useSessionStorage } from '../../hooks/useSessionStorage';
 import { addVideo, removeVideo } from '../../store/lovedVideosSlice';
+import { markPracticed, setToday } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
 
-type Stage = 'line' | 'watch' | 'after';
+type Stage = 'intent' | 'line' | 'watch' | 'after';
 
 const WORD_STAGGER = 0.085;
 const WORD_DELAY = 0.35;
@@ -40,12 +42,25 @@ const Orb = styled(motion.div)`
   top: 34%;
   width: min(70vw, 420px);
   aspect-ratio: 1;
-  transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, var(--glow), transparent 68%);
   filter: blur(14px);
   pointer-events: none;
   z-index: -1;
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-height: 36px;
+
+  /* Clear the floating theme button on phones. */
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding-right: 3.25rem;
+  }
 `;
 
 const Centre = styled.div`
@@ -169,8 +184,10 @@ const AfterControls = styled(motion.div)`
 const Footer = styled.div`
   display: flex;
   justify-content: center;
+  gap: 0.5rem;
   color: ${({ theme }) => theme.colors.ink3};
   font-size: 0.8rem;
+  text-align: center;
 `;
 
 const Done = styled(Surface)`
@@ -191,52 +208,80 @@ const wordVariants = {
 };
 
 const weekday = () => new Date().toLocaleDateString(undefined, { weekday: 'long' });
+const byId = (id: string) => videos.find((v) => v.id === id);
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const saved = useAppSelector((s) => s.lovedVideos.videos);
+  const ritual = useAppSelector((s) => s.ritual);
   const savedIds = useMemo(() => saved.map((v) => v.id), [saved]);
-  const [video, setVideo] = useState<Video>(() => getRandomVideo(undefined, true, saved.map((v) => v.id)));
-  const [stage, setStage] = useState<Stage>('line');
+  const date = todayKey();
+
+  const today = ritual.today?.date === date ? ritual.today : null;
+  const intent = today?.intent ?? null;
+  const dailyVideo = useMemo(() => (today ? byId(today.videoId) : undefined), [today]);
+
+  const [video, setVideo] = useState<Video | null>(dailyVideo ?? null);
+  const [stage, setStage] = useState<Stage>(dailyVideo ? 'line' : 'intent');
   const [watched, setWatched] = useSessionStorage<string[]>('watchedVideos', []);
+  const [seenBefore, setSeenBefore] = useState(false);
 
-  const isSaved = savedIds.includes(video.id);
+  // A new day, or a stored pick that no longer exists in the library, asks the question again.
+  useEffect(() => {
+    if (!dailyVideo && stage !== 'intent') setStage('intent');
+  }, [dailyVideo, stage]);
+
+  const isSaved = video ? savedIds.includes(video.id) : false;
+  const isWandering = video !== null && dailyVideo !== undefined && video.id !== dailyVideo.id;
   const allLoved = saved.length >= videos.length;
-  const words = video.wisdom.split(' ');
+  const words = video?.wisdom.split(' ') ?? [];
   const settleAt = WORD_DELAY + words.length * WORD_STAGGER + 0.15;
+  const practiceDays = ritual.practiceDays.length;
 
-  const next = useCallback(() => {
-    setVideo((current) => getRandomVideo(current.id, true, savedIds));
+  const choose = useCallback(
+    (picked: Intent | null) => {
+      const chosen = pickDaily(date, picked, savedIds);
+      dispatch(setToday({ date, intent: picked, videoId: chosen.id }));
+      setVideo(chosen);
+      setStage('line');
+    },
+    [date, dispatch, savedIds],
+  );
+
+  const wander = useCallback(() => {
+    setVideo((current) => pickAnother(intent, current?.id ?? '', savedIds));
     setStage('line');
-  }, [savedIds]);
+  }, [intent, savedIds]);
+
+  const backToToday = useCallback(() => {
+    if (dailyVideo) {
+      setVideo(dailyVideo);
+      setStage('line');
+    }
+  }, [dailyVideo]);
 
   const love = useCallback(() => {
+    if (!video) return;
     if (isSaved) {
       dispatch(removeVideo(video.id));
       return;
     }
     dispatch(addVideo({ ...video, notes: '', savedAt: Date.now() }));
-    window.setTimeout(next, 700);
-  }, [dispatch, isSaved, next, video]);
-
-  const [seenBefore, setSeenBefore] = useState(false);
+    window.setTimeout(wander, 700);
+  }, [dispatch, isSaved, video, wander]);
 
   const watch = () => {
+    if (!video) return;
     setSeenBefore(watched.includes(video.id));
     if (!watched.includes(video.id)) setWatched([...watched, video.id]);
     setStage('watch');
   };
 
   const closePlayer = useCallback(() => setStage('line'), []);
-  const endPlayer = useCallback(() => setStage('after'), []);
-
-  const attribution = (
-    <>
-      <strong>{video.thinker ?? video.title}</strong>
-      {video.thinker && <> · {video.title}</>}
-      {video.creatorChannel && <> · via {video.creatorChannel}</>}
-    </>
-  );
+  const endPlayer = useCallback(() => {
+    dispatch(markPracticed(date));
+    setStage('after');
+  }, [date, dispatch]);
 
   if (allLoved) {
     return (
@@ -255,84 +300,110 @@ const Home = () => {
     );
   }
 
+  const eyebrow = stage === 'after' ? 'Sit with it' : isWandering ? 'Wandering' : "Today's sage";
+
   return (
     <PageTransition>
       <Scene>
-        <Orb animate={{ scale: [1, 1.14, 1], opacity: [0.7, 1, 0.7] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
+        <Orb style={{ x: '-50%', y: '-50%' }} animate={{ scale: [1, 1.14, 1], opacity: [0.7, 1, 0.7] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
 
-        <Eyebrow as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-          {stage === 'after' ? 'Sit with it' : 'A line to sit with'} · {weekday()}
-        </Eyebrow>
+        <TopRow>
+          <Eyebrow as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+            {eyebrow} · {weekday()}
+          </Eyebrow>
+          {stage !== 'intent' && (
+            <Chip onClick={() => setStage('intent')} aria-label="Change what you need today" title="Change what you need today">
+              {intent ? intentLabel(intent) : 'Surprise me'} · change
+            </Chip>
+          )}
+        </TopRow>
 
         <Centre>
           <AnimatePresence mode="wait">
-            <motion.div key={video.id + stage} style={{ display: 'grid', gap: '1.25rem' }} exit={{ opacity: 0, y: -8, transition: { duration: 0.3 } }}>
-              <Line initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: WORD_STAGGER, delayChildren: WORD_DELAY } } }}>
-                {words.map((w, i) => (
-                  <Word key={`${w}-${i}`} variants={wordVariants}>
-                    {w}{i < words.length - 1 ? ' ' : ''}
-                  </Word>
-                ))}
-              </Line>
+            {stage === 'intent' || !video ? (
+              <IntentPicker key="intent" current={intent} onPick={choose} />
+            ) : (
+              <motion.div key={video.id + stage} style={{ display: 'grid', gap: '1.25rem' }} exit={{ opacity: 0, y: -8, transition: { duration: 0.3 } }}>
+                <Line initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: WORD_STAGGER, delayChildren: WORD_DELAY } } }}>
+                  {words.map((w, i) => (
+                    <Word key={`${w}-${i}`} variants={wordVariants}>
+                      {w}{i < words.length - 1 ? ' ' : ''}
+                    </Word>
+                  ))}
+                </Line>
 
-              <Attribution initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt }}>
-                {attribution}
-              </Attribution>
+                <Attribution initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt }}>
+                  <strong>{video.thinker ?? video.title}</strong>
+                  {video.thinker && <> · {video.title}</>}
+                  {video.creatorChannel && <> · via {video.creatorChannel}</>}
+                </Attribution>
 
-              {stage === 'after' && video.prompt && (
-                <Prompt initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt + 0.2 }}>
-                  {video.prompt}
-                </Prompt>
-              )}
+                {stage === 'after' && video.prompt && (
+                  <Prompt initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt + 0.2 }}>
+                    {video.prompt}
+                  </Prompt>
+                )}
 
-              {stage === 'line' && (
-                <Card initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.35 }}>
-                  <Thumb onClick={watch} aria-label={`Watch ${video.title}`}>
-                    <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt="" loading="lazy" />
-                    <span><Play /></span>
-                  </Thumb>
-                  <CardBody>
-                    <strong>{video.title}</strong>
-                    <small>Short · {video.categories.join(' · ')}</small>
-                  </CardBody>
-                  <CardActions>
-                    <Button onClick={watch} whileTap={{ scale: 0.97 }}>
-                      <Play /> Watch the short
-                    </Button>
-                    <TextButton onClick={next}>
-                      <Shuffle /> Another line
-                    </TextButton>
-                  </CardActions>
-                </Card>
-              )}
+                {stage === 'line' && (
+                  <Card initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.35 }}>
+                    <Thumb onClick={watch} aria-label={`Watch ${video.title}`}>
+                      <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt="" loading="lazy" />
+                      <span><Play /></span>
+                    </Thumb>
+                    <CardBody>
+                      <strong>{video.title}</strong>
+                      <small>Short · {video.categories.join(' · ')}</small>
+                    </CardBody>
+                    <CardActions>
+                      <Button onClick={watch} whileTap={{ scale: 0.97 }}>
+                        <Play /> Watch the short
+                      </Button>
+                      {isWandering ? (
+                        <TextButton onClick={backToToday}>
+                          <Undo2 /> Back to today's line
+                        </TextButton>
+                      ) : (
+                        <TextButton onClick={wander}>
+                          <Shuffle /> Another line
+                        </TextButton>
+                      )}
+                    </CardActions>
+                  </Card>
+                )}
 
-              {stage === 'after' && (
-                <AfterControls initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.4 }}>
-                  <IconButton $size={52} onClick={() => setStage('watch')} aria-label="Watch again" whileTap={{ scale: 0.9 }}>
-                    <RotateCcw />
-                  </IconButton>
-                  <IconButton $tone={isSaved ? 'amber' : 'ghost'} $size={64} onClick={love} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.9 }}>
-                    <Heart fill={isSaved ? 'currentColor' : 'none'} />
-                  </IconButton>
-                  <IconButton $size={52} onClick={next} aria-label="Next line" whileTap={{ scale: 0.9 }}>
-                    <SkipForward />
-                  </IconButton>
-                </AfterControls>
-              )}
-            </motion.div>
+                {stage === 'after' && (
+                  <AfterControls initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.4 }}>
+                    <IconButton $size={52} onClick={() => setStage('watch')} aria-label="Watch again" whileTap={{ scale: 0.9 }}>
+                      <RotateCcw />
+                    </IconButton>
+                    <IconButton $tone={isSaved ? 'amber' : 'ghost'} $size={64} onClick={love} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.9 }}>
+                      <Heart fill={isSaved ? 'currentColor' : 'none'} />
+                    </IconButton>
+                    <IconButton $size={52} onClick={wander} aria-label="Another line" whileTap={{ scale: 0.9 }}>
+                      <SkipForward />
+                    </IconButton>
+                  </AfterControls>
+                )}
+              </motion.div>
+            )}
           </AnimatePresence>
         </Centre>
 
-        <Footer>{saved.length > 0 ? `${saved.length} ${saved.length === 1 ? 'line' : 'lines'} kept` : 'Love a line and it stays with you'}</Footer>
+        <Footer>
+          {practiceDays > 0 && <span>{practiceDays} {practiceDays === 1 ? 'day' : 'days'} of practice</span>}
+          {practiceDays > 0 && saved.length > 0 && <span aria-hidden>·</span>}
+          {saved.length > 0 && <span>{saved.length} {saved.length === 1 ? 'line' : 'lines'} kept</span>}
+          {practiceDays === 0 && saved.length === 0 && <span>Watch one short to the end and the day counts</span>}
+        </Footer>
 
         <AnimatePresence>
-          {stage === 'watch' && (
+          {stage === 'watch' && video && (
             <PlayerSheet
               key="player"
               video={video}
               onClose={closePlayer}
               onEnded={endPlayer}
-              onNext={next}
+              onNext={wander}
               onLove={love}
               isSaved={isSaved}
               seenBefore={seenBefore}

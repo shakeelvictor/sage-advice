@@ -2,16 +2,18 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import lovedVideosReducer from './lovedVideosSlice';
+import ritualReducer from './ritualSlice';
 
 const rootReducer = combineReducers({
   lovedVideos: lovedVideosReducer,
+  ritual: ritualReducer,
 });
 
 const persistConfig = {
   key: 'root',
-  version: 1,
+  version: 2,
   storage,
-  whitelist: ['lovedVideos'],
+  whitelist: ['lovedVideos', 'ritual'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
