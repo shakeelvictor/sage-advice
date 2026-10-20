@@ -1,0 +1,28 @@
+name: Deploy to Netlify
+
+# The Netlify site (sv-sa) is connected to this repo with a deploy key, and it
+# builds `main` itself. This workflow only tells Netlify that main has moved;
+# the build hook URL lives in the NETLIFY_BUILD_HOOK repository secret.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: netlify-deploy
+  cancel-in-progress: false
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask Netlify to build main
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "NETLIFY_BUILD_HOOK secret is not set" >&2
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST -d '{}' "$HOOK?trigger_title=push+${GITHUB_SHA::7}"
+          echo "Netlify build requested for ${GITHUB_SHA::7}"
