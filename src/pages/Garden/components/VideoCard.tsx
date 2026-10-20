@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Play, Pencil, Trash2 } from 'lucide-react';
+import { Play, Pencil, Trash2, Share2 } from 'lucide-react';
 import { SavedVideo } from '../../../types/video';
 import { Surface, Tag, IconButton } from '../../../components/ui';
 import { spring } from '../../../styles/motion';
@@ -65,9 +65,10 @@ interface VideoCardProps {
   onEdit: () => void;
   onDelete: () => void;
   onPlay: () => void;
+  onShare: () => void;
 }
 
-const VideoCard = ({ video, onEdit, onDelete, onPlay }: VideoCardProps) => (
+const VideoCard = ({ video, onEdit, onDelete, onPlay, onShare }: VideoCardProps) => (
   <Card layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} transition={spring}>
     {video.categories?.length > 0 && (
       <Tags>
@@ -90,7 +91,10 @@ const VideoCard = ({ video, onEdit, onDelete, onPlay }: VideoCardProps) => (
       <IconButton onClick={onEdit} aria-label={video.notes ? 'Edit note' : 'Add a note'} whileTap={{ scale: 0.92 }}>
         <Pencil />
       </IconButton>
-      <IconButton $tone="danger" onClick={onDelete} aria-label="Remove from loved" whileTap={{ scale: 0.92 }}>
+      <IconButton onClick={onShare} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
+        <Share2 />
+      </IconButton>
+      <IconButton $tone="danger" onClick={onDelete} aria-label="Remove from the Garden" whileTap={{ scale: 0.92 }}>
         <Trash2 />
       </IconButton>
     </Actions>

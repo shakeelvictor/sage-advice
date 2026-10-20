@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
 import ShortCard from '../../components/ShortCard';
+import WisdomCardModal from '../../components/WisdomCardModal';
 import { Eyebrow } from '../../components/ui';
 import { Video } from '../../data/videos';
 import { Tradition, TRADITIONS, thinkerBySlug, traditionMeta, videosByThinker, videosByTradition } from '../../data/thinkers';
@@ -78,16 +79,21 @@ const Empty = styled.p`
 const usePlayer = () => {
   const dispatch = useAppDispatch();
   const [playing, setPlaying] = useState<Video | null>(null);
+  const [sharing, setSharing] = useState<Video | null>(null);
   const close = useCallback(() => setPlaying(null), []);
+  const closeShare = useCallback(() => setSharing(null), []);
   const ended = useCallback(() => {
     dispatch(markPracticed(todayKey()));
     setPlaying(null);
   }, [dispatch]);
-  return { playing, setPlaying, close, ended };
+  return { playing, setPlaying, close, ended, sharing, setSharing, closeShare };
 };
 
-const Sheet = ({ playing, close, ended }: ReturnType<typeof usePlayer>) => (
-  <AnimatePresence>{playing && <PlayerSheet key={playing.id} video={playing} onClose={close} onEnded={ended} />}</AnimatePresence>
+const Sheet = ({ playing, close, ended, sharing, closeShare }: ReturnType<typeof usePlayer>) => (
+  <>
+    <AnimatePresence>{playing && <PlayerSheet key={playing.id} video={playing} onClose={close} onEnded={ended} />}</AnimatePresence>
+    <WisdomCardModal video={sharing} onClose={closeShare} />
+  </>
 );
 
 export const ThinkerPage = () => {
@@ -116,7 +122,7 @@ export const ThinkerPage = () => {
         ) : (
           <Grid>
             {shorts.map((v) => (
-              <ShortCard key={v.id} video={v} onPlay={player.setPlaying} hideThinker />
+              <ShortCard key={v.id} video={v} onPlay={player.setPlaying} onShare={player.setSharing} hideThinker />
             ))}
           </Grid>
         )}
@@ -150,7 +156,7 @@ export const TraditionPage = () => {
         ) : (
           <Grid>
             {shorts.map((v) => (
-              <ShortCard key={v.id} video={v} onPlay={player.setPlaying} />
+              <ShortCard key={v.id} video={v} onPlay={player.setPlaying} onShare={player.setSharing} />
             ))}
           </Grid>
         )}

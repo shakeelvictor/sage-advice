@@ -16,9 +16,10 @@ interface VideoGridProps {
   onEdit: (video: SavedVideo) => void;
   onDelete: (video: SavedVideo) => void;
   onPlay: (video: SavedVideo) => void;
+  onShare: (video: SavedVideo) => void;
 }
 
-const VideoGrid = ({ videos, selectedCategory, onEdit, onDelete, onPlay }: VideoGridProps) => {
+const VideoGrid = ({ videos, selectedCategory, onEdit, onDelete, onPlay, onShare }: VideoGridProps) => {
   const filtered =
     selectedCategory === 'all'
       ? videos
@@ -34,6 +35,7 @@ const VideoGrid = ({ videos, selectedCategory, onEdit, onDelete, onPlay }: Video
             onEdit={() => onEdit(video)}
             onDelete={() => onDelete(video)}
             onPlay={() => onPlay(video)}
+            onShare={() => onShare(video)}
           />
         ))}
       </AnimatePresence>

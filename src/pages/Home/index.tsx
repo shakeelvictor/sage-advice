@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Heart, RotateCcw, SkipForward, Shuffle, Undo2 } from 'lucide-react';
+import { Play, Heart, RotateCcw, SkipForward, Shuffle, Undo2, Share2 } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
+import WisdomCardModal from '../../components/WisdomCardModal';
 import IntentPicker from '../../components/IntentPicker';
 import { Eyebrow, Button, IconButton, TextButton, Surface, Chip } from '../../components/ui';
 import { videos, Video } from '../../data/videos';
@@ -236,6 +237,7 @@ const Home = () => {
   const [stage, setStage] = useState<Stage>(dailyVideo ? 'line' : 'intent');
   const [watched, setWatched] = useSessionStorage<string[]>('watchedVideos', []);
   const [seenBefore, setSeenBefore] = useState(false);
+  const [sharing, setSharing] = useState<Video | null>(null);
 
   // A new day, or a stored pick that no longer exists in the library, asks the question again.
   useEffect(() => {
@@ -399,6 +401,9 @@ const Home = () => {
                     <IconButton $size={52} onClick={wander} aria-label="Another line" whileTap={{ scale: 0.9 }}>
                       <SkipForward />
                     </IconButton>
+                    <IconButton $size={52} onClick={() => setSharing(video)} aria-label="Share as a card" whileTap={{ scale: 0.9 }}>
+                      <Share2 />
+                    </IconButton>
                   </AfterControls>
                 )}
               </motion.div>
@@ -412,6 +417,8 @@ const Home = () => {
           {saved.length > 0 && <span>{saved.length} {saved.length === 1 ? 'line' : 'lines'} kept</span>}
           {practiceDays === 0 && saved.length === 0 && <span>Watch one short to the end and the day counts</span>}
         </Footer>
+
+        <WisdomCardModal video={sharing} onClose={() => setSharing(null)} />
 
         <AnimatePresence>
           {stage === 'watch' && video && (

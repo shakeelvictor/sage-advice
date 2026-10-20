@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Play, Heart } from 'lucide-react';
+import { Play, Heart, Share2 } from 'lucide-react';
 import { Video } from '../../data/videos';
 import { Surface, Tag, IconButton } from '../ui';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -50,12 +50,13 @@ const Actions = styled.div`
 interface ShortCardProps {
   video: Video;
   onPlay: (video: Video) => void;
+  onShare?: (video: Video) => void;
   /** Hide the thinker in the meta line when the page is already about them. */
   hideThinker?: boolean;
 }
 
 /** A short at rest: its line, where it came from, watch and love. Used wherever the library is browsed. */
-const ShortCard = ({ video, onPlay, hideThinker }: ShortCardProps) => {
+const ShortCard = ({ video, onPlay, onShare, hideThinker }: ShortCardProps) => {
   const dispatch = useAppDispatch();
   const isSaved = useAppSelector((s) => s.lovedVideos.videos.some((v) => v.id === video.id));
 
@@ -86,6 +87,11 @@ const ShortCard = ({ video, onPlay, hideThinker }: ShortCardProps) => {
         <IconButton $tone={isSaved ? 'amber' : 'ghost'} onClick={toggleLove} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.92 }}>
           <Heart fill={isSaved ? 'currentColor' : 'none'} />
         </IconButton>
+        {onShare && (
+          <IconButton onClick={() => onShare(video)} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
+            <Share2 />
+          </IconButton>
+        )}
       </Actions>
     </Card>
   );

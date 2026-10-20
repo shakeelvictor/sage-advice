@@ -7,6 +7,7 @@ import DeleteConfirmationModal from '../../components/DeleteConfirmationModal';
 import EditNotesModal from '../../components/EditNotesModal';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
+import WisdomCardModal from '../../components/WisdomCardModal';
 import { Eyebrow, PageHeader, PageTitle, PageIntro } from '../../components/ui';
 import EmptyState from './components/EmptyState';
 import VideoGrid from './components/VideoGrid';
@@ -97,6 +98,7 @@ const Garden = () => {
   const [playing, setPlaying] = useState<SavedVideo | null>(null);
   const [deleteModalVideo, setDeleteModalVideo] = useState<SavedVideo | null>(null);
   const [editModalVideo, setEditModalVideo] = useState<SavedVideo | null>(null);
+  const [sharing, setSharing] = useState<SavedVideo | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const uniqueCategories = Array.from(new Set(savedVideos.flatMap((video) => video.categories)));
@@ -150,7 +152,7 @@ const Garden = () => {
                         <b>{STAGE_LABEL[stageOf(selected)]}</b> · planted {new Date(selected.savedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
                         {selected.revisits ? ` · watched again ${selected.revisits} ${selected.revisits === 1 ? 'time' : 'times'}` : ''}
                       </StageLine>
-                      <VideoCard video={selected} onPlay={() => setPlaying(selected)} onEdit={() => setEditModalVideo(selected)} onDelete={() => setDeleteModalVideo(selected)} />
+                      <VideoCard video={selected} onPlay={() => setPlaying(selected)} onEdit={() => setEditModalVideo(selected)} onDelete={() => setDeleteModalVideo(selected)} onShare={() => setSharing(selected)} />
                     </Selected>
                   )}
                 </AnimatePresence>
@@ -162,7 +164,7 @@ const Garden = () => {
                 {uniqueCategories.length > 1 && (
                   <CategoryFilter categories={uniqueCategories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
                 )}
-                <VideoGrid videos={savedVideos} selectedCategory={selectedCategory} onEdit={setEditModalVideo} onDelete={setDeleteModalVideo} onPlay={setPlaying} />
+                <VideoGrid videos={savedVideos} selectedCategory={selectedCategory} onEdit={setEditModalVideo} onDelete={setDeleteModalVideo} onPlay={setPlaying} onShare={setSharing} />
               </>
             )}
 
@@ -173,6 +175,8 @@ const Garden = () => {
         <AnimatePresence>
           {playing && <PlayerSheet key={playing.id} video={playing} onClose={closePlayer} onEnded={endPlayer} />}
         </AnimatePresence>
+
+        <WisdomCardModal video={sharing} onClose={() => setSharing(null)} />
 
         <DeleteConfirmationModal
           isOpen={deleteModalVideo !== null}
