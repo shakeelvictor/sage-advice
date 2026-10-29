@@ -24,7 +24,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
     categories: ['mindfulness', 'philosophy'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'ib5bAPL3-6I',
@@ -33,7 +33,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
     categories: ['philosophy'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'fIm8OTHFQQw',
@@ -42,7 +42,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
     categories: ['well-being'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'fwKzbCtTxw0',
@@ -51,7 +51,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
     categories: ['motivation'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'xEtHPt50jVc',
@@ -60,7 +60,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
     categories: ['motivation'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'qmBhweFerxI',
@@ -69,7 +69,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
     categories: ['motivation'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '2eORMesc4mI',
@@ -78,7 +78,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
     categories: ['well-being'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'C25EcsvQ-18',
@@ -87,7 +87,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
     categories: ['well-being'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'kGxQsorYRNU',
@@ -96,7 +96,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
     categories: ['well-being'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'DL2i1QgWej8',
@@ -105,7 +105,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
     categories: ['well-being', 'philosophy', 'motivation'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'OtPS0CoZSpU',
@@ -118,7 +118,7 @@ export const videos: Video[] = [
     mood: ['calm', 'clarity'],
     prompt: 'If death is an ever-present reality, what would you do differently today?',
     creatorChannel: 'John Vervaeke’s Lectern',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'XAiB1SmysHM',
@@ -131,7 +131,7 @@ export const videos: Video[] = [
     mood: ['clarity', 'comfort'],
     prompt: 'Where do you feel meaning slipping away, and what practice could help you reconnect with it?',
     creatorChannel: 'John Vervaeke’s Lectern',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'fUJ49pDddDo',
@@ -144,7 +144,7 @@ export const videos: Video[] = [
     mood: ['clarity', 'courage'],
     prompt: 'Which idea you believe in could become a daily practice?',
     creatorChannel: 'John Vervaeke Clips',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'qqgJ2py0o-A',
@@ -157,7 +157,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'Which practices help you see yourself clearly, and which one could you add?',
     creatorChannel: 'John Vervaeke Clips',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'uY94JVXhHjc',
@@ -168,7 +168,7 @@ export const videos: Video[] = [
     thinker: 'John Vervaeke',
     tradition: 'cognitive-science',
     creatorChannel: 'The Institute of Art and Ideas',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'n3n7zKQefLc',
@@ -181,7 +181,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Of view, care and action, which needs the most attention in your life right now?',
     creatorChannel: 'John Vervaeke Clips',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'mv_0c0MB9Os',
@@ -193,7 +193,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Which of the things weighing on you today is actually outside your control?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'DeM6jNBLU0A',
@@ -205,7 +205,7 @@ export const videos: Video[] = [
     mood: ['courage', 'clarity'],
     prompt: 'What fear are you carrying, and what is the real event beneath it?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'uHYsc-xf5vQ',
@@ -217,7 +217,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'What upset you recently, and what did you tell yourself about it?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'ywpyvdIe3gM',
@@ -229,7 +229,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'What decision are you facing, and what would a person of good character choose?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'kVP0DRE2Klk',
@@ -241,7 +241,7 @@ export const videos: Video[] = [
     mood: ['courage'],
     prompt: 'Where could unfamiliar circumstances become practice for your best self?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Swdyqv4j-Lc',
@@ -254,7 +254,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'What patterns would you notice if you wrote down your thoughts tonight?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '0TpwOMf_RWg',
@@ -266,7 +266,7 @@ export const videos: Video[] = [
     mood: ['courage'],
     prompt: 'What small act of virtue can you practise today rather than just admire?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'I42vG7c0ebU',
@@ -279,7 +279,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'What is one thing you can stop trying to control today?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'AtoblFzFmwY',
@@ -292,7 +292,7 @@ export const videos: Video[] = [
     mood: ['comfort'],
     prompt: 'What unhappiness are you moving through that might lead you somewhere?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'eXYWlXmwSw8',
@@ -304,7 +304,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'What would change if you gave this moment your full attention?',
     creatorChannel: 'Daily Stoic',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'DvvXPl6Rl9Y',
@@ -316,7 +316,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'What is underneath the anger you feel right now?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '7HNMT9soN4Q',
@@ -328,7 +328,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Is there a truth you have been avoiding because it hurts?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'M6XnYA9cTOY',
@@ -340,7 +340,7 @@ export const videos: Video[] = [
     mood: ['clarity', 'comfort'],
     prompt: 'Whose company drains you, and what boundary could you set?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '4THwPX3OZK4',
@@ -352,7 +352,7 @@ export const videos: Video[] = [
     mood: ['comfort', 'calm'],
     prompt: 'What can you enjoy today even though your problems are unsolved?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'IY0hbEKsWUo',
@@ -364,7 +364,7 @@ export const videos: Video[] = [
     mood: ['comfort'],
     prompt: 'What ending in your life might be a quiet beginning?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'LsM0gcYLoEA',
@@ -376,7 +376,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'What are you still willing to learn, even about something you think you know?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '7clo6hyAfno',
@@ -388,7 +388,7 @@ export const videos: Video[] = [
     mood: ['courage'],
     prompt: 'How could doing your best today be a light for someone else?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'uaxaot7t3Gg',
@@ -400,7 +400,7 @@ export const videos: Video[] = [
     mood: ['calm', 'clarity'],
     prompt: 'Where in your life would silence serve you better than a reply?',
     creatorChannel: 'Buddhism',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Fqsc9yi26j4',
@@ -411,7 +411,7 @@ export const videos: Video[] = [
     thinker: 'Andrew Garfield',
     tradition: 'other',
     creatorChannel: 'BoltMotivation',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'TVpDsEmcdEE',
@@ -420,7 +420,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
     categories: ['well-being', 'philosophy'],
     creatorChannel: 'Rick Walker',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'YtxB-FZTVcw',
@@ -431,7 +431,7 @@ export const videos: Video[] = [
     thinker: 'Christopher Mastropietro',
     tradition: 'cognitive-science',
     creatorChannel: 'Mahon McCann',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'x123JSq1jwA',
@@ -444,7 +444,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Which assumption would you most benefit from questioning today?',
     creatorChannel: 'Philosophy Overdose',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '4HjTcPKmc3U',
@@ -455,7 +455,7 @@ export const videos: Video[] = [
     thinker: 'Erich Fromm',
     tradition: 'psychology',
     creatorChannel: 'Philosophy Overdose',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'K6XNgj9IIlQ',
@@ -468,7 +468,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Where could a middle path serve you better than an extreme?',
     creatorChannel: 'Philosophy Overdose',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'ivPjk7X_LBQ',
@@ -479,7 +479,7 @@ export const videos: Video[] = [
     thinker: 'Aristotle',
     tradition: 'other',
     creatorChannel: 'Human Nature by Roni Fouks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '_bHcPEm-HrY',
@@ -488,7 +488,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
     categories: ['philosophy', 'well-being'],
     creatorChannel: 'Wild Hunt Conditioning - James Pieratt',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '5f7E4DQG6kk',
@@ -497,7 +497,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
     categories: ['motivation'],
     creatorChannel: 'Ben Lionel Scott',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'H6dImOh3yBM',
@@ -506,7 +506,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
     categories: ['motivation'],
     creatorChannel: 'Ben Lionel Scott',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'F4FOMh200QE',
@@ -515,7 +515,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
     categories: ['motivation'],
     creatorChannel: 'Ben Lionel Scott',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'QTtJG6ocgfM',
@@ -524,7 +524,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
     categories: ['motivation', 'well-being'],
     creatorChannel: 'The Royal Institution',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'LtkH_KTl3CE',
@@ -535,7 +535,7 @@ export const videos: Video[] = [
     thinker: 'Dr K (Alok Kanojia)',
     tradition: 'psychology',
     creatorChannel: 'HealthyGamerGG',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'zdrj2Z7nItE',
@@ -546,7 +546,7 @@ export const videos: Video[] = [
     thinker: 'Shadé Zahrai',
     tradition: 'psychology',
     creatorChannel: 'Dr. Shadé Zahrai',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'qA1e_uty3ic',
@@ -557,7 +557,7 @@ export const videos: Video[] = [
     thinker: 'Andrew Huberman',
     tradition: 'psychology',
     creatorChannel: 'QuotesnWisdom',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'AQk2FM0_1dQ',
@@ -566,7 +566,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
     categories: ['well-being', 'motivation'],
     creatorChannel: 'Eddie Pinero',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '4pbxPzWeOZo',
@@ -575,7 +575,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
     categories: ['well-being', 'motivation'],
     creatorChannel: 'GROWTH™',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'j90vW1turwM',
@@ -584,7 +584,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
     categories: ['motivation'],
     creatorChannel: 'Dude Domain',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'C_lm5Si34XU',
@@ -595,7 +595,7 @@ export const videos: Video[] = [
     thinker: 'Dr Julie Smith',
     tradition: 'psychology',
     creatorChannel: 'Dr Julie',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'TuVGKbsfOjA',
@@ -606,7 +606,7 @@ export const videos: Video[] = [
     thinker: 'Carl Jung',
     tradition: 'psychology',
     creatorChannel: 'Irevelato',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'aRZaMo745Hc',
@@ -617,7 +617,7 @@ export const videos: Video[] = [
     thinker: 'Carl Jung',
     tradition: 'psychology',
     creatorChannel: 'Irevelato',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '647gtg1Y_Is',
@@ -628,7 +628,7 @@ export const videos: Video[] = [
     thinker: 'Rebecca Solnit',
     tradition: 'other',
     creatorChannel: 'Threshold Podcast',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'dizavg9sT2s',
@@ -639,7 +639,7 @@ export const videos: Video[] = [
     thinker: 'Maria Popova',
     tradition: 'other',
     creatorChannel: 'DO Lectures',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '8KiyeFSOKmI',
@@ -650,7 +650,7 @@ export const videos: Video[] = [
     thinker: 'John Vervaeke',
     tradition: 'cognitive-science',
     creatorChannel: 'André Duqum',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'y3835X6iEGQ',
@@ -663,7 +663,7 @@ export const videos: Video[] = [
     mood: ['comfort', 'clarity'],
     prompt: 'What would it mean to treat philosophy as a practice for your own mental health?',
     creatorChannel: 'John Vervaeke Clips',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Qb76uqAq3xw',
@@ -674,7 +674,7 @@ export const videos: Video[] = [
     thinker: 'John Vervaeke',
     tradition: 'cognitive-science',
     creatorChannel: 'youtubularTV',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '3Q68S41hLvE',
@@ -683,7 +683,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
     categories: ['philosophy'],
     creatorChannel: 'MINDSET ARCHITECTURE',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'aQ0iO_0Dlos',
@@ -692,7 +692,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
     categories: ['philosophy', 'well-being'],
     creatorChannel: 'MINDSET ARCHITECTURE',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'avUE6BJeRa4',
@@ -701,7 +701,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
     categories: ['well-being'],
     creatorChannel: 'MINDSET ARCHITECTURE',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'MwwtQx2a_Ns',
@@ -710,7 +710,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
     categories: ['well-being'],
     creatorChannel: 'MINDSET ARCHITECTURE',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'w6v5v3_s7jM',
@@ -719,7 +719,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
     categories: ['well-being', 'philosophy', 'motivation'],
     creatorChannel: 'Meditation Solutions',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Da_UbbIugv4',
@@ -728,7 +728,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
     categories: ['well-being', 'philosophy', 'motivation'],
     creatorChannel: 'Dualistic Unity',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'lNRakq29vaw',
@@ -740,7 +740,7 @@ export const videos: Video[] = [
     mood: ['comfort', 'clarity'],
     prompt: 'How does what you feel differ from ordinary sadness, and what might it be telling you?',
     creatorChannel: 'The School of Life',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'iGIL1v8OPcQ',
@@ -752,7 +752,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'Which emotion have you not given time to be processed this week?',
     creatorChannel: 'The School of Life',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'r47CMnro-Xw',
@@ -765,7 +765,7 @@ export const videos: Video[] = [
     mood: ['courage'],
     prompt: 'Who might you become if you were braver, and what is the first step?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'wgt1lhKqUMQ',
@@ -778,7 +778,7 @@ export const videos: Video[] = [
     mood: ['courage'],
     prompt: 'What have you been holding back from saying, and why?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'als6q2BC7zk',
@@ -791,7 +791,7 @@ export const videos: Video[] = [
     mood: ['calm'],
     prompt: 'What are you holding on to that is already changing?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'x327tbkGmMM',
@@ -804,7 +804,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'Which of your beliefs have you actually examined for yourself?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'H9ZulOLpBfI',
@@ -817,7 +817,7 @@ export const videos: Video[] = [
     mood: ['comfort', 'calm'],
     prompt: 'How could you make more of your circumstances rather than resist them?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'YwhYQvaJMU4',
@@ -830,7 +830,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'What are your values, and where does your week reflect them?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Ae9ggNmVrMA',
@@ -843,7 +843,7 @@ export const videos: Video[] = [
     mood: ['clarity'],
     prompt: 'What genuinely interests you, and what is one step toward it?',
     creatorChannel: 'Philosophize This!',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'CDUUsXkFF0o',
@@ -854,7 +854,7 @@ export const videos: Video[] = [
     thinker: 'Cory Muscara',
     tradition: 'buddhist',
     creatorChannel: 'Cory Muscara',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'jjUAbO_kSCA',
@@ -863,7 +863,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
     categories: ['mindfulness'],
     creatorChannel: 'Dr. Wayne Andersen',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'agkYjIDF72A',
@@ -872,7 +872,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
     categories: ['mindfulness', 'motivation'],
     creatorChannel: 'Inspire Weekly',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'X75CUL1AtXc',
@@ -883,7 +883,7 @@ export const videos: Video[] = [
     thinker: 'Jim Rohn',
     tradition: 'other',
     creatorChannel: 'Inspire Weekly',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'SCqG_x4KLtY',
@@ -892,7 +892,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
     categories: ['motivation'],
     creatorChannel: 'Proctor Gallagher Institute',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'hlmyoHCGZy0',
@@ -903,7 +903,7 @@ export const videos: Video[] = [
     thinker: 'Dr Emily Anhalt',
     tradition: 'psychology',
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'ycRe61dejg8',
@@ -912,7 +912,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
     categories: ['well-being'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'J6Z89Wv0wlI',
@@ -921,7 +921,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
     categories: ['well-being'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'EMO5oR44iXE',
@@ -930,7 +930,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
     categories: ['well-being'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'OON6IJBXUKk',
@@ -939,7 +939,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
     categories: ['well-being', 'motivation'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'q1u3JzLaIlo',
@@ -948,7 +948,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
     categories: ['well-being', 'motivation'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'Xk577wVV2Sk',
@@ -957,7 +957,7 @@ export const videos: Video[] = [
     background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
     categories: ['well-being', 'motivation'],
     creatorChannel: 'TEDx Talks',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'vMtQnKW71EM',
@@ -968,7 +968,7 @@ export const videos: Video[] = [
     thinker: 'Dr K (Alok Kanojia)',
     tradition: 'psychology',
     creatorChannel: 'HealthyGamerGG',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: 'YkVpFxOsOJA',
@@ -979,7 +979,7 @@ export const videos: Video[] = [
     thinker: 'Alex O\'Connor',
     tradition: 'other',
     creatorChannel: 'Alex O\'Connor',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
   },
   {
     id: '5tYR7e5Wpyc',
@@ -990,6 +990,1301 @@ export const videos: Video[] = [
     thinker: 'Andrew Huberman',
     tradition: 'psychology',
     creatorChannel: 'Andrew Huberman',
-    verifiedAt: '2026-10-20'
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'fB2pbsy6Sho',
+    title: 'Don\'t Run From the Unpleasant Moment',
+    wisdom: 'When the present moment is not pleasant, running away is not the best way. Stay, and look deeply into the nature of your suffering.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm', 'comfort'],
+    prompt: 'What unpleasant moment did you run from today? What might it have shown you if you had stayed?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'KY6cpKxHLuE',
+    title: 'Learn to Live Alone',
+    wisdom: 'Each of us has to be ourselves in order for the relationship to be meaningful.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm', 'clarity'],
+    prompt: 'When were you last truly yourself in the company of someone you love?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'CY8-cO4_9OU',
+    title: 'When a Strong Emotion Comes',
+    wisdom: 'When a strong emotion comes, bring your attention down to the abdomen and follow the rise and fall of your breath.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm'],
+    prompt: 'Next time a feeling floods in, can you find your breath before you find your thoughts?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'lC4hvQPHyh8',
+    title: 'Overconsumption Won\'t Heal You',
+    wisdom: 'We consume not because we need to, but because we do not want to go home and touch the suffering inside.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['mindfulness', 'philosophy'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'What do you reach for when you don\'t want to feel something? What is it covering?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Fberb7O2Cp4',
+    title: 'I Am Much More Than One Emotion',
+    wisdom: 'An emotion is something that comes, stays for a while, and has to go away. I have survived emotions before.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['well-being', 'mindfulness'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['comfort', 'calm'],
+    prompt: 'Recall a feeling that once seemed unbearable and then passed. What carried you through it?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '33PcglnUeRY',
+    title: 'Feed Your Love, Not Your Suffering',
+    wisdom: 'Your love needs food to survive. So does your suffering. What you keep feeding is what grows.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'What did you feed today, your love or your suffering?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '-qnFNeBAZrY',
+    title: 'To Be Alive Is Already a Miracle',
+    wisdom: 'Sitting meditation is not about becoming someone else. You just enjoy your sitting and become aware that you are there, alive.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['mindfulness'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm'],
+    prompt: 'Can you sit for one minute with no goal except to notice that you are alive?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'aP9p1voa9Os',
+    title: 'The Prison of Past and Future',
+    wisdom: 'Life, real life, is available only in the present moment. The past is no longer there and the future is not yet there.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['mindfulness', 'philosophy'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm', 'clarity'],
+    prompt: 'Which regret or worry keeps pulling your mind away from your body today?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'qFgEAWtxtpg',
+    title: 'My Dear Little Fear',
+    wisdom: 'My dear little fear, I know you are there. I will not run away. I am back to take care of you.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['comfort', 'calm'],
+    prompt: 'Can you greet one fear by name today, without trying to fix it?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'ZUkYJMou0IA',
+    title: 'Without Understanding, Love Is Not Real',
+    wisdom: 'Without the capacity of listening deeply, we cannot understand. Without understanding, love is not possible.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Who in your life needs to be listened to rather than answered?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'RsvFluBWZas',
+    title: 'How Are You?',
+    wisdom: 'Calm enough, happy enough. Happy enough for being there, in the here and the now.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm', 'comfort'],
+    prompt: 'If someone asked you honestly how you are, what would "enough" sound like today?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'wkz-vjs7LhQ',
+    title: 'Allow Your Spirit to Rest',
+    wisdom: 'Our consciousness has the power to heal itself, if only we know how to allow it to rest.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['well-being', 'mindfulness'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['calm', 'comfort'],
+    prompt: 'What do you pour into your mind each day that keeps it from resting?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'dWQUeqBZfq8',
+    title: 'Beginner\'s Mind',
+    wisdom: 'The beginner\'s mind is a tremendous source of energy. With it, we are not afraid of obstacles.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['motivation', 'mindfulness'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['courage'],
+    prompt: 'What did you approach with a beginner\'s eagerness once that now feels routine?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'VeIo1YMimiM',
+    title: 'The Cloud in the Paper',
+    wisdom: 'Without the cloud there is no rain, no tree, no paper. The cloud is in here. Paper is made of non-paper elements.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'Pick one ordinary object near you. How many people, places and weathers are inside it?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'XVkWp9q0KUs',
+    title: 'No Life Without Death',
+    wisdom: 'Life is always with death. Birth and death are happening in every cell of your body this very moment. What you call birth and death are only transformations.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy'],
+    thinker: 'Thích Nhất Hạnh',
+    tradition: 'buddhist',
+    mood: ['comfort', 'clarity'],
+    prompt: 'Where can you see an ending and a beginning happening at the same time in your life right now?',
+    creatorChannel: 'Plum Village',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'inlLIDYoOmg',
+    title: 'Your Freedom in the Difficult Moments',
+    wisdom: 'Every single moment of mindfulness strengthens a reserve. That reserve is what will make the difference when things get hard.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['mindfulness', 'motivation'],
+    thinker: 'Brother Phap Linh',
+    tradition: 'buddhist',
+    mood: ['courage', 'calm'],
+    prompt: 'What small, uninspiring practice are you tempted to skip? What is it quietly building?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '_pBGBGYW5Nc',
+    title: 'What Do You Invite In?',
+    wisdom: 'Be selective in what you decide to invite into your mind. The content will come flooding in, and the emotional energy with it.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Larry Ward',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'What did you let into your mind today without choosing to? What would choosing look like?',
+    creatorChannel: 'Plum Village App',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'ETtW1ikeyTk',
+    title: 'Unmasking Obsessive Thinking',
+    wisdom: 'The intensity of our obsessing is in direct proportion to our unwillingness to feel what\'s in our body.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['well-being', 'mindfulness'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['calm', 'clarity'],
+    prompt: 'What are you looping on right now, and what feeling might the loop be protecting you from?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '0tswGYWbO_Q',
+    title: 'Gentle Ways to Calm the Nervous System',
+    wisdom: 'Long slow breathing, a hand on your heart, a walk among trees. To experience what we long for, the body is the portal.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['well-being', 'mindfulness'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['calm'],
+    prompt: 'Put a hand on your heart and take five slow breaths. What shifted, if anything?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'vITJZP_sRUk',
+    title: 'Meet Your Depression With Kindness',
+    wisdom: 'Depression is a trance, a stuck place smaller than the whole of your being. If we don\'t grieve our losses, they become depression.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['well-being'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['comfort'],
+    prompt: 'Is there a loss you never let yourself grieve? What would a kind first step toward it be?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'bmT3BbzaWa0',
+    title: 'The Secret to Feeling Enough',
+    wisdom: 'The only moments there\'s a sense of enough are moments that come out of presence, out of truly being here.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['comfort', 'clarity'],
+    prompt: 'What would have to happen for you to feel you are enough? Would it actually work?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'qkHTJMnYVOM',
+    title: 'Real but Not True',
+    wisdom: 'You don\'t have to believe your thoughts. It\'s a real thought, but it\'s not true. That\'s just the programming.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'Catch one recurring thought today and ask: do I know this is true? How do I feel when I believe it?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'w4CPIevKS24',
+    title: 'RAIN',
+    wisdom: 'Recognize what\'s happening. Allow it. Investigate it in the body, not the head. Nourish it with kindness. Then rest.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['calm', 'comfort'],
+    prompt: 'Try RAIN on one small difficulty today. Which step was hardest?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Vzyg7Tiageg',
+    title: 'Stress Times Presence',
+    wisdom: 'Stress times resistance equals suffering. Stress times presence equals growing. The moment we make it wrong, we\'re on the path of double suffering.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['courage', 'clarity'],
+    prompt: 'What tension are you calling wrong right now? What if it were information instead?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'VMZ4MbhweDE',
+    title: 'The Prison of Thought',
+    wisdom: 'We keep thinking ourselves into our own prison. Mindfulness notices: oh, stuck. Then just open the door and step out.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['calm', 'clarity'],
+    prompt: 'Which story about yourself have you been retelling this week? What happens if you set it down for an hour?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'oZngg1TJjVY',
+    title: 'Who We Judge Reveals What We Can Love',
+    wisdom: 'We project what we don\'t like about ourselves onto others. Opening to it in them is how we let love in for ourselves.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Pick one person and one thing you regularly judge in them. What in you does it touch?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'gJ8NWJJvBB8',
+    title: 'What Matters Most?',
+    wisdom: 'The most important thing is remembering the most important thing. The greatest regret of the dying is not living true to what most matters.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['clarity'],
+    prompt: 'At the end of your life, looking back, what would most matter? Are you living toward it?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'gYW4GrCzPlo',
+    title: 'The Trance of Blame',
+    wisdom: 'When we\'re in blame, we\'re in a trance. Our aperture narrows and all we can see is our story. We stop seeing the whole human.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Who are you blaming right now? What of them has your story left out?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'MXceDzeTncY',
+    title: 'Joy as a Moral Obligation',
+    wisdom: 'Joy is rarer, more difficult, and more beautiful than sadness. Once you discover this, you must embrace joy as a moral obligation.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['courage', 'comfort'],
+    prompt: 'When did you last feel joy and let yourself keep it? What usually talks you out of it?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'sLbGI1JXeNQ',
+    title: 'Bad at Meditating?',
+    wisdom: 'My mind wanders a lot. That\'s the way we\'re designed. Thinking gives us a false sense that we\'re taking control of matters.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['mindfulness'],
+    thinker: 'Tara Brach',
+    tradition: 'buddhist',
+    mood: ['comfort', 'calm'],
+    prompt: 'What does your mind reach for when you sit still? Can you let it wander without calling it failure?',
+    creatorChannel: 'Tara Brach',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Cnx6c0_r1QM',
+    title: 'You Can\'t Improve Yourself',
+    wisdom: 'When you give up trying to improve yourself, you have all that energy available for things that can actually be done. Where\'s your hurry?',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Alan Watts',
+    tradition: 'taoist',
+    mood: ['calm', 'clarity'],
+    prompt: 'What self-improvement project could you drop for a day? What would you do with the energy?',
+    creatorChannel: 'Official Alan Watts Org',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '4ydi1nx0PEw',
+    title: 'Prickles and Goo',
+    wisdom: 'The real world is gooey prickles and prickly goo. You wouldn\'t know the standpoint of one unless you knew the other as a contrast.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['philosophy'],
+    thinker: 'Alan Watts',
+    tradition: 'taoist',
+    mood: ['clarity'],
+    prompt: 'Are you prickles or goo? Who in your life is the other, and what do they see that you miss?',
+    creatorChannel: 'Official Alan Watts Org',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'h8mY6eLNGus',
+    title: 'Maybe',
+    wisdom: 'The farmer said "maybe" to good news and bad. It goes up and it goes down, because if it didn\'t go down you would never know you were up.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['philosophy'],
+    thinker: 'Alan Watts',
+    tradition: 'taoist',
+    mood: ['calm', 'clarity'],
+    prompt: 'What recent event did you rush to call good or bad? Could you say "maybe" to it?',
+    creatorChannel: 'Official Alan Watts Org',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'L1IOGiIgCGY',
+    title: 'Real Virtue',
+    wisdom: 'You don\'t congratulate yourself on breathing, but breathing is a great virtue. The virtues we\'re proud of are often imitations, and they usually create trouble.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['philosophy'],
+    thinker: 'Alan Watts',
+    tradition: 'taoist',
+    mood: ['clarity'],
+    prompt: 'What do you do well without effort or pride? What if that were your real virtue?',
+    creatorChannel: 'Official Alan Watts Org',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'LgZ73Lc5VS8',
+    title: 'The Greatest Skill of All',
+    wisdom: 'The man who rows a boat uses effort. The man who puts up a sail is using magic. He lets nature do it for him.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['philosophy', 'motivation'],
+    thinker: 'Alan Watts',
+    tradition: 'taoist',
+    mood: ['clarity', 'calm'],
+    prompt: 'Where are you rowing against the wind? Where could you raise a sail instead?',
+    creatorChannel: 'Official Alan Watts Archive',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'LS0gSjrlMJc',
+    title: 'At Dawn, When You Have Trouble Getting Up',
+    wisdom: 'I have to go to work as a human being. What do I have to complain of, if I\'m going to do what I was born for?',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['motivation', 'philosophy'],
+    thinker: 'Marcus Aurelius',
+    tradition: 'stoic',
+    mood: ['courage'],
+    prompt: 'What were you born to do today, in the plainest sense? What is keeping you under the blankets?',
+    creatorChannel: 'Daily Stoic',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '_f-2XyV5qNY',
+    title: 'Epictetus on How to Be Calm',
+    wisdom: 'By being indifferent to things not in our control, we take away the fuel that causes us to be emotionally disturbed.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Epictetus',
+    tradition: 'stoic',
+    mood: ['calm', 'clarity'],
+    prompt: 'What disturbed you today that was never in your control? What was the fuel?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'yvviKWi6AeA',
+    title: 'Stop Caring What People Think',
+    wisdom: 'The opinions of others are not as significant as we tend to think. To live congruently with who we are, we need to be indifferent to some of them.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['philosophy', 'motivation'],
+    thinker: 'Arthur Schopenhauer',
+    tradition: 'other',
+    mood: ['courage'],
+    prompt: 'Whose opinion are you carrying around today? Would they want you to?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'SD42d1z6LZ0',
+    title: 'The Law of Reverse Effect',
+    wisdom: 'The more we worry, the more we try to control, the more likely our performance will suffer. Caring too much about the outcome obstructs the work.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy', 'motivation'],
+    tradition: 'taoist',
+    mood: ['calm', 'clarity'],
+    prompt: 'What are you gripping too hard right now? What would a looser hold look like?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Hd8mFB8m0bw',
+    title: 'Epicurus\' Secret to Happiness',
+    wisdom: 'If you want to make a man happy, add not unto his riches but take away from his desires.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Epicurus',
+    tradition: 'other',
+    mood: ['clarity', 'calm'],
+    prompt: 'Which desire could you subtract this week? What would be left?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'GfLNZDEOlCA',
+    title: 'The Dichotomy of Control',
+    wisdom: 'Things in our control are opinion, pursuit, desire, aversion, and in a word, whatever are our own actions. Things not in our control: body, property, reputation.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['philosophy'],
+    thinker: 'Epictetus',
+    tradition: 'stoic',
+    mood: ['clarity'],
+    prompt: 'Sort today\'s worries into two columns: yours to act on, and not. How long is each list?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'BBM6gHcWT1o',
+    title: 'Let Go of the Past',
+    wisdom: 'The past signifies as much as nothing. We cannot work with it, as it\'s out of our reach, and our memories of it are scrambled.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Marcus Aurelius',
+    tradition: 'stoic',
+    mood: ['comfort', 'clarity'],
+    prompt: 'What past event are you still trying to work with? What is actually in reach now?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Th6KJxBeWHA',
+    title: 'Worrying About the Future Is Misery',
+    wisdom: 'It\'s not the weight of the future pressing on us, but that of the present alone. The misery of the future is our worrying about it now.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Marcus Aurelius',
+    tradition: 'stoic',
+    mood: ['calm'],
+    prompt: 'How much of today\'s weight is tomorrow\'s? What is actually here?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '3gIiPGiF1_0',
+    title: 'The Less You Need, the Freer You Are',
+    wisdom: 'The less you need, the less you can lose. The less you can lose, the freer you are. Freedom comes not from having more but from needing less.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['philosophy'],
+    thinker: 'Diogenes',
+    tradition: 'other',
+    mood: ['clarity', 'courage'],
+    prompt: 'What do you own that owns you back? What would it feel like to need it less?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'itjAAF1w-yU',
+    title: 'When to Walk Away',
+    wisdom: 'If there is a bit of smoke in the house, I stay. If it gets too much, I leave. Not everything needs to be tolerated at all costs.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Epictetus',
+    tradition: 'stoic',
+    mood: ['courage', 'clarity'],
+    prompt: 'Is there a room in your life with too much smoke? What have you told yourself about staying?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'H1f3PyJi9_o',
+    title: 'Is News Knowledge or Noise?',
+    wisdom: 'Read about one robbery, one shooting, and you\'ve read about them all. Does news give us knowledge, or just distraction?',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Henry David Thoreau',
+    tradition: 'other',
+    mood: ['clarity', 'calm'],
+    prompt: 'Of what you read today, how much was knowledge you can act on, and how much was noise?',
+    creatorChannel: 'Einzelgänger',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '6EdaVZvbbrI',
+    title: 'Loneliness Is Not a Glitch',
+    wisdom: 'Loneliness isn\'t a sign that the brain isn\'t working. It\'s an expression of a need, like hunger. It gets you to talk to people.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Paul Bloom',
+    tradition: 'psychology',
+    mood: ['comfort', 'courage'],
+    prompt: 'If your loneliness is a signal rather than a flaw, who is it pointing you toward?',
+    creatorChannel: 'Big Think',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'uIFTdI-zJJ4',
+    title: 'The 9-Second Meditation',
+    wisdom: 'Breathe in through your nose for four, hold for one, out through your nose for four. You are telling your brain and body that you are safe.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Lisa Genova',
+    tradition: 'psychology',
+    mood: ['calm'],
+    prompt: 'Do the nine seconds now. What did you notice in the second after?',
+    creatorChannel: 'Big Think',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'WdfaC7iJ1aI',
+    title: 'Attachment vs Authenticity',
+    wisdom: 'If our environment cannot support our gut feelings, the child will suppress their emotions for the sake of staying connected. We place our health at risk to be worthy of love.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Gabor Maté',
+    tradition: 'psychology',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Where do you still trade your true feeling for someone\'s approval? What did that once keep you safe from?',
+    creatorChannel: 'Sisyphus 55',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '4WoTMEazmTM',
+    title: 'Stop Comparing Your Life',
+    wisdom: 'He sees only failure. But failure according to whose criteria? His life is being measured against an external ideal he did not create.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['philosophy', 'well-being'],
+    tradition: 'existentialist',
+    mood: ['clarity', 'courage'],
+    prompt: 'Whose blueprint are you measuring your life against? Did you ever agree to it?',
+    creatorChannel: 'Sisyphus 55',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'qk2X9y-Km5c',
+    title: 'Stop Chasing \'Enough\'',
+    wisdom: 'Work hard, eat right, save up. When will you achieve peace? You\'ve handed the stick and carrot to a never-ending cart.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy'],
+    tradition: 'existentialist',
+    mood: ['clarity'],
+    prompt: 'When will you be enough? If no amount of sand makes the heap, what are you really waiting for?',
+    creatorChannel: 'Sisyphus 55',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'IFRy2rxzENc',
+    title: 'Spinoza on Suffering',
+    wisdom: 'We suffer when we are pushed around by causes we fail to understand. The drive to be fixed or saved can preoccupy the mind to the point of exhaustion.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['philosophy'],
+    thinker: 'Baruch Spinoza',
+    tradition: 'other',
+    mood: ['clarity'],
+    prompt: 'What pushes you around that you have never stopped to understand?',
+    creatorChannel: 'Sisyphus 55',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '7spDwWtPEK4',
+    title: 'The Courage to Be Normal',
+    wisdom: 'Riding the bus, taking night classes, working at the grocery store. Immersing yourself in society means recognizing there are things larger than you.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['philosophy', 'motivation'],
+    tradition: 'psychology',
+    mood: ['courage'],
+    prompt: 'What ordinary thing have you avoided because it felt beneath the story you tell about yourself?',
+    creatorChannel: 'Sisyphus 55',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'FOi5s3OUogo',
+    title: 'The Power of Non-Judgmental Listening',
+    wisdom: 'The people who let us be ourselves are not the smartest fixers. They are the non-judgmental listeners. No one is asking you to get lost in their feelings, only to listen.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['well-being'],
+    thinker: 'Marc Brackett',
+    tradition: 'psychology',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Who last listened to you without fixing? Who could you do that for this week?',
+    creatorChannel: 'Andrew Huberman',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'xmEnK-WWlUY',
+    title: 'The Three Macronutrients of Happiness',
+    wisdom: 'The happiest people have enjoyment, satisfaction, and meaning. The pursuit of pleasure is not the secret to happiness, it\'s the secret to rehab.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Arthur Brooks',
+    tradition: 'stoic',
+    mood: ['clarity'],
+    prompt: 'Which of the three is thinnest in your life right now: enjoyment, satisfaction, or meaning?',
+    creatorChannel: 'Andrew Huberman',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '6YLdlK2hYnw',
+    title: 'Joy Over Happiness',
+    wisdom: 'Happiness is a list of things I want, and I have them. Joy is a sense of being in yourself. I would like to see you enjoying today, and that\'s it.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['well-being'],
+    thinker: 'Bernardo Huberman',
+    tradition: 'other',
+    mood: ['comfort', 'calm'],
+    prompt: 'What would it mean to enjoy today, without it needing to lead anywhere?',
+    creatorChannel: 'Andrew Huberman',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Rk02H9r_E4A',
+    title: 'Idiot Compassion',
+    wisdom: 'If a fight breaks out in every bar you go to, maybe it\'s you. The friends you want are the ones who tell you the truth kindly, and whom you\'re willing to hear.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Lori Gottlieb',
+    tradition: 'psychology',
+    mood: ['courage', 'clarity'],
+    prompt: 'Who tells you the truth in a kind way? When did you last thank them?',
+    creatorChannel: 'Andrew Huberman',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '-VLr4aqmWio',
+    title: 'The Cost of Resisting Your Calling',
+    wisdom: 'If we don\'t enact our real calling, that energy doesn\'t go away. It goes into a more malignant channel.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['motivation', 'philosophy'],
+    thinker: 'Steven Pressfield',
+    tradition: 'other',
+    mood: ['courage'],
+    prompt: 'What is the thing you are most resisting? Where is that energy going instead?',
+    creatorChannel: 'Andrew Huberman',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '3disqO_xxic',
+    title: 'Practising Presence in Difficult Times',
+    wisdom: 'Practising the presence of God, the presence of others, and the presence of yourself. Become a friend to yourself once again.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['mindfulness', 'well-being'],
+    thinker: 'Brian McLaren',
+    tradition: 'christian',
+    mood: ['comfort', 'calm'],
+    prompt: 'If you had a free hour, what would the real you enjoy, apart from what others expect?',
+    creatorChannel: 'Center for Action and Contemplation',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'JrDM3Gb9IJo',
+    title: 'Entertained, or Turn Inward?',
+    wisdom: 'Either humanity follows the whole movement of entertainment, or it turns inward, which demands a much greater capacity of observation.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Jiddu Krishnamurti',
+    tradition: 'other',
+    mood: ['clarity'],
+    prompt: 'How many hours today went to entertainment, and how many to looking inward? Which left you more alive?',
+    creatorChannel: 'Krishnamurti Foundation Trust',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '8In407UDoT4',
+    title: 'Fail, Fail Again, Fail Better',
+    wisdom: 'Out of the raw space of failure come addictions and aggression. Out of that very same space can emerge our bravery and kindness.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Pema Chödrön',
+    tradition: 'buddhist',
+    mood: ['courage', 'comfort'],
+    prompt: 'Recall a recent failure. What did you reach for in the rawness, and what else was possible?',
+    creatorChannel: 'Sounds True',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'Rmr0Yh7BAyY',
+    title: 'What Are You Stirring Up?',
+    wisdom: 'Stir dirt into a glass of clear water and you can see nothing. Stop stirring, and the water is clear again.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['mindfulness'],
+    thinker: 'Pema Chödrön',
+    tradition: 'buddhist',
+    mood: ['calm'],
+    prompt: 'What have you been stirring today? What might settle if you stopped for five minutes?',
+    creatorChannel: 'Omega Institute for Holistic Studies',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'ey-N5xak078',
+    title: 'Igniting the Heart',
+    wisdom: 'If you feel sadness, you know the sadness of humanity. If you feel fear, you know its fear. Touch your own deficiency and you touch our sameness.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Pema Chödrön',
+    tradition: 'buddhist',
+    mood: ['comfort'],
+    prompt: 'Take one feeling you are carrying. Who else in the world is carrying it right now?',
+    creatorChannel: 'Shambhala Publications',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '3YRrWROfZC0',
+    title: 'Fearlessness',
+    wisdom: 'What we need to learn is how to be afraid: to sit with fear and not run from it, and not be driven by it either.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['well-being', 'mindfulness'],
+    thinker: 'Sharon Salzberg',
+    tradition: 'buddhist',
+    mood: ['courage', 'calm'],
+    prompt: 'What does fear make you do? What would it be like to sit with it and do nothing yet?',
+    creatorChannel: 'Odyssey Impact',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'vNN6rcI7xqE',
+    title: 'Sitting by the Stream',
+    wisdom: 'Meditation is like sitting on the edge of a stream, watching the water go by. Every now and then something catches you, and you just keep it right there.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['mindfulness'],
+    thinker: 'Ram Dass',
+    tradition: 'other',
+    mood: ['calm'],
+    prompt: 'Sit for two minutes and watch your thoughts go by. Which one turned your head?',
+    creatorChannel: 'Baba Ram Dass',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'QpisFegscp0',
+    title: 'I Am Loving Awareness',
+    wisdom: 'Remind yourself: I am loving awareness. Bring your attention to that space, and just be. That\'s not doing. You are that.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['mindfulness'],
+    thinker: 'Ram Dass',
+    tradition: 'other',
+    mood: ['calm', 'comfort'],
+    prompt: 'Say "I am loving awareness" slowly three times. Where does your attention rest afterward?',
+    creatorChannel: 'Baba Ram Dass',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '0PlNiIMXRfs',
+    title: 'The Step on the Path',
+    wisdom: 'The step on the path comes right in front of you: with your child, your partner, your job, your president.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Ram Dass',
+    tradition: 'other',
+    mood: ['clarity', 'courage'],
+    prompt: 'What situation in front of you today is the actual path, rather than an obstacle to it?',
+    creatorChannel: 'Baba Ram Dass',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '-E3QVTN5xAE',
+    title: 'Attachment or Authenticity',
+    wisdom: 'As a child I had to choose attachment over authenticity. As an adult I don\'t have to anymore. Who would you rather have in your life: them, or yourself?',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Gabor Maté',
+    tradition: 'psychology',
+    mood: ['courage', 'clarity'],
+    prompt: 'Where are you still choosing attachment over your own truth? What would you risk by being authentic?',
+    creatorChannel: 'Science and Nonduality',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '_BYESsM0-MQ',
+    title: 'Trauma Is Not What Happened to You',
+    wisdom: 'Trauma is not the bad things that happen to you, but what happens inside you as a result. It means a disconnection from yourself.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['well-being'],
+    thinker: 'Gabor Maté',
+    tradition: 'psychology',
+    mood: ['comfort', 'clarity'],
+    prompt: 'When did you first learn it was too painful to be yourself? What part of you went quiet?',
+    creatorChannel: 'Science and Nonduality',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'xvHOn35sPV0',
+    title: 'Who Is Talking That Way?',
+    wisdom: 'When you say there\'s nowhere to turn, ask: which part of you is talking that way? And which part is the one that cares about you?',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['well-being'],
+    thinker: 'Gabor Maté',
+    tradition: 'psychology',
+    mood: ['comfort', 'courage'],
+    prompt: 'Notice the voice that says nothing will work. Which part of you is listening to it, and cares enough to be worried?',
+    creatorChannel: 'DAHLIA',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'QAQD5z8E77c',
+    title: 'Vulnerability Is Courage',
+    wisdom: 'The most dangerous belief in our culture is that vulnerability is weakness. Vulnerability is the most accurate measure of courage.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['well-being', 'motivation'],
+    thinker: 'Brené Brown',
+    tradition: 'psychology',
+    mood: ['courage'],
+    prompt: 'Where did you hide yourself today to stay safe? What would letting yourself be seen have looked like?',
+    creatorChannel: 'Sounds True',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '6mPfxAgE7Q4',
+    title: 'Our Worth Is Not Negotiated',
+    wisdom: 'Don\'t walk through the world looking for evidence that you don\'t belong, because you will always find it. I will not negotiate who I am with you.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Brené Brown',
+    tradition: 'psychology',
+    mood: ['courage', 'comfort'],
+    prompt: 'What part of yourself have you been negotiating away to fit in? What would it mean to stop?',
+    creatorChannel: 'Thriving Minds & Healing Hearts',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'tZY9NjDma8U',
+    title: 'Belonging vs Fitting In',
+    wisdom: 'The opposite of belonging is fitting in. True belonging never asks us to change who we are. It demands that we be who we are.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Brené Brown',
+    tradition: 'psychology',
+    mood: ['courage'],
+    prompt: 'Where do you fit in but not belong? What would belonging to yourself look like there?',
+    creatorChannel: 'Hot Pursuit Nation',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'aAjVe1-LNKE',
+    title: 'Reaching Beyond Yourself',
+    wisdom: 'Being human means not being concerned primarily with oneself, but reaching out beyond oneself: a meaning to fulfil, or another human being to encounter.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['philosophy'],
+    thinker: 'Viktor Frankl',
+    tradition: 'existentialist',
+    mood: ['clarity', 'courage'],
+    prompt: 'What cause or person draws you beyond yourself? When did you last give yourself to it?',
+    creatorChannel: 'PsychotherapyNet',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '4gP5LuisZtU',
+    title: 'Anxiety Is the Dizziness of Freedom',
+    wisdom: 'Kierkegaard called anxiety the dizziness of freedom. Faced with endless choices, we feel a similar paralysis.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Søren Kierkegaard',
+    tradition: 'existentialist',
+    mood: ['clarity', 'comfort'],
+    prompt: 'Where is your anxiety really the vertigo of having a choice? What would choosing anything do?',
+    creatorChannel: 'Philosophy Animal',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'rqLTTC1q-oQ',
+    title: 'Camus on Morality in an Absurd Universe',
+    wisdom: 'Acknowledging how absurd the universe is makes you more flexible in your thinking. You can still see right and wrong, you\'re just more cautious about the correct response.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['philosophy'],
+    thinker: 'Albert Camus',
+    tradition: 'existentialist',
+    mood: ['clarity'],
+    prompt: 'Where were you certain this week? What would considering the consequences calmly have changed?',
+    creatorChannel: 'Philosophize This!',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'tJ9MgufelHw',
+    title: 'Amor Fati',
+    wisdom: 'My formula for greatness: that one wants nothing to be different. Not merely bear what is necessary, still less conceal it, but love it.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['philosophy', 'motivation'],
+    thinker: 'Friedrich Nietzsche',
+    tradition: 'existentialist',
+    mood: ['courage'],
+    prompt: 'What in your life truly cannot be changed? What would it mean to love it rather than fight it?',
+    creatorChannel: 'Philosophize This!',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'p8xB_pZB5Pg',
+    title: 'Whoever Fights Monsters',
+    wisdom: 'Whoever fights monsters should see to it that in the process he does not become a monster. Gaze long into an abyss and the abyss gazes back.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['philosophy'],
+    thinker: 'Friedrich Nietzsche',
+    tradition: 'existentialist',
+    mood: ['clarity'],
+    prompt: 'What are you fighting against? Has the fight started to shape you in its image?',
+    creatorChannel: 'Bitesize Philosophy ',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'ARl-Z-A2sF0',
+    title: 'Montaigne on Not Idolizing Anyone',
+    wisdom: 'No matter how elite someone appears, they are flawed and incomplete like the rest of us. And if you don\'t humble yourself, the world will find a way to do it for you.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['philosophy'],
+    thinker: 'Michel de Montaigne',
+    tradition: 'other',
+    mood: ['clarity'],
+    prompt: 'Who do you put above yourself? Who do you quietly put below? What does that do to you?',
+    creatorChannel: 'Philosophize This!',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'T_nKg3TBzpU',
+    title: 'Wild Geese',
+    wisdom: 'You do not have to be good. You only have to let the soft animal of your body love what it loves.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Mary Oliver',
+    tradition: 'other',
+    mood: ['comfort'],
+    prompt: 'What does the soft animal of your body love? When did you last let it?',
+    creatorChannel: 'The On Being Project',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'PW7KjF8mXPk',
+    title: 'The Journey',
+    wisdom: 'There was a new voice, which you slowly recognized as your own, determined to save the only life you could save.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['motivation', 'philosophy'],
+    thinker: 'Mary Oliver',
+    tradition: 'other',
+    mood: ['courage'],
+    prompt: 'Which voices keep shouting their bad advice? What is your own voice saying underneath them?',
+    creatorChannel: 'Recites',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '8tJn7TU1WhY',
+    title: 'Don\'t Hesitate',
+    wisdom: 'If you suddenly and unexpectedly feel joy, don\'t hesitate. Give in to it. Joy is not made to be a crumb.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['well-being'],
+    thinker: 'Mary Oliver',
+    tradition: 'other',
+    mood: ['comfort', 'courage'],
+    prompt: 'When did joy arrive this week, and did you let it in or make it wait?',
+    creatorChannel: 'A Cup of Tea with Poetry',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'mrVGAvuafy8',
+    title: 'I Happened to Be Standing',
+    wisdom: 'A wren in the privet began to sing, positively drenched in enthusiasm. What could this be if it isn\'t a prayer? So I just listened.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['mindfulness', 'philosophy'],
+    thinker: 'Mary Oliver',
+    tradition: 'other',
+    mood: ['calm', 'comfort'],
+    prompt: 'What did you nearly walk past today that might have been a prayer?',
+    creatorChannel: 'Lifeinthehills',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '5DErOXWpRi8',
+    title: 'Sweet Darkness',
+    wisdom: 'Anything or anyone that does not bring you alive is too small for you.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'David Whyte',
+    tradition: 'other',
+    mood: ['courage', 'comfort'],
+    prompt: 'What in your life has become too small for you? What would the dark teach you if you went in?',
+    creatorChannel: 'The On Being Project',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'dw-4_wwJfR0',
+    title: 'Working Together',
+    wisdom: 'May we trust to those elements we have yet to see, and find the true shape of our own self by forming it well to the great intangibles about us.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['philosophy'],
+    thinker: 'David Whyte',
+    tradition: 'other',
+    mood: ['calm', 'courage'],
+    prompt: 'What invisible thing is holding your weight right now, like air around a wing?',
+    creatorChannel: 'The On Being Project',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '5x4cvLNdHx0',
+    title: 'We Are Shaped by Our Questions',
+    wisdom: 'We are being shaped as much by the questions we\'re carrying as by the answers we have it in us to give.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['philosophy'],
+    thinker: 'Krista Tippett',
+    tradition: 'other',
+    mood: ['clarity'],
+    prompt: 'What question are you carrying right now? Is it a question that could make you bigger?',
+    creatorChannel: 'The On Being Project',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '2ZQAQbJE2cE',
+    title: 'Knowledge vs Wisdom',
+    wisdom: 'Knowing is information stored. Wisdom is the timely application of knowledge: taking what you know and using it at the right moment so it changes your life.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy', 'mindfulness'],
+    thinker: 'Dandapani',
+    tradition: 'other',
+    mood: ['clarity'],
+    prompt: 'What do you already know that you failed to apply today, at the moment it mattered?',
+    creatorChannel: 'Dandapani',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'E3urhLzuS7A',
+    title: 'The Resonance of Grief',
+    wisdom: 'So much of our life force is locked up in the resistance to grief. You can\'t have joy without opening the lower register.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['well-being', 'philosophy'],
+    thinker: 'Francis Weller',
+    tradition: 'psychology',
+    mood: ['comfort'],
+    prompt: 'If grief is a safe enough place to walk into, what are you holding at the door?',
+    creatorChannel: 'Science and Nonduality',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '8W3_ifwVwKY',
+    title: 'Stop Wrestling Your Thoughts',
+    wisdom: 'Meditation is not about stopping thoughts. It\'s stepping back, seeing the thought clearly, and watching it come and go.',
+    background: 'https://images.unsplash.com/photo-1494459940152-1e911caa8cc5',
+    categories: ['mindfulness'],
+    thinker: 'Andy Puddicombe',
+    tradition: 'buddhist',
+    mood: ['calm'],
+    prompt: 'Where are you too tight today, and where have you taken your foot off the gas? What would balance feel like?',
+    creatorChannel: 'TED',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'K7af3rZd6PA',
+    title: 'The Rule of Thirds',
+    wisdom: 'When you\'re chasing a dream you\'re supposed to feel good a third of the time, okay a third, and crappy a third. The bad days just mean you\'re chasing something.',
+    background: 'https://images.unsplash.com/photo-1528695822914-6f60b5388267',
+    categories: ['motivation', 'well-being'],
+    thinker: 'Alexi Pappas',
+    tradition: 'psychology',
+    mood: ['courage', 'comfort'],
+    prompt: 'Which third are you in today? Does it tell you to dial up, dial back, or simply keep going?',
+    creatorChannel: 'TED',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'WFr9Z01sKGg',
+    title: 'Making Is the Abundance',
+    wisdom: 'What if the actual reward is not accomplishment but the act of creating? External markers can never be enough. Making is the actual abundance.',
+    background: 'https://images.unsplash.com/photo-1525527082378-c91c92225434',
+    categories: ['motivation', 'philosophy'],
+    thinker: 'Debbie Millman',
+    tradition: 'other',
+    mood: ['clarity', 'courage'],
+    prompt: 'What do you make when no one is watching? What happens to you when the making stops?',
+    creatorChannel: 'TED',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'EIsm03Y-cDA',
+    title: 'Play Is Not a To-Do',
+    wisdom: 'Play wasn\'t a list of actions to add to the calendar. It was an approach. The people who thrived played all the time, in every part of life.',
+    background: 'https://images.unsplash.com/photo-1489590050212-a196d408b327',
+    categories: ['well-being'],
+    thinker: 'Katina Bajaj',
+    tradition: 'psychology',
+    mood: ['courage', 'comfort'],
+    prompt: 'Where did you optimize today when you could have played? What would playing look like there?',
+    creatorChannel: 'TED',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '-1IaP_5mdU8',
+    title: 'Feeling Overwhelmed?',
+    wisdom: 'You would never judge a sponge for having limited capacity. The overflow is information: something has to give.',
+    background: 'https://images.unsplash.com/photo-1722049900289-4dd95b8121ac',
+    categories: ['well-being'],
+    thinker: 'Dr Julie Smith',
+    tradition: 'psychology',
+    mood: ['comfort'],
+    prompt: 'What is spilling over right now? Instead of judging yourself, what has to give?',
+    creatorChannel: 'Dr Julie',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'xkBTYvG0ccY',
+    title: 'Growing a Life Around Grief',
+    wisdom: 'It\'s not the grief that gets smaller. It\'s you who grows: a life big enough to hold it.',
+    background: 'https://images.unsplash.com/photo-1600861530291-b7e8749aac3b',
+    categories: ['well-being'],
+    thinker: 'Dr Julie Smith',
+    tradition: 'psychology',
+    mood: ['comfort'],
+    prompt: 'What is one way your life has grown around a loss, rather than past it?',
+    creatorChannel: 'Dr Julie',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'AvA4iC-1Be4',
+    title: 'When Numbness Thaws',
+    wisdom: 'When you\'re numb, you\'re numb to everything. When feeling returns it can feel worse before it feels better. That\'s not going backwards.',
+    background: 'https://images.unsplash.com/photo-1459664018906-085c36f472af',
+    categories: ['well-being'],
+    thinker: 'Dr Julie Smith',
+    tradition: 'psychology',
+    mood: ['comfort'],
+    prompt: 'Is something thawing in you? What is the first sensation that came back?',
+    creatorChannel: 'Dr Julie',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: '6d8ZMo4305o',
+    title: 'Begin Again',
+    wisdom: 'Your mind is all you have. If you\'re constantly ruminating about what you just did or should have done, you will miss your life.',
+    background: 'https://images.unsplash.com/photo-1521208916306-71fce562015a',
+    categories: ['mindfulness', 'philosophy'],
+    thinker: 'Sam Harris',
+    tradition: 'other',
+    mood: ['calm', 'clarity'],
+    prompt: 'What are you replaying right now? What would it mean to begin again from this moment?',
+    creatorChannel: 'Sam Harris',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'FSWljouWdDk',
+    title: 'You Won\'t Know It Was the Last Time',
+    wisdom: 'At some point you will have changed your last diaper and you won\'t know it was the last time. Have patience and gratitude even for the hard stuff.',
+    background: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+    categories: ['philosophy', 'well-being'],
+    thinker: 'Sam Harris',
+    tradition: 'other',
+    mood: ['comfort', 'clarity'],
+    prompt: 'What hard, ordinary thing in your life right now will one day end without warning? Can you meet it with gratitude today?',
+    creatorChannel: 'Sam Harris',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'GKbI5lhZSZc',
+    title: 'Why Breakdowns Promote Growth',
+    wisdom: 'Disorganization is a natural and necessary component of reorganization. The anxiety and doubt do not mean something is wrong with us.',
+    background: 'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+    categories: ['well-being', 'philosophy'],
+    tradition: 'psychology',
+    mood: ['courage', 'comfort'],
+    prompt: 'What is coming apart in your life? Could it be the rupture before a repair?',
+    creatorChannel: 'Academy of Ideas',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'HojcBoUpzp8',
+    title: 'The Power of Sacrifice',
+    wisdom: 'Sacrifice means the renunciation of a valuable part of oneself. The snake which cannot shed its skin perishes.',
+    background: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843',
+    categories: ['philosophy', 'motivation'],
+    thinker: 'Carl Jung',
+    tradition: 'psychology',
+    mood: ['courage'],
+    prompt: 'What worn-out way of being is asking to be shed? What makes letting it go feel like a loss?',
+    creatorChannel: 'Academy of Ideas',
+    verifiedAt: '2026-10-29'
+  },
+  {
+    id: 'FDNqCrmhTNQ',
+    title: 'Stoicism Isn\'t About Making You More Productive',
+    wisdom: 'The point of Stoicism isn\'t to make you more productive or richer. It is to make you a better person: a better parent, neighbour, citizen, a better forgiver of faults.',
+    background: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b',
+    categories: ['philosophy', 'motivation'],
+    thinker: 'Ryan Holiday',
+    tradition: 'stoic',
+    mood: ['clarity', 'courage'],
+    prompt: 'What do you want your philosophy to do for you? What does it ask of you in return?',
+    creatorChannel: 'Daily Stoic',
+    verifiedAt: '2026-10-29'
   },
 ];
