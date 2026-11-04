@@ -52,7 +52,7 @@ const Halo = styled.div<{ $p: number }>`
   inset: 0;
   border-radius: 50%;
   background:
-    conic-gradient(from 0deg, var(--ember) calc(var(--halo) * 1turn), transparent 0),
+    conic-gradient(from 0deg, var(--ember) 0turn, var(--ember-on-forest) calc(var(--halo) * 1turn), transparent 0),
     color-mix(in srgb, var(--on-forest) 9%, transparent);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
@@ -77,7 +77,7 @@ const Orb = styled(motion.div)<{ $warm: boolean }>`
   &::after {
     border-radius: 50%;
   }
-  background: radial-gradient(circle at 50% 50%, var(--mint) 0%, color-mix(in srgb, var(--mint) 55%, var(--sage)) 58%, var(--sage) 100%);
+  background: radial-gradient(circle at 42% 40%, color-mix(in srgb, var(--mint) 70%, #FFFFFF) 0%, var(--mint) 34%, color-mix(in srgb, var(--hue-teal) 60%, var(--sage)) 72%, var(--sage) 100%);
   box-shadow:
     0 0 0 10px color-mix(in srgb, var(--mint) 10%, transparent),
     0 0 48px 6px color-mix(in srgb, var(--mint) 26%, transparent);
@@ -117,7 +117,7 @@ const Phase = styled(motion.div)`
 
   b {
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.ember};
+    color: ${({ theme }) => theme.colors.emberOnForest};
     font-variant-numeric: tabular-nums;
   }
 `;

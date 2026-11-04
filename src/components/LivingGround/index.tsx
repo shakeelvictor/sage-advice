@@ -23,6 +23,8 @@ uniform vec2 uRes;
 uniform float uTime;
 uniform vec3 uGround;
 uniform vec3 uMint;
+uniform vec3 uTeal;
+uniform vec3 uApricot;
 uniform vec3 uCream;
 uniform vec3 uEmber;
 uniform float uStrength;
@@ -46,10 +48,18 @@ void main() {
   vec2 c1 = vec2(aspect * (0.24 + 0.11 * sin(t * 0.39)), 0.80 + 0.07 * cos(t * 0.31));
   vec2 c2 = vec2(aspect * (0.80 + 0.09 * cos(t * 0.33 + 1.3)), 0.36 + 0.09 * sin(t * 0.47 + 0.4));
   vec2 c3 = vec2(aspect * (0.52 + 0.13 * sin(t * 0.36 + 2.1)), 0.04 + 0.06 * cos(t * 0.52));
-  float m = blob(p, c1, 0.46) * 0.95 + blob(p, c2, 0.40) * 0.75 + blob(p, c3, 0.34) * 0.55;
+  // Three neighbouring hues rather than one: mint, a teal mint, and a yellow-leaning mint below.
+  float b1 = blob(p, c1, 0.46) * 0.95;
+  float b2 = blob(p, c2, 0.40) * 0.75;
+  float b3 = blob(p, c3, 0.34) * 0.55;
+  float m = clamp(b1 + b2 + b3, 0.0, 1.0);
+  vec3 hue = (uMint * b1 + uTeal * b2 + mix(uMint, uApricot, 0.35) * b3) / max(b1 + b2 + b3, 1e-3);
 
-  vec3 col = mix(uGround, uMint, clamp(m, 0.0, 1.0) * uStrength);
+  vec3 col = mix(uGround, hue, m * uStrength);
   col = mix(col, uCream, blob(p, vec2(aspect * 0.5, 0.55), 0.62) * 0.22 * uStrength);
+  // A soft apricot warmth drifting low on the left, opposite the ember spot.
+  vec2 ac = vec2(aspect * (0.18 + 0.06 * cos(t * 0.24)), 0.30 + 0.06 * sin(t * 0.3));
+  col = mix(col, uApricot, blob(p, ac, 0.30) * 0.35 * uStrength);
 
   vec2 ec = vec2(aspect * (0.66 + 0.05 * sin(t * 0.21)), 0.70 + 0.04 * cos(t * 0.27));
   col = mix(col, uEmber, blob(p, ec, 0.24) * (0.08 + 0.32 * uWarm) * uStrength);
@@ -78,16 +88,18 @@ const Fallback = styled.div`
   pointer-events: none;
   background:
     radial-gradient(38% 34% at 66% 30%, color-mix(in srgb, var(--ember) 5%, transparent), transparent 70%),
+    radial-gradient(30% 28% at 18% 70%, color-mix(in srgb, var(--hue-apricot) 22%, transparent), transparent 72%),
     radial-gradient(46% 40% at 24% 20%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 72%),
-    radial-gradient(40% 38% at 80% 64%, color-mix(in srgb, var(--mint) 24%, transparent), transparent 72%),
+    radial-gradient(40% 38% at 80% 64%, color-mix(in srgb, var(--hue-teal) 26%, transparent), transparent 72%),
     radial-gradient(34% 30% at 52% 96%, color-mix(in srgb, var(--mint) 18%, transparent), transparent 72%),
     var(--ground);
 
   .dark & {
     background:
       radial-gradient(38% 34% at 66% 30%, color-mix(in srgb, var(--ember) 4%, transparent), transparent 70%),
+      radial-gradient(30% 28% at 18% 70%, color-mix(in srgb, var(--hue-apricot) 5%, transparent), transparent 72%),
       radial-gradient(46% 40% at 24% 20%, color-mix(in srgb, var(--mint) 10%, transparent), transparent 72%),
-      radial-gradient(40% 38% at 80% 64%, color-mix(in srgb, var(--mint) 8%, transparent), transparent 72%),
+      radial-gradient(40% 38% at 80% 64%, color-mix(in srgb, var(--hue-teal) 9%, transparent), transparent 72%),
       radial-gradient(34% 30% at 52% 96%, color-mix(in srgb, var(--mint) 6%, transparent), transparent 72%),
       var(--ground);
   }
@@ -114,10 +126,12 @@ const readPalette = () => {
   const dark = document.documentElement.classList.contains('dark');
   const ground = hexToRgb(css.getPropertyValue('--ground'));
   const mint = hexToRgb(css.getPropertyValue('--mint'));
+  const teal = hexToRgb(css.getPropertyValue('--hue-teal'));
+  const apricot = hexToRgb(css.getPropertyValue('--hue-apricot'));
   const ember = hexToRgb(css.getPropertyValue('--ember'));
   const cream = ground.map((c, i) => c + (ember[i] - c) * 0.12 + (1 - c) * (dark ? 0.02 : 0.25)) as [number, number, number];
   // Capped so every text token keeps 4.5:1 even where blobs overlap at full strength.
-  return { ground, mint, ember, cream, strength: dark ? 0.1 : 0.3 };
+  return { ground, mint, teal, apricot, ember, cream, strength: dark ? 0.1 : 0.3 };
 };
 
 interface Stats {
@@ -194,6 +208,8 @@ const LivingGround = () => {
     const uTime = u('uTime');
     const uGround = u('uGround');
     const uMint = u('uMint');
+    const uTeal = u('uTeal');
+    const uApricot = u('uApricot');
     const uCream = u('uCream');
     const uEmber = u('uEmber');
     const uStrength = u('uStrength');
@@ -203,6 +219,8 @@ const LivingGround = () => {
       const p = readPalette();
       gl.uniform3fv(uGround, p.ground);
       gl.uniform3fv(uMint, p.mint);
+      gl.uniform3fv(uTeal, p.teal);
+      gl.uniform3fv(uApricot, p.apricot);
       gl.uniform3fv(uCream, p.cream);
       gl.uniform3fv(uEmber, p.ember);
       gl.uniform1f(uStrength, p.strength);

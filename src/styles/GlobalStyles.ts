@@ -51,6 +51,25 @@ export const GlobalStyles = createGlobalStyle`
     --shadow-float: 0 12px 30px rgba(30, 58, 52, 0.14);
     --focus: var(--sage);
     --scrim: rgba(15, 31, 27, 0.62);
+
+    /* Neighbouring hues, so the palette is not mint alone: a yellow mint, a teal mint, an apricot. */
+    --hue-teal: #C2E3D9;
+    --hue-apricot: #F6DDB8;
+    /* Ember for text on the forest gradient; plain ember drops to 3.8:1 where the mint glow sits. */
+    --ember-on-forest: #E8BB80;
+
+    /*
+     * Subtle gradients. Every text pairing on them was checked at each stop and glow (4.5:1 text, 3:1 icons).
+     * Forest: a lighter top-left, deeper bottom-right, a faint mint glow and a faint ember glow.
+     */
+    --grad-forest:
+      radial-gradient(110% 80% at 0% 0%, rgba(205, 233, 211, 0.08), transparent 60%),
+      radial-gradient(90% 70% at 100% 100%, rgba(217, 160, 91, 0.08), transparent 60%),
+      linear-gradient(155deg, #24433B 0%, #1E3A34 55%, #183129 100%);
+    --grad-mint: linear-gradient(135deg, #DDF0CB 0%, #CDE9D3 55%, #C2E3D9 100%);
+    --grad-action: linear-gradient(160deg, #2C4D45 0%, #1E3A34 100%);
+    --grad-ember: linear-gradient(140deg, #E9B87A 0%, #D9A05B 100%);
+    --grad-surface: linear-gradient(180deg, #FFFFFF 0%, #FCFCF7 100%);
     --danger: #A8472F;
     color-scheme: light;
   }
@@ -76,6 +95,19 @@ export const GlobalStyles = createGlobalStyle`
     --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.45);
     --focus: var(--mint);
     --scrim: rgba(4, 10, 8, 0.78);
+
+    --hue-teal: #84C2B0;
+    --hue-apricot: #E9B872;
+    --ember-on-forest: #E9B872;
+
+    --grad-forest:
+      radial-gradient(110% 80% at 0% 0%, rgba(143, 201, 166, 0.08), transparent 60%),
+      radial-gradient(90% 70% at 100% 100%, rgba(233, 184, 114, 0.10), transparent 60%),
+      linear-gradient(155deg, #10221D 0%, #0A1714 60%, #08120F 100%);
+    --grad-mint: linear-gradient(135deg, #A6D3A2 0%, #8FC9A6 55%, #84C2B0 100%);
+    --grad-action: var(--grad-mint);
+    --grad-ember: linear-gradient(140deg, #F0C88C 0%, #E9B872 100%);
+    --grad-surface: linear-gradient(180deg, #1A352E 0%, #17302A 100%);
     --danger: #E08A72;
     color-scheme: dark;
   }

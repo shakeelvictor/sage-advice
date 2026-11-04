@@ -80,6 +80,7 @@ const Progress = styled.div`
     inset: 0 auto 0 0;
     width: var(--p);
     background: ${({ theme }) => theme.colors.ember};
+    background-image: linear-gradient(90deg, var(--ember), var(--hue-apricot));
     transition: width 0.6s var(--ease-out);
   }
 `;
@@ -196,7 +197,7 @@ const Ask = styled(ForestCard)`
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.ember};
+    color: ${({ theme }) => theme.colors.emberOnForest};
   }
 
   h3 {

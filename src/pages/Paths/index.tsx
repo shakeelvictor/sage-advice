@@ -103,6 +103,7 @@ const Pill = styled.span<{ $finished?: boolean }>`
   font-weight: 600;
   font-size: 0.88rem;
   background: ${({ $finished, theme }) => ($finished ? theme.colors.surface2 : theme.colors.action)};
+  background-image: ${({ $finished, theme }) => ($finished ? 'none' : theme.gradients.action)};
   color: ${({ $finished, theme }) => ($finished ? theme.colors.ink2 : theme.colors.onAction)};
 
   svg {
@@ -132,6 +133,7 @@ const Voices = styled(MotionLink)`
     height: 44px;
     border-radius: var(--radius-s);
     background: ${({ theme }) => theme.colors.mint};
+    background-image: ${({ theme }) => theme.gradients.mint};
     color: ${({ theme }) => theme.colors.onMint};
   }
 

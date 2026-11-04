@@ -140,7 +140,7 @@ const Ask = styled(ForestCard)`
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.ember};
+    color: ${({ theme }) => theme.colors.emberOnForest};
   }
 
   h2 {

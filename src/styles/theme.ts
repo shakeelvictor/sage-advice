@@ -17,6 +17,7 @@ export const theme = {
     sage: 'var(--sage)',
     ember: 'var(--ember)',
     emberInk: 'var(--ember-ink)',
+    emberOnForest: 'var(--ember-on-forest)',
     line: 'var(--line)',
     scrim: 'var(--scrim)',
     danger: 'var(--danger)',
@@ -28,6 +29,13 @@ export const theme = {
       primary: 'var(--ink)',
       secondary: 'var(--ink-2)',
     },
+  },
+  gradients: {
+    forest: 'var(--grad-forest)',
+    mint: 'var(--grad-mint)',
+    action: 'var(--grad-action)',
+    ember: 'var(--grad-ember)',
+    surface: 'var(--grad-surface)',
   },
   shadows: {
     card: 'var(--shadow-card)',

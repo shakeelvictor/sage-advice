@@ -82,7 +82,7 @@ const Head = styled(ForestCard)`
   .count {
     font-size: 0.85rem;
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.ember};
+    color: ${({ theme }) => theme.colors.emberOnForest};
   }
 `;
 

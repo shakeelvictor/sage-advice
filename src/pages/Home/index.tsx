@@ -147,7 +147,7 @@ const Prompt = styled(motion.div)`
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.ember};
+    color: ${({ theme }) => theme.colors.emberOnForest};
   }
 
   p {
@@ -220,6 +220,7 @@ const PathCard = styled(Surface).attrs({ as: Link })`
     height: 44px;
     border-radius: var(--radius-s);
     background: ${({ theme }) => theme.colors.mint};
+    background-image: ${({ theme }) => theme.gradients.mint};
     color: ${({ theme }) => theme.colors.onMint};
   }
 

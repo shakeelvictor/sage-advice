@@ -81,6 +81,7 @@ const buttonBase = css`
 export const Button = styled(motion.button)`
   ${buttonBase}
   background: ${({ theme }) => theme.colors.action};
+  background-image: ${({ theme }) => theme.gradients.action};
   color: ${({ theme }) => theme.colors.onAction};
   box-shadow: ${({ theme }) => theme.shadows.float};
 
@@ -93,6 +94,7 @@ export const Button = styled(motion.button)`
 export const MintButton = styled(motion.button)`
   ${buttonBase}
   background: ${({ theme }) => theme.colors.mint};
+  background-image: ${({ theme }) => theme.gradients.mint};
   color: ${({ theme }) => theme.colors.onMint};
 
   &:hover:not(:disabled) {
@@ -146,6 +148,7 @@ export const IconButton = styled(motion.button)<{ $tone?: IconTone; $size?: numb
       case 'forest':
         return css`
           background: ${theme.colors.action};
+          background-image: ${theme.gradients.action};
           color: ${theme.colors.onAction};
           box-shadow: ${theme.shadows.float};
         `;
@@ -153,11 +156,13 @@ export const IconButton = styled(motion.button)<{ $tone?: IconTone; $size?: numb
         // A loved heart: forest icon on an ember disc (5.3:1), legible on white and on forest alike.
         return css`
           background: ${theme.colors.ember};
+          background-image: ${theme.gradients.ember};
           color: var(--forest);
         `;
       case 'surface':
         return css`
           background: ${theme.colors.surface};
+          background-image: ${theme.gradients.surface};
           color: ${theme.colors.ink};
           box-shadow: ${theme.shadows.card};
         `;
@@ -198,6 +203,7 @@ export const Chip = styled.button<{ $active?: boolean }>`
   font-weight: ${({ $active }) => ($active ? 650 : 500)};
   letter-spacing: -0.005em;
   background: ${({ $active, theme }) => ($active ? theme.colors.mint : theme.colors.surface2)};
+  background-image: ${({ $active, theme }) => ($active ? theme.gradients.mint : 'none')};
   color: ${({ $active, theme }) => ($active ? theme.colors.onMint : theme.colors.ink2)};
   transition: background-color 0.25s ease, color 0.25s ease;
 
@@ -227,6 +233,7 @@ export const Tag = styled.span`
 /** A white card on the warm ground. Shadow and radius do the work; no border. */
 export const Surface = styled.div`
   background: ${({ theme }) => theme.colors.surface};
+  background-image: ${({ theme }) => theme.gradients.surface};
   border-radius: var(--radius-l);
   box-shadow: ${({ theme }) => theme.shadows.card};
 `;
@@ -236,6 +243,7 @@ export const ForestCard = styled(motion.section)`
   --focus: var(--mint);
   position: relative;
   background: ${({ theme }) => theme.colors.forest};
+  background-image: ${({ theme }) => theme.gradients.forest};
   color: ${({ theme }) => theme.colors.onForest};
   border-radius: var(--radius-xl);
   box-shadow: ${({ theme }) => theme.shadows.float};
