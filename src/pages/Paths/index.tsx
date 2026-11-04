@@ -40,7 +40,7 @@ const Card = styled(motion(Surface))`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.moss};
+    border-color: ${({ theme }) => theme.colors.sage};
     transform: translateY(-2px);
     box-shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.5);
   }
@@ -64,8 +64,8 @@ const Dot = styled.span<{ $done?: boolean; $next?: boolean }>`
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: ${({ $done, theme }) => ($done ? theme.colors.amber : 'transparent')};
-  border: 1.5px solid ${({ $done, $next, theme }) => ($done || $next ? theme.colors.amber : theme.colors.line)};
+  background: ${({ $done, theme }) => ($done ? theme.colors.forest : 'transparent')};
+  border: 1.5px solid ${({ $done, $next, theme }) => ($done ? theme.colors.forest : $next ? theme.colors.sage : theme.colors.line)};
 `;
 
 const Action = styled.span<{ $finished?: boolean }>`
@@ -74,7 +74,7 @@ const Action = styled.span<{ $finished?: boolean }>`
   gap: 0.35rem;
   font-weight: 700;
   font-size: 0.88rem;
-  color: ${({ $finished, theme }) => ($finished ? theme.colors.sage : theme.colors.amber)};
+  color: ${({ $finished, theme }) => ($finished ? theme.colors.sage : theme.colors.ink)};
 
   svg {
     width: 16px;
@@ -92,7 +92,7 @@ const Voices = styled(Link)`
   margin-top: 2rem;
   padding: 1.5rem 1.6rem;
   border-radius: var(--radius-l);
-  border: 1px dashed ${({ theme }) => theme.colors.moss};
+  border: 1px dashed ${({ theme }) => theme.colors.sage};
   color: inherit;
   transition: border-color 0.25s ease, background-color 0.25s ease;
 
@@ -109,8 +109,8 @@ const Voices = styled(Link)`
 
   &:hover {
     border-style: solid;
-    border-color: ${({ theme }) => theme.colors.amber};
-    background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 5%, transparent);
+    border-color: ${({ theme }) => theme.colors.sage};
+    background: ${({ theme }) => theme.colors.surface2};
   }
 `;
 

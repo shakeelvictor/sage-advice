@@ -11,7 +11,7 @@ const Container = styled(motion(Surface))`
   gap: 0.9rem;
   text-align: center;
   padding: 3.5rem 1.5rem;
-  color: ${({ theme }) => theme.colors.amber};
+  color: ${({ theme }) => theme.colors.forest};
 
   h2 {
     font-size: 1.6rem;

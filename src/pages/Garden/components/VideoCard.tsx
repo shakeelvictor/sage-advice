@@ -43,8 +43,8 @@ const Note = styled.div`
   line-height: 1.55;
   color: ${({ theme }) => theme.colors.ink2};
   padding: 0.8rem 1rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.amber};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 6%, transparent);
+  border-left: 2px solid ${({ theme }) => theme.colors.ember};
+  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
   border-radius: 0 var(--radius-s) var(--radius-s) 0;
   white-space: pre-wrap;
 `;
@@ -85,7 +85,7 @@ const VideoCard = ({ video, onEdit, onDelete, onPlay, onShare }: VideoCardProps)
     </Meta>
     {video.notes && <Note>{video.notes}</Note>}
     <Actions>
-      <IconButton $tone="amber" onClick={onPlay} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
+      <IconButton $tone="forest" onClick={onPlay} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
         <Play />
       </IconButton>
       <IconButton onClick={onEdit} aria-label={video.notes ? 'Edit note' : 'Add a note'} whileTap={{ scale: 0.92 }}>

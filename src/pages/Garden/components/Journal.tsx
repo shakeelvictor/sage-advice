@@ -57,7 +57,7 @@ const SearchBox = styled.label`
   }
 
   &:focus-within {
-    border-color: ${({ theme }) => theme.colors.amber};
+    border-color: ${({ theme }) => theme.colors.sage};
   }
 `;
 
@@ -112,7 +112,7 @@ const Card = styled(Surface)`
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.colors.amber};
+    background: ${({ theme }) => theme.colors.ember};
     transform: translateX(-4px);
   }
 `;
@@ -145,7 +145,7 @@ const Title = styled(Link)`
   font-size: 0.95rem;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.sage};
   }
 `;
 

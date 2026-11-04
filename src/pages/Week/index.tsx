@@ -32,7 +32,7 @@ const Back = styled(Link)`
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.ink};
   }
 `;
 
@@ -108,8 +108,8 @@ const Kept = styled.ul`
 
 const KeptLine = styled.li`
   padding: 0.9rem 1.1rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.amber};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 6%, transparent);
+  border-left: 2px solid ${({ theme }) => theme.colors.ember};
+  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
   border-radius: 0 var(--radius-s) var(--radius-s) 0;
 
   p {
@@ -159,7 +159,7 @@ const Ask = styled(motion(Surface))`
 
   textarea:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.amber};
+    border-color: ${({ theme }) => theme.colors.sage};
   }
 `;
 

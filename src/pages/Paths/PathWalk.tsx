@@ -34,7 +34,7 @@ const Back = styled(Link)`
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.ink};
   }
 `;
 
@@ -75,7 +75,7 @@ const Progress = styled.div`
     position: absolute;
     inset: 0 auto 0 0;
     width: var(--p);
-    background: ${({ theme }) => theme.colors.amber};
+    background: ${({ theme }) => theme.colors.ember};
     transition: width 0.6s var(--ease-out);
   }
 `;
@@ -92,9 +92,9 @@ const Step = styled(motion.li)<{ $state: 'done' | 'next' | 'later' }>`
   gap: 1rem;
   padding: 1.1rem 1.2rem;
   border-radius: var(--radius-l);
-  border: 1px solid ${({ $state, theme }) => ($state === 'next' ? theme.colors.amber : theme.colors.line)};
+  border: 1px solid ${({ $state, theme }) => ($state === 'next' ? theme.colors.sage : theme.colors.line)};
   background: ${({ $state, theme }) =>
-    $state === 'next' ? `color-mix(in srgb, ${theme.colors.amber} 8%, ${theme.colors.surface})` : theme.colors.surface};
+    $state === 'next' ? theme.colors.surface2 : theme.colors.surface};
   opacity: ${({ $state }) => ($state === 'later' ? 0.72 : 1)};
 `;
 
@@ -106,9 +106,9 @@ const Num = styled.div<{ $done?: boolean }>`
   place-items: center;
   font-family: ${({ theme }) => theme.fonts.display};
   font-size: 1.05rem;
-  color: ${({ $done, theme }) => ($done ? theme.colors.onAmber : theme.colors.ink2)};
-  background: ${({ $done, theme }) => ($done ? theme.colors.amber : 'transparent')};
-  border: 1px solid ${({ $done, theme }) => ($done ? theme.colors.amber : theme.colors.line)};
+  color: ${({ $done, theme }) => ($done ? theme.colors.onForest : theme.colors.ink2)};
+  background: ${({ $done, theme }) => ($done ? theme.colors.forest : 'transparent')};
+  border: 1px solid ${({ $done, theme }) => ($done ? theme.colors.forest : theme.colors.line)};
 
   svg {
     width: 16px;
@@ -159,8 +159,8 @@ const Reflection = styled.div`
   font-size: 0.92rem;
   color: ${({ theme }) => theme.colors.ink2};
   padding: 0.6rem 0.9rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.amber};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 6%, transparent);
+  border-left: 2px solid ${({ theme }) => theme.colors.ember};
+  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
   border-radius: 0 var(--radius-s) var(--radius-s) 0;
   white-space: pre-wrap;
 
@@ -210,7 +210,7 @@ const Ask = styled(motion.div)`
 
   textarea:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.colors.amber};
+    border-color: ${({ theme }) => theme.colors.sage};
   }
 `;
 

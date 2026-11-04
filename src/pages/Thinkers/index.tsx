@@ -85,7 +85,7 @@ const Card = styled(motion(Surface))`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.moss};
+    border-color: ${({ theme }) => theme.colors.sage};
     transform: translateY(-2px);
   }
 `;

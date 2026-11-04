@@ -53,7 +53,7 @@ const Glow = styled(motion.div)`
   position: absolute;
   inset: 8%;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--ember) 35%, transparent), transparent 70%);
   filter: blur(10px);
 `;
 
@@ -73,7 +73,7 @@ const Track = styled.circle`
 
 const Progress = styled(motion.circle)`
   fill: none;
-  stroke: ${({ theme }) => theme.colors.amber};
+  stroke: ${({ theme }) => theme.colors.forest};
   stroke-width: 3;
   stroke-linecap: round;
 `;
@@ -105,7 +105,7 @@ const State = styled(motion.div)`
     font-weight: 400;
     font-size: 1.1rem;
     letter-spacing: 0;
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.forest};
     font-variant-numeric: tabular-nums;
   }
 `;
@@ -135,7 +135,7 @@ const Volume = styled.label`
     height: 4px;
     appearance: none;
     border-radius: 2px;
-    background: linear-gradient(to right, var(--amber) 0%, var(--amber) var(--v), var(--line) var(--v), var(--line) 100%);
+    background: linear-gradient(to right, var(--ember) 0%, var(--ember) var(--v), var(--line) var(--v), var(--line) 100%);
     outline: none;
   }
 
@@ -145,7 +145,7 @@ const Volume = styled.label`
     height: 18px;
     border-radius: 50%;
     background: ${({ theme }) => theme.colors.surface};
-    border: 2px solid ${({ theme }) => theme.colors.amber};
+    border: 2px solid ${({ theme }) => theme.colors.forest};
     cursor: pointer;
   }
 
@@ -154,7 +154,7 @@ const Volume = styled.label`
     height: 18px;
     border-radius: 50%;
     background: ${({ theme }) => theme.colors.surface};
-    border: 2px solid ${({ theme }) => theme.colors.amber};
+    border: 2px solid ${({ theme }) => theme.colors.forest};
     cursor: pointer;
   }
 `;
@@ -361,7 +361,7 @@ const Meditate = () => {
             <RotateCcw />
           </IconButton>
           <IconButton
-            $tone="amber"
+            $tone="forest"
             $size={72}
             onClick={() => (finished ? reset() : setIsActive(!isActive))}
             aria-label={isActive ? 'Pause' : 'Begin'}

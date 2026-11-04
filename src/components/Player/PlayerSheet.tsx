@@ -82,7 +82,7 @@ const Overlay = styled(motion.div)`
     width: 28px;
     height: 28px;
     stroke-width: 1.6;
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.emberInk};
   }
 `;
 
@@ -90,7 +90,7 @@ const Pulse = styled(motion.div)`
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--ember) 40%, transparent), transparent 70%);
 `;
 
 const Controls = styled.div`
@@ -181,7 +181,7 @@ const PlayerSheet: React.FC<PlayerSheetProps> = ({ video, onClose, onEnded, onNe
         <Controls>
           {onLove && (
             <IconButton
-              $tone={isSaved ? 'amber' : 'ghost'}
+              $tone={isSaved ? 'ember' : 'ghost'}
               $size={52}
               onClick={onLove}
               aria-label={isSaved ? 'Remove from loved' : 'Love this'}

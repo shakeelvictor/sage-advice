@@ -45,7 +45,7 @@ const Orb = styled(motion.div)`
   width: min(70vw, 420px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow), transparent 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--ember) 35%, transparent), transparent 68%);
   filter: blur(14px);
   pointer-events: none;
   z-index: -1;
@@ -97,20 +97,20 @@ const Attribution = styled(motion.div)`
   }
 
   a strong {
-    border-bottom: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.amber} 50%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.forest} 50%, transparent);
     transition: border-color 0.25s ease, color 0.25s ease;
   }
 
   a:hover strong {
-    color: ${({ theme }) => theme.colors.amber};
-    border-color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.forest};
+    border-color: ${({ theme }) => theme.colors.forest};
   }
 `;
 
 const Prompt = styled(motion.p)`
   font-size: 1.02rem;
   color: ${({ theme }) => theme.colors.ink2};
-  border-left: 2px solid ${({ theme }) => theme.colors.amber};
+  border-left: 2px solid ${({ theme }) => theme.colors.forest};
   padding-left: 1rem;
   max-width: 48ch;
 `;
@@ -149,9 +149,9 @@ const Thumb = styled.button`
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: ${({ theme }) => theme.colors.amber};
-    color: ${({ theme }) => theme.colors.onAmber};
-    box-shadow: 0 0 0 6px color-mix(in srgb, ${({ theme }) => theme.colors.amber} 25%, transparent);
+    background: ${({ theme }) => theme.colors.forest};
+    color: ${({ theme }) => theme.colors.onForest};
+    box-shadow: 0 0 0 6px color-mix(in srgb, ${({ theme }) => theme.colors.forest} 25%, transparent);
   }
 
   svg {
@@ -395,7 +395,7 @@ const Home = () => {
                     <IconButton $size={52} onClick={() => setStage('watch')} aria-label="Watch again" whileTap={{ scale: 0.9 }}>
                       <RotateCcw />
                     </IconButton>
-                    <IconButton $tone={isSaved ? 'amber' : 'ghost'} $size={64} onClick={love} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.9 }}>
+                    <IconButton $tone={isSaved ? 'ember' : 'ghost'} $size={64} onClick={love} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.9 }}>
                       <Heart fill={isSaved ? 'currentColor' : 'none'} />
                     </IconButton>
                     <IconButton $size={52} onClick={wander} aria-label="Another line" whileTap={{ scale: 0.9 }}>

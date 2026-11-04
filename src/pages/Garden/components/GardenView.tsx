@@ -11,7 +11,7 @@ const Bed = styled.div`
   border-radius: var(--radius-l);
   border: 1px solid ${({ theme }) => theme.colors.line};
   background:
-    radial-gradient(60% 50% at 50% 100%, color-mix(in srgb, ${({ theme }) => theme.colors.amber} 14%, transparent), transparent 70%),
+    radial-gradient(60% 50% at 50% 100%, color-mix(in srgb, ${({ theme }) => theme.colors.mint} 40%, transparent), transparent 70%),
     ${({ theme }) => theme.colors.surface};
   overflow: hidden;
 
@@ -61,7 +61,7 @@ const PlantFigure = ({ plant, index, selected, onSelect }: { plant: Plant; index
   const px = x * W;
   const tip = onStem(plant, 1);
   const stemD = `M0 0 Q ${lean} ${-height * 0.55} ${lean * 1.4} ${-height}`;
-  const leafColor = stage === 'sprout' ? 'var(--moss)' : 'var(--sage)';
+  const leafColor = stage === 'sprout' ? 'color-mix(in srgb, var(--sage) 60%, var(--mint))' : 'var(--sage)';
   const swayDuration = 5 + (seed % 30) / 10;
 
   return (
@@ -77,12 +77,12 @@ const PlantFigure = ({ plant, index, selected, onSelect }: { plant: Plant; index
           {stage === 'bloom' && (
             <g transform={`translate(${tip.x} ${tip.y})`}>
               {[0, 60, 120, 180, 240, 300].map((r) => (
-                <ellipse key={r} cx={0} cy={-9} rx={5.5} ry={10} transform={`rotate(${r})`} fill="var(--amber)" opacity={0.92} />
+                <ellipse key={r} cx={0} cy={-9} rx={5.5} ry={10} transform={`rotate(${r})`} fill="var(--ember)" opacity={0.92} />
               ))}
               <circle r={4.5} fill="var(--ember)" />
             </g>
           )}
-          {stage === 'leaf' && <circle cx={tip.x} cy={tip.y} r={4.5} fill="var(--amber)" opacity={0.85} />}
+          {stage === 'leaf' && <circle cx={tip.x} cy={tip.y} r={4.5} fill="var(--ember)" opacity={0.85} />}
           {stage === 'sprout' && (
             <>
               <Leaf x={tip.x} y={tip.y} side={1} size={8} color={leafColor} />
@@ -96,7 +96,7 @@ const PlantFigure = ({ plant, index, selected, onSelect }: { plant: Plant; index
             cy={tip.y}
             r={26}
             fill="none"
-            stroke="var(--amber)"
+            stroke="var(--ember)"
             strokeWidth={1.5}
             strokeDasharray="4 6"
             animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.08, 1] }}

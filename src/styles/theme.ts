@@ -1,19 +1,21 @@
 export const theme = {
   colors: {
-    primary: 'var(--amber)',
+    /** Legacy alias: the primary action color, now forest. */
+    primary: 'var(--forest)',
     ground: 'var(--ground)',
     surface: 'var(--surface)',
     surface2: 'var(--surface-2)',
+    forest: 'var(--forest)',
+    onForest: 'var(--on-forest)',
+    mint: 'var(--mint)',
+    onMint: 'var(--on-mint)',
     ink: 'var(--ink)',
     ink2: 'var(--ink-2)',
     ink3: 'var(--ink-3)',
     sage: 'var(--sage)',
-    moss: 'var(--moss)',
-    amber: 'var(--amber)',
     ember: 'var(--ember)',
-    onAmber: 'var(--on-amber)',
+    emberInk: 'var(--ember-ink)',
     line: 'var(--line)',
-    glow: 'var(--glow)',
     scrim: 'var(--scrim)',
     danger: 'var(--danger)',
     background: {
@@ -25,6 +27,10 @@ export const theme = {
       secondary: 'var(--ink-2)',
     },
   },
+  shadows: {
+    card: 'var(--shadow-card)',
+    float: 'var(--shadow-float)',
+  },
   fonts: {
     primary: 'var(--font-primary)',
     secondary: 'var(--font-display)',
@@ -34,6 +40,7 @@ export const theme = {
     s: 'var(--radius-s)',
     m: 'var(--radius-m)',
     l: 'var(--radius-l)',
+    xl: 'var(--radius-xl)',
   },
   breakpoints: {
     mobile: '480px',

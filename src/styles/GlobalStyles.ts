@@ -1,60 +1,75 @@
 import { createGlobalStyle } from 'styled-components';
 
 /**
- * Lamplight design tokens.
- * A quiet study at dusk: sage green for structure, candle amber for the one thing you can press.
- * Dark is the primary theme; light is designed, not inverted.
+ * Clearing design tokens.
+ * A clearing in a forest, mid-morning: cream-tinted ground, white cards, one deep-forest surface
+ * per screen for the thing that matters, and a single ember accent that is always somewhere small.
+ * Light is the primary theme; dark is a designed forest at dusk, not an inversion.
+ *
+ * Contrast (WCAG): every text token clears 4.5:1 on ground, surface and surface-2 in both themes.
+ * Three values differ from the brief because the brief's values did not clear it:
+ * light --ink-3 (#6B7F70 was 4.0:1 on ground), light --ember-ink (#9A6A2C was 4.4:1),
+ * dark --ink-3 (#7E9486 was 3.8:1 on surface-2). --on-mint exists because dark --ink on --mint is 1.7:1.
  */
 export const GlobalStyles = createGlobalStyle`
   :root {
     --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-primary: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-primary: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-secondary: var(--font-display);
 
-    --radius-s: 10px;
-    --radius-m: 16px;
+    --radius-s: 12px;
+    --radius-m: 18px;
     --radius-l: 24px;
+    --radius-xl: 28px;
 
     --nav-h: 64px;
-    --rail-w: 84px;
+    --rail-w: 92px;
     --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
   :root, .light {
-    --ground: #EEF1EA;
+    --ground: #F6F8EF;
     --surface: #FFFFFF;
-    --surface-2: #E4EAE2;
-    --ink: #1C2622;
-    --ink-2: #5B6B61;
-    --ink-3: #8B9890;
+    --surface-2: #EEF4E6;
+    --forest: #1E3A34;
+    --on-forest: #F6F8EF;
+    --mint: #CDE9D3;
+    --on-mint: #1E3A34;
+    --ink: #1E3A34;
+    --ink-2: #4F6B5A;
+    --ink-3: #5F7366;
     --sage: #4F6B5A;
-    --moss: #8FA98F;
-    --amber: #B8853F;
-    --ember: #D4A373;
-    --on-amber: #FFFFFF;
-    --line: rgba(28, 38, 34, 0.12);
-    --glow: rgba(212, 163, 115, 0.32);
-    --scrim: rgba(20, 30, 26, 0.72);
-    --danger: #B5553F;
+    --ember: #D9A05B;
+    --ember-ink: #8F6226;
+    --line: rgba(30, 58, 52, 0.10);
+    --shadow-card: 0 10px 26px rgba(30, 58, 52, 0.08);
+    --shadow-float: 0 12px 30px rgba(30, 58, 52, 0.14);
+    --focus: var(--sage);
+    --scrim: rgba(15, 31, 27, 0.62);
+    --danger: #A8472F;
     color-scheme: light;
   }
 
   .dark {
-    --ground: #0F1A17;
-    --surface: #16241F;
-    --surface-2: #1D2F28;
-    --ink: #EDE7DA;
-    --ink-2: #A8B3A6;
-    --ink-3: #6F7E74;
+    --ground: #0F1F1B;
+    --surface: #17302A;
+    --surface-2: #1E3A34;
+    --forest: #0A1714;
+    --on-forest: #F6F8EF;
+    --mint: #8FC9A6;
+    --on-mint: #0A1714;
+    --ink: #EDF3EA;
+    --ink-2: #A9BFAE;
+    --ink-3: #90A697;
     --sage: #8FA98F;
-    --moss: #4F6B5A;
-    --amber: #D4A373;
     --ember: #E9B872;
-    --on-amber: #0F1A17;
-    --line: rgba(237, 231, 218, 0.12);
-    --glow: rgba(233, 184, 114, 0.30);
-    --scrim: rgba(6, 12, 10, 0.78);
-    --danger: #D9775F;
+    --ember-ink: #E9B872;
+    --line: rgba(237, 243, 234, 0.12);
+    --shadow-card: 0 10px 26px rgba(0, 0, 0, 0.35);
+    --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.45);
+    --focus: var(--mint);
+    --scrim: rgba(4, 10, 8, 0.78);
+    --danger: #E08A72;
     color-scheme: dark;
   }
 
@@ -64,7 +79,7 @@ export const GlobalStyles = createGlobalStyle`
     --bg-secondary: var(--surface);
     --text-primary: var(--ink);
     --text-secondary: var(--ink-2);
-    --accent: var(--amber);
+    --accent: var(--forest);
   }
 
   *, *::before, *::after {
@@ -82,32 +97,13 @@ export const GlobalStyles = createGlobalStyle`
     font-family: var(--font-primary);
     font-weight: 400;
     color: var(--ink);
+    background: var(--ground);
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: color 0.4s ease;
-  }
-
-  /* The lamp: one warm glow at the top of every screen, breathing slowly. */
-  body::before {
-    content: '';
-    position: fixed;
-    left: 50%;
-    top: -22vh;
-    width: 120vw;
-    height: 70vh;
-    transform: translateX(-50%);
-    background: radial-gradient(50% 60% at 50% 30%, var(--glow), transparent 72%);
-    pointer-events: none;
-    z-index: -1;
-    animation: lamp 9s ease-in-out infinite;
-  }
-
-  @keyframes lamp {
-    0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
-    50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+    transition: color 0.4s ease, background-color 0.4s ease;
   }
 
   #root {
@@ -116,12 +112,11 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
   }
 
+  /* Titles are Onest. Fraunces is reserved for the wisdom line alone. */
   h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-variation-settings: 'SOFT' 50;
-    font-optical-sizing: auto;
-    letter-spacing: -0.01em;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    letter-spacing: -0.03em;
     line-height: 1.12;
     text-wrap: balance;
     color: var(--ink);
@@ -145,18 +140,19 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: var(--amber);
+    color: var(--sage);
     text-decoration: none;
   }
 
   :focus-visible {
-    outline: 2px solid var(--ember);
+    outline: 2px solid var(--focus);
     outline-offset: 3px;
     border-radius: 6px;
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--amber) 35%, transparent);
+    background: var(--mint);
+    color: var(--on-mint);
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -81,10 +81,10 @@ const ShortCard = ({ video, onPlay, onShare, hideThinker }: ShortCardProps) => {
         {video.creatorChannel && <> · via {video.creatorChannel}</>}
       </Meta>
       <Actions>
-        <IconButton $tone="amber" onClick={() => onPlay(video)} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
+        <IconButton $tone="forest" onClick={() => onPlay(video)} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
           <Play />
         </IconButton>
-        <IconButton $tone={isSaved ? 'amber' : 'ghost'} onClick={toggleLove} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.92 }}>
+        <IconButton $tone={isSaved ? 'ember' : 'ghost'} onClick={toggleLove} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.92 }}>
           <Heart fill={isSaved ? 'currentColor' : 'none'} />
         </IconButton>
         {onShare && (

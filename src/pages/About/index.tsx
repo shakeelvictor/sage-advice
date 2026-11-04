@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sun, Moon, Monitor } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import Logo from '../../components/Logo';
-import { Eyebrow, Button } from '../../components/ui';
+import { Eyebrow, Button, Chip, Surface } from '../../components/ui';
+import { useTheme, themeLabel } from '../../context/theme';
 import { springSoft } from '../../styles/motion';
 
 const Container = styled.div`
@@ -81,6 +82,34 @@ const Principles = styled.dl`
   }
 `;
 
+const Settings = styled(Surface)`
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.25rem;
+
+  h2 {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: ${({ theme }) => theme.colors.ink2};
+  }
+`;
+
+const ChipRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+`;
+
+const THEMES = [
+  { id: 'light', Icon: Sun },
+  { id: 'dark', Icon: Moon },
+  { id: 'system', Icon: Monitor },
+] as const;
+
 const Cta = styled.div`
   display: flex;
   justify-content: center;
@@ -89,6 +118,7 @@ const Cta = styled.div`
 
 const About = () => {
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   return (
     <PageTransition>
@@ -123,6 +153,17 @@ const About = () => {
             </div>
           </Principles>
         </Body>
+
+        <Settings as="section" aria-labelledby="appearance-heading">
+          <h2 id="appearance-heading">Appearance</h2>
+          <ChipRow role="group" aria-label="Theme">
+            {THEMES.map(({ id, Icon }) => (
+              <Chip key={id} $active={theme === id} aria-pressed={theme === id} onClick={() => setTheme(id)}>
+                <Icon aria-hidden /> {themeLabel[id]}
+              </Chip>
+            ))}
+          </ChipRow>
+        </Settings>
 
         <Cta>
           <Button onClick={() => navigate('/')} whileTap={{ scale: 0.97 }}>

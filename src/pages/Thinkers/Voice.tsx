@@ -34,7 +34,7 @@ const Back = styled(Link)`
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.ink};
   }
 `;
 

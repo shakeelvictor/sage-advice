@@ -3,7 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sunrise, Compass, Sprout, Wind, BookOpen, Sun, Moon, Monitor } from 'lucide-react';
 import { Mark } from '../Logo';
-import { useTheme } from '../../context/ThemeContext';
+import { VisuallyHidden } from '../ui';
+import { useTheme, themeLabel } from '../../context/theme';
 import { springSnappy } from '../../styles/motion';
 
 const items = [
@@ -13,6 +14,71 @@ const items = [
   { to: '/meditate', label: 'Still', Icon: Wind },
   { to: '/about', label: 'About', Icon: BookOpen },
 ];
+
+const isActive = (pathname: string, to: string) => pathname === to || (to !== '/' && pathname.startsWith(to + '/'));
+
+/* ---------- Phones: a floating pill of five icons ---------- */
+
+const Bar = styled.nav`
+  position: fixed;
+  left: max(24px, env(safe-area-inset-left, 0px));
+  right: max(24px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  margin: 0 auto;
+  max-width: 360px;
+  padding: 8px;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.colors.surface};
+  box-shadow: ${({ theme }) => theme.shadows.float};
+  z-index: 50;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
+const BarList = styled.ul`
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BarItem = styled(NavLink)`
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: ${({ theme }) => theme.colors.ink2};
+  transition: color 0.25s ease;
+
+  svg {
+    position: relative;
+    z-index: 1;
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+  }
+
+  /* Mint against white is faint, so the active icon also gets ink and a heavier stroke. */
+  &.active {
+    color: ${({ theme }) => theme.colors.onMint};
+
+    svg {
+      stroke-width: 2.2;
+    }
+  }
+`;
+
+const BarPill = styled(motion.span)`
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.mint};
+`;
+
+/* ---------- Tablet and desktop: a labelled rail ---------- */
 
 const Rail = styled.nav`
   position: fixed;
@@ -25,10 +91,8 @@ const Rail = styled.nav`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  border-right: 1px solid ${({ theme }) => theme.colors.line};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.ground} 82%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: ${({ theme }) => theme.colors.surface};
+  box-shadow: ${({ theme }) => theme.shadows.card};
   z-index: 50;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -40,68 +104,34 @@ const RailList = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   width: 100%;
   flex: 1;
 `;
 
-const Bar = styled.nav`
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
-  padding: 0 max(8px, env(safe-area-inset-left, 0px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-right, 0px));
-  display: flex;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.surface} 86%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 50;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: none;
-  }
-`;
-
-const BarList = styled.ul`
-  list-style: none;
-  display: flex;
-  width: 100%;
-`;
-
-const BarItem = styled.li`
-  flex: 1;
-  min-width: 0;
-`;
-
-const Item = styled(NavLink)`
+const RailItem = styled(NavLink)`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  width: 100%;
-  height: 100%;
-  min-height: 56px;
+  min-height: 64px;
   padding: 0.5rem 0.25rem;
   border-radius: var(--radius-m);
-  color: ${({ theme }) => theme.colors.ink3};
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.ink2};
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   transition: color 0.25s ease;
 
   svg {
     width: 22px;
     height: 22px;
-    stroke-width: 1.6;
-    position: relative;
-    z-index: 1;
+    stroke-width: 1.8;
   }
 
+  svg,
   span {
     position: relative;
     z-index: 1;
@@ -112,16 +142,24 @@ const Item = styled(NavLink)`
   }
 
   &.active {
-    color: ${({ theme }) => theme.colors.amber};
+    color: ${({ theme }) => theme.colors.onMint};
+    font-weight: 700;
   }
 `;
 
-const ActivePill = styled(motion.span)`
+const RailPill = styled(motion.span)`
   position: absolute;
-  inset: 6px 10px;
+  inset: 4px 6px;
   border-radius: var(--radius-m);
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.amber} 14%, transparent);
-  z-index: 0;
+  background: ${({ theme }) => theme.colors.mint};
+`;
+
+const MarkLink = styled(NavLink)`
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: ${({ theme }) => theme.colors.forest};
 `;
 
 const ThemeButton = styled.button`
@@ -131,71 +169,29 @@ const ThemeButton = styled.button`
   display: grid;
   place-items: center;
   color: ${({ theme }) => theme.colors.ink2};
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  background: ${({ theme }) => theme.colors.surface};
-  transition: color 0.25s ease, transform 0.25s var(--ease-out);
+  background: ${({ theme }) => theme.colors.surface2};
+  transition: color 0.25s ease;
 
   svg {
     width: 18px;
     height: 18px;
-    stroke-width: 1.6;
+    stroke-width: 1.8;
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.amber};
-    transform: translateY(-1px);
+    color: ${({ theme }) => theme.colors.ink};
   }
 `;
 
-const FloatingTheme = styled(ThemeButton)`
-  position: fixed;
-  top: calc(0.75rem + env(safe-area-inset-top, 0px));
-  right: max(0.75rem, env(safe-area-inset-right, 0px));
-  z-index: 50;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: none;
-  }
-`;
-
-const MarkLink = styled(NavLink)`
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  color: ${({ theme }) => theme.colors.amber};
-`;
-
-const order = ['dark', 'light', 'system'] as const;
+const themeOrder = ['light', 'dark', 'system'] as const;
 const themeIcon = { light: Sun, dark: Moon, system: Monitor };
-const themeLabel = { light: 'Light theme', dark: 'Dark theme', system: 'Follow system theme' };
-
-const useThemeCycle = () => {
-  const { theme, setTheme } = useTheme();
-  const Icon = themeIcon[theme];
-  const cycle = () => setTheme(order[(order.indexOf(theme) + 1) % order.length]);
-  return { Icon, cycle, label: themeLabel[theme] };
-};
-
-const Links = ({ layoutId }: { layoutId: string }) => {
-  const { pathname } = useLocation();
-  return (
-    <>
-      {items.map(({ to, label, Icon }) => (
-        <li key={to} style={{ position: 'relative' }}>
-          <Item to={to} end={to === '/'}>
-            {(pathname === to || (to !== '/' && pathname.startsWith(to + '/'))) && <ActivePill layoutId={layoutId} transition={springSnappy} />}
-            <Icon aria-hidden />
-            <span>{label}</span>
-          </Item>
-        </li>
-      ))}
-    </>
-  );
-};
 
 const Nav = () => {
-  const { Icon, cycle, label } = useThemeCycle();
+  const { pathname } = useLocation();
+  const { theme, setTheme } = useTheme();
+  const ThemeIcon = themeIcon[theme];
+  const next = themeOrder[(themeOrder.indexOf(theme) + 1) % themeOrder.length];
+  const themeTitle = `Theme: ${themeLabel[theme]}. Switch to ${themeLabel[next].toLowerCase()}.`;
 
   return (
     <>
@@ -204,29 +200,34 @@ const Nav = () => {
           <Mark size={30} />
         </MarkLink>
         <RailList>
-          <Links layoutId="rail-pill" />
+          {items.map(({ to, label, Icon }) => (
+            <li key={to}>
+              <RailItem to={to} end={to === '/'}>
+                {isActive(pathname, to) && <RailPill layoutId="rail-pill" transition={springSnappy} />}
+                <Icon aria-hidden />
+                <span>{label}</span>
+              </RailItem>
+            </li>
+          ))}
         </RailList>
-        <ThemeButton onClick={cycle} aria-label={label} title={label}>
-          <Icon aria-hidden />
+        <ThemeButton onClick={() => setTheme(next)} aria-label={themeTitle} title={themeTitle}>
+          <ThemeIcon aria-hidden />
         </ThemeButton>
       </Rail>
 
       <Bar aria-label="Primary">
         <BarList>
-          {items.map(({ to, label: text, Icon: ItemIcon }) => (
-            <BarItem key={to}>
-              <Item to={to} end={to === '/'}>
-                <ItemIcon aria-hidden />
-                <span>{text}</span>
-              </Item>
-            </BarItem>
+          {items.map(({ to, label, Icon }) => (
+            <li key={to}>
+              <BarItem to={to} end={to === '/'} aria-label={label}>
+                {isActive(pathname, to) && <BarPill layoutId="bar-pill" transition={springSnappy} />}
+                <Icon aria-hidden />
+                <VisuallyHidden>{label}</VisuallyHidden>
+              </BarItem>
+            </li>
           ))}
         </BarList>
       </Bar>
-
-      <FloatingTheme onClick={cycle} aria-label={label} title={label}>
-        <Icon aria-hidden />
-      </FloatingTheme>
     </>
   );
 };

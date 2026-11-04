@@ -29,9 +29,9 @@ const Option = styled(motion.button)<{ $active?: boolean }>`
   padding: 1.1rem 1.2rem;
   min-height: 104px;
   border-radius: var(--radius-l);
-  border: 1px solid ${({ $active, theme }) => ($active ? theme.colors.amber : theme.colors.line)};
+  border: 1px solid ${({ $active, theme }) => ($active ? theme.colors.forest : theme.colors.line)};
   background: ${({ $active, theme }) =>
-    $active ? `color-mix(in srgb, ${theme.colors.amber} 14%, ${theme.colors.surface})` : theme.colors.surface};
+    $active ? `color-mix(in srgb, ${theme.colors.forest} 14%, ${theme.colors.surface})` : theme.colors.surface};
   transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s var(--ease-out);
 
   strong {
@@ -48,7 +48,7 @@ const Option = styled(motion.button)<{ $active?: boolean }>`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.moss};
+    border-color: ${({ theme }) => theme.colors.sage};
     transform: translateY(-2px);
   }
 `;

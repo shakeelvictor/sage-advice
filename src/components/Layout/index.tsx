@@ -14,7 +14,8 @@ const Main = styled.main`
   min-width: 0;
   width: 100%;
   padding-inline: max(1rem, env(safe-area-inset-left, 0px)) max(1rem, env(safe-area-inset-right, 0px));
-  padding-block: calc(1.25rem + env(safe-area-inset-top, 0px)) calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 1.5rem);
+  /* Clear the floating nav: its height, its bottom margin, and some air. */
+  padding-block: calc(1.25rem + env(safe-area-inset-top, 0px)) calc(var(--nav-h) + max(16px, env(safe-area-inset-bottom, 0px)) + 2rem);
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-left: var(--rail-w);
