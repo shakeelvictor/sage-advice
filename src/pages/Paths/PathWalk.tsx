@@ -5,7 +5,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Play, RotateCcw } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
-import { Eyebrow, Button, GhostButton, TextButton, Surface } from '../../components/ui';
+import { Eyebrow, Button, GhostButton, MintButton, TextButton, Surface, ForestCard } from '../../components/ui';
 import { pathById, videoForStep } from '../../data/paths';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -14,10 +14,14 @@ import { logPractice } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
 
 const Container = styled.div`
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
+
+  > * {
+    min-width: 0;
+  }
 `;
 
 const Back = styled(Link)`
@@ -25,8 +29,9 @@ const Back = styled(Link)`
   align-items: center;
   gap: 0.4rem;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.ink2};
+  justify-self: start;
 
   svg {
     width: 16px;
@@ -43,8 +48,7 @@ const Head = styled.header`
   gap: 0.6rem;
 
   h1 {
-    font-size: clamp(2.1rem, 5vw, 3rem);
-    font-variation-settings: 'SOFT' 60;
+    font-size: clamp(2rem, 6vw, 2.6rem);
   }
 
   p {
@@ -63,9 +67,9 @@ const Progress = styled.div`
   i {
     flex: 1;
     max-width: 220px;
-    height: 3px;
-    border-radius: 2px;
-    background: ${({ theme }) => theme.colors.line};
+    height: 6px;
+    border-radius: 999px;
+    background: ${({ theme }) => theme.colors.surface2};
     position: relative;
     overflow: hidden;
   }
@@ -88,27 +92,25 @@ const Steps = styled.ol`
 
 const Step = styled(motion.li)<{ $state: 'done' | 'next' | 'later' }>`
   display: grid;
-  grid-template-columns: 2.25rem 1fr;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
   gap: 1rem;
   padding: 1.1rem 1.2rem;
   border-radius: var(--radius-l);
-  border: 1px solid ${({ $state, theme }) => ($state === 'next' ? theme.colors.sage : theme.colors.line)};
-  background: ${({ $state, theme }) =>
-    $state === 'next' ? theme.colors.surface2 : theme.colors.surface};
-  opacity: ${({ $state }) => ($state === 'later' ? 0.72 : 1)};
+  background: ${({ theme }) => theme.colors.surface};
+  box-shadow: ${({ $state, theme }) => ($state === 'later' ? 'none' : theme.shadows.card)};
 `;
 
-const Num = styled.div<{ $done?: boolean }>`
+const Num = styled.div<{ $state: 'done' | 'next' | 'later' }>`
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-size: 1.05rem;
-  color: ${({ $done, theme }) => ($done ? theme.colors.onAction : theme.colors.ink2)};
-  background: ${({ $done, theme }) => ($done ? theme.colors.action : 'transparent')};
-  border: 1px solid ${({ $done, theme }) => ($done ? theme.colors.action : theme.colors.line)};
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: ${({ $state, theme }) => ($state === 'done' ? theme.colors.onAction : $state === 'next' ? theme.colors.onMint : theme.colors.ink2)};
+  background: ${({ $state, theme }) => ($state === 'done' ? theme.colors.action : $state === 'next' ? theme.colors.mint : theme.colors.surface2)};
 
   svg {
     width: 16px;
@@ -121,6 +123,10 @@ const Body = styled.div`
   min-width: 0;
   display: grid;
   gap: 0.5rem;
+
+  > * {
+    min-width: 0;
+  }
 `;
 
 const Title = styled.div`
@@ -129,6 +135,8 @@ const Title = styled.div`
 
   strong {
     font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     line-height: 1.3;
   }
 
@@ -138,10 +146,12 @@ const Title = styled.div`
   }
 `;
 
+/* The wisdom line: the one place Fraunces appears. */
 const Wisdom = styled.p`
   font-family: ${({ theme }) => theme.fonts.display};
+  font-style: italic;
   font-weight: 300;
-  font-variation-settings: 'SOFT' 70;
+  font-variation-settings: 'opsz' 72, 'SOFT' 100;
   font-size: 1.15rem;
   line-height: 1.35;
   color: ${({ theme }) => theme.colors.ink};
@@ -158,59 +168,77 @@ const Actions = styled.div`
 const Reflection = styled.div`
   font-size: 0.92rem;
   color: ${({ theme }) => theme.colors.ink2};
-  padding: 0.6rem 0.9rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.ember};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
-  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  padding: 0.75rem 0.95rem;
+  background: ${({ theme }) => theme.colors.surface2};
+  border-radius: var(--radius-s);
   white-space: pre-wrap;
 
   small {
     display: block;
     font-size: 0.72rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.sage};
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.emberInk};
     margin-bottom: 0.2rem;
   }
 `;
 
-const Ask = styled(motion.div)`
+/* The question after each short lives on the forest surface, like Today's line. */
+const Ask = styled(ForestCard)`
   display: grid;
-  gap: 0.75rem;
+  gap: 0.85rem;
   margin-top: 0.4rem;
-  padding: 1rem 1.1rem;
-  border-radius: var(--radius-m);
-  background: ${({ theme }) => theme.colors.ground};
-  border: 1px solid ${({ theme }) => theme.colors.line};
+  padding: 1.25rem;
+
+  small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.ember};
+  }
 
   h3 {
-    font-family: ${({ theme }) => theme.fonts.display};
-    font-weight: 300;
-    font-variation-settings: 'SOFT' 80;
-    font-size: 1.35rem;
-    line-height: 1.3;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    color: ${({ theme }) => theme.colors.onForest};
   }
 
   textarea {
     width: 100%;
     min-height: 96px;
     padding: 0.8rem 0.9rem;
+    border: none;
     border-radius: var(--radius-s);
-    border: 1px solid ${({ theme }) => theme.colors.line};
-    background: ${({ theme }) => theme.colors.surface};
-    color: ${({ theme }) => theme.colors.ink};
+    background: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 9%, transparent);
+    color: ${({ theme }) => theme.colors.onForest};
     line-height: 1.55;
     resize: vertical;
   }
 
   textarea::placeholder {
-    color: ${({ theme }) => theme.colors.ink3};
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 70%, transparent);
   }
 
-  textarea:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.sage};
+  textarea:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.mint};
+    outline-offset: 2px;
+  }
+
+  button {
+    white-space: normal;
+    text-align: left;
+  }
+`;
+
+const AskText = styled(TextButton)`
+  color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 82%, transparent);
+
+  &:hover:not(:disabled) {
+    color: ${({ theme }) => theme.colors.onForest};
   }
 `;
 
@@ -222,7 +250,7 @@ const Closing = styled(motion(Surface))`
   justify-items: center;
 
   h2 {
-    font-size: 1.7rem;
+    font-size: 1.45rem;
   }
 
   p {
@@ -305,8 +333,8 @@ const PathWalk = () => {
             const state = isDone ? 'done' : i === nextIndex ? 'next' : 'later';
             const reflection = progress?.reflections[i];
             return (
-              <Step key={step.videoId} $state={state} initial={{ opacity: 0, y: 10 }} animate={{ opacity: state === 'later' ? 0.72 : 1, y: 0 }} transition={{ ...springSoft, delay: i * 0.04 }}>
-                <Num $done={isDone} aria-label={isDone ? `Step ${i + 1}, walked` : `Step ${i + 1}`}>
+              <Step key={step.videoId} $state={state} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: i * 0.04 }}>
+                <Num $state={state} aria-label={isDone ? `Step ${i + 1}, walked` : `Step ${i + 1}`}>
                   {isDone ? <Check /> : i + 1}
                 </Num>
                 <Body>
@@ -319,21 +347,22 @@ const PathWalk = () => {
                   {video && (state !== 'later' || isDone) && <Wisdom>{video.wisdom}</Wisdom>}
 
                   {openStep === i ? (
-                    <Ask initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
-                      <Eyebrow>Sit with it</Eyebrow>
+                    <Ask aria-label="Sit with it" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
+                      <small>Sit with it</small>
                       <h3>{step.question}</h3>
                       <textarea
                         id={`reflection-${path.id}-${i}`}
                         value={draft}
                         onChange={(e) => setDraft(e.target.value)}
                         placeholder="A line or two, if you want. It stays on this device."
+                        aria-label={step.question}
                         autoFocus
                       />
                       <Actions>
-                        <Button onClick={() => save(i)} whileTap={{ scale: 0.97 }}>
-                          <Check /> {isDone ? 'Save' : 'Mark this step walked'}
-                        </Button>
-                        <TextButton onClick={() => setOpenStep(null)}>Not now</TextButton>
+                        <MintButton onClick={() => save(i)} whileTap={{ scale: 0.97 }}>
+                          <Check aria-hidden /> {isDone ? 'Save' : 'Mark this step walked'}
+                        </MintButton>
+                        <AskText onClick={() => setOpenStep(null)}>Not now</AskText>
                       </Actions>
                     </Ask>
                   ) : (
