@@ -6,7 +6,7 @@ import VideoCard from './VideoCard';
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 1.25rem;
+  gap: 1rem;
   align-items: start;
 `;
 
@@ -28,9 +28,10 @@ const VideoGrid = ({ videos, selectedCategory, onEdit, onDelete, onPlay, onShare
   return (
     <Grid>
       <AnimatePresence>
-        {filtered.map((video) => (
+        {filtered.map((video, index) => (
           <VideoCard
             key={video.id}
+            index={index}
             video={video}
             onEdit={() => onEdit(video)}
             onDelete={() => onDelete(video)}

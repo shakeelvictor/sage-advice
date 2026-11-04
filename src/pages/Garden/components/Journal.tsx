@@ -32,8 +32,8 @@ const SearchBox = styled.label`
   padding: 0 1rem;
   min-height: 46px;
   border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.line};
   background: ${({ theme }) => theme.colors.surface};
+  box-shadow: ${({ theme }) => theme.shadows.card};
   color: ${({ theme }) => theme.colors.ink3};
 
   svg {
@@ -57,7 +57,8 @@ const SearchBox = styled.label`
   }
 
   &:focus-within {
-    border-color: ${({ theme }) => theme.colors.sage};
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
   }
 `;
 
@@ -73,8 +74,9 @@ const Month = styled.section`
 `;
 
 const MonthLabel = styled.div`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: ${({ theme }) => theme.colors.ink2};
   position: sticky;
   top: 1rem;
@@ -141,7 +143,7 @@ const Top = styled.div`
 
 const Title = styled(Link)`
   color: ${({ theme }) => theme.colors.ink};
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.95rem;
 
   &:hover {
@@ -149,12 +151,14 @@ const Title = styled(Link)`
   }
 `;
 
-const Question = styled.p`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-weight: 300;
-  font-variation-settings: 'SOFT' 70;
-  font-size: 1.1rem;
-  line-height: 1.3;
+/* A kept line's entry quotes its wisdom line (Fraunces); paths and weeks quote a question (Onest). */
+const Question = styled.p<{ $wisdom?: boolean }>`
+  font-family: ${({ $wisdom, theme }) => ($wisdom ? theme.fonts.display : theme.fonts.primary)};
+  font-style: ${({ $wisdom }) => ($wisdom ? 'italic' : 'normal')};
+  font-weight: ${({ $wisdom }) => ($wisdom ? 300 : 500)};
+  font-variation-settings: ${({ $wisdom }) => ($wisdom ? "'opsz' 72, 'SOFT' 100" : 'normal')};
+  font-size: ${({ $wisdom }) => ($wisdom ? '1.1rem' : '1rem')};
+  line-height: 1.35;
   color: ${({ theme }) => theme.colors.ink2};
 `;
 
@@ -201,7 +205,7 @@ const Journal = ({ videos, progress, weekNotes = {} }: JournalProps) => {
         context: v.thinker ?? v.creatorChannel ?? 'Kept line',
         question: v.wisdom,
         text: v.notes,
-        to: '/garden?view=lines',
+        to: `/garden#line-${v.id}`,
       }));
     const steps: Entry[] = paths.flatMap((path) => {
       const p = progress[path.id];
@@ -283,7 +287,7 @@ const Journal = ({ videos, progress, weekNotes = {} }: JournalProps) => {
                     <span>{dayLabel(e.date)}</span>
                   </Top>
                   <Title to={e.to}>{e.title}{e.kind === 'line' && e.context !== 'Kept line' ? ` · ${e.context}` : ''}</Title>
-                  {e.question && <Question>{e.question}</Question>}
+                  {e.question && <Question $wisdom={e.kind === 'line'}>{e.question}</Question>}
                   <Text>{e.text}</Text>
                 </Card>
               ))}

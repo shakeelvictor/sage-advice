@@ -2,58 +2,83 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Play, Pencil, Trash2, Share2 } from 'lucide-react';
 import { SavedVideo } from '../../../types/video';
-import { Surface, Tag, IconButton } from '../../../components/ui';
+import { IconButton } from '../../../components/ui';
+import { STAGE_LABEL, stageOf } from '../../../utils/garden';
 import { spring } from '../../../styles/motion';
+import GrowthMark from './GrowthMark';
 
-const Card = styled(motion(Surface))`
+/* A white card. Growth is shown by the plant at its left edge, never by a coloured border. */
+const Card = styled(motion.article)`
   display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
   gap: 0.9rem;
-  padding: 1.35rem 1.35rem 1.1rem;
+  padding: 1.2rem 1.2rem 1rem 0.95rem;
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: var(--radius-l);
+  box-shadow: ${({ theme }) => theme.shadows.card};
+  scroll-margin-top: 1.5rem;
+`;
+
+const Plant = styled.div`
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding-top: 0.15rem;
+`;
+
+const Body = styled.div`
+  display: grid;
+  gap: 0.7rem;
   min-width: 0;
 `;
 
-const Tags = styled.div`
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+const Stage = styled.div`
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: ${({ theme }) => theme.colors.emberInk};
+
+  span {
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.ink3};
+  }
 `;
 
 const Wisdom = styled.p`
   font-family: ${({ theme }) => theme.fonts.display};
+  font-style: italic;
   font-weight: 300;
-  font-variation-settings: 'SOFT' 70;
-  font-size: 1.35rem;
-  line-height: 1.3;
+  font-variation-settings: 'opsz' 72, 'SOFT' 100;
+  font-size: 1.25rem;
+  line-height: 1.32;
   color: ${({ theme }) => theme.colors.ink};
   text-wrap: pretty;
 `;
 
 const Meta = styled.div`
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: ${({ theme }) => theme.colors.ink2};
 
   strong {
     color: ${({ theme }) => theme.colors.ink};
-    font-weight: 700;
+    font-weight: 600;
   }
 `;
 
 const Note = styled.div`
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   line-height: 1.55;
   color: ${({ theme }) => theme.colors.ink2};
-  padding: 0.8rem 1rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.ember};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
-  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  padding: 0.75rem 0.95rem;
+  background: ${({ theme }) => theme.colors.surface2};
+  border-radius: var(--radius-s);
   white-space: pre-wrap;
 `;
 
 const Actions = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
+  gap: 0.4rem;
 
   > :last-child {
     margin-left: auto;
@@ -62,43 +87,56 @@ const Actions = styled.div`
 
 interface VideoCardProps {
   video: SavedVideo;
+  index?: number;
   onEdit: () => void;
   onDelete: () => void;
   onPlay: () => void;
   onShare: () => void;
 }
 
-const VideoCard = ({ video, onEdit, onDelete, onPlay, onShare }: VideoCardProps) => (
-  <Card layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} transition={spring}>
-    {video.categories?.length > 0 && (
-      <Tags>
-        {video.categories.map((category) => (
-          <Tag key={category}>{category}</Tag>
-        ))}
-      </Tags>
-    )}
-    <Wisdom>{video.wisdom}</Wisdom>
-    <Meta>
-      <strong>{video.thinker ?? video.title}</strong>
-      {video.thinker && <> · {video.title}</>}
-      {video.creatorChannel && <> · via {video.creatorChannel}</>}
-    </Meta>
-    {video.notes && <Note>{video.notes}</Note>}
-    <Actions>
-      <IconButton $tone="forest" onClick={onPlay} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
-        <Play />
-      </IconButton>
-      <IconButton onClick={onEdit} aria-label={video.notes ? 'Edit note' : 'Add a note'} whileTap={{ scale: 0.92 }}>
-        <Pencil />
-      </IconButton>
-      <IconButton onClick={onShare} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
-        <Share2 />
-      </IconButton>
-      <IconButton $tone="danger" onClick={onDelete} aria-label="Remove from the Garden" whileTap={{ scale: 0.92 }}>
-        <Trash2 />
-      </IconButton>
-    </Actions>
-  </Card>
-);
+const planted = (t: number) => new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+
+const VideoCard = ({ video, index = 0, onEdit, onDelete, onPlay, onShare }: VideoCardProps) => {
+  const stage = stageOf(video);
+  return (
+    <Card
+      id={`line-${video.id}`}
+      layout="position"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ ...spring, delay: Math.min(index, 8) * 0.05 }}
+    >
+      <Plant>
+        <GrowthMark stage={stage} />
+      </Plant>
+      <Body>
+        <Stage>
+          {STAGE_LABEL[stage]} <span>· planted {planted(video.savedAt)}{video.revisits ? ` · watched again ${video.revisits}×` : ''}</span>
+        </Stage>
+        <Wisdom>{video.wisdom}</Wisdom>
+        <Meta>
+          <strong>{video.thinker ?? video.title}</strong>
+          {video.thinker && <> · {video.title}</>}
+        </Meta>
+        {video.notes && <Note>{video.notes}</Note>}
+        <Actions>
+          <IconButton $tone="forest" $size={44} onClick={onPlay} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
+            <Play aria-hidden />
+          </IconButton>
+          <IconButton $size={44} onClick={onEdit} aria-label={video.notes ? 'Edit note' : 'Add a note'} whileTap={{ scale: 0.92 }}>
+            <Pencil aria-hidden />
+          </IconButton>
+          <IconButton $size={44} onClick={onShare} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
+            <Share2 aria-hidden />
+          </IconButton>
+          <IconButton $tone="danger" $size={44} onClick={onDelete} aria-label="Remove from the Garden" whileTap={{ scale: 0.92 }}>
+            <Trash2 aria-hidden />
+          </IconButton>
+        </Actions>
+      </Body>
+    </Card>
+  );
+};
 
 export default VideoCard;

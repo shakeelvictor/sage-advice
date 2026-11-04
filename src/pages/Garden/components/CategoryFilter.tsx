@@ -5,7 +5,6 @@ const Row = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
 `;
 
 interface CategoryFilterProps {

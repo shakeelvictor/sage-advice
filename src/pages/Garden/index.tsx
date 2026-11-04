@@ -1,87 +1,54 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { SavedVideo } from '../../types/video';
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal';
 import EditNotesModal from '../../components/EditNotesModal';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
 import WisdomCardModal from '../../components/WisdomCardModal';
-import { Eyebrow, PageHeader, PageTitle, PageIntro } from '../../components/ui';
+import { Eyebrow, Headline } from '../../components/ui';
 import EmptyState from './components/EmptyState';
 import VideoGrid from './components/VideoGrid';
-import VideoCard from './components/VideoCard';
 import CategoryFilter from './components/CategoryFilter';
-import GardenView from './components/GardenView';
 import Journal from './components/Journal';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { removeVideo, touchVideo, updateVideoNotes } from '../../store/lovedVideosSlice';
 import { logPractice } from '../../store/ritualSlice';
-import { STAGE_LABEL, stageOf } from '../../utils/garden';
-import { springSnappy } from '../../styles/motion';
-
-type View = 'garden' | 'lines' | 'journal';
-const VIEWS: { id: View; label: string }[] = [
-  { id: 'garden', label: 'Garden' },
-  { id: 'lines', label: 'Lines' },
-  { id: 'journal', label: 'Journal' },
-];
+import { stageOf } from '../../utils/garden';
 
 const Container = styled.div`
-  max-width: 1100px;
+  max-width: 980px;
   margin: 0 auto;
   display: grid;
   gap: 1.5rem;
-`;
 
-const Tabs = styled.div`
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  background: ${({ theme }) => theme.colors.surface};
-  width: max-content;
-`;
-
-const TabButton = styled.button<{ $active?: boolean }>`
-  position: relative;
-  min-height: 38px;
-  padding: 0 1.1rem;
-  border-radius: 999px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: ${({ $active, theme }) => ($active ? theme.colors.onAction : theme.colors.ink2)};
-  transition: color 0.25s ease;
-
-  .label {
-    position: relative;
-    z-index: 1;
+  > * {
+    min-width: 0;
   }
 `;
 
-const TabPill = styled(motion.span)`
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: ${({ theme }) => theme.colors.action};
-`;
-
-const Selected = styled(motion.div)`
+const Top = styled.header`
   display: grid;
   gap: 0.6rem;
-  max-width: 560px;
+  max-width: 680px;
+
+  p {
+    color: ${({ theme }) => theme.colors.ink2};
+    max-width: 52ch;
+  }
 `;
 
-const StageLine = styled.div`
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.ink3};
+const Section = styled.section`
+  display: grid;
+  gap: 1rem;
+  scroll-margin-top: 1.5rem;
 
-  b {
-    color: ${({ theme }) => theme.colors.emberInk};
-    font-weight: 700;
+  h2 {
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
   }
 `;
 
@@ -90,11 +57,9 @@ const Garden = () => {
   const savedVideos = useAppSelector((state) => state.lovedVideos.videos);
   const pathProgress = useAppSelector((state) => state.paths.progress);
   const weekNotes = useAppSelector((state) => state.ritual.weekNotes);
-  const [params, setParams] = useSearchParams();
-  const view = (VIEWS.some((v) => v.id === params.get('view')) ? params.get('view') : 'garden') as View;
-  const setView = (v: View) => setParams(v === 'garden' ? {} : { view: v }, { replace: true });
+  const { hash } = useLocation();
+  const [params] = useSearchParams();
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [playing, setPlaying] = useState<SavedVideo | null>(null);
   const [deleteModalVideo, setDeleteModalVideo] = useState<SavedVideo | null>(null);
   const [editModalVideo, setEditModalVideo] = useState<SavedVideo | null>(null);
@@ -103,8 +68,17 @@ const Garden = () => {
 
   const uniqueCategories = Array.from(new Set(savedVideos.flatMap((video) => video.categories)));
   const count = savedVideos.length;
-  const selected = useMemo(() => savedVideos.find((v) => v.id === selectedId) ?? null, [savedVideos, selectedId]);
   const blooms = savedVideos.filter((v) => stageOf(v) === 'bloom').length;
+  const noted = savedVideos.filter((v) => v.notes?.trim()).length;
+
+  // Deep links: #line-<id> from the journal, #journal, and the older ?view=journal|lines links.
+  useEffect(() => {
+    const legacy = params.get('view');
+    const target = hash ? hash.slice(1) : legacy === 'journal' ? 'journal' : legacy === 'lines' ? 'lines' : null;
+    if (!target) return;
+    const t = window.setTimeout(() => document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+    return () => window.clearTimeout(t);
+  }, [hash, params]);
 
   const closePlayer = useCallback(() => setPlaying(null), []);
   const endPlayer = useCallback(() => {
@@ -116,61 +90,45 @@ const Garden = () => {
   }, [dispatch, playing]);
 
   const intro =
-    count === 0
-      ? 'Love a line and it is planted here. Notes give it leaves; coming back to it brings the bloom.'
-      : blooms > 0
-        ? `${count} ${count === 1 ? 'line' : 'lines'} kept, ${blooms} in bloom. Everything you write about them lives in the journal.`
-        : `${count} ${count === 1 ? 'line' : 'lines'} kept. Add a note or watch one again and it grows.`;
+    blooms > 0
+      ? 'Everything you write about these lines gathers in the journal below.'
+      : noted > 0
+        ? 'Watch a noted line again and it comes into bloom.'
+        : 'A note gives a line leaves. Coming back to it brings the bloom.';
 
   return (
     <PageTransition>
       <Container>
-        <PageHeader style={{ marginBottom: 0 }}>
-          <Eyebrow>Kept</Eyebrow>
-          <PageTitle>Garden</PageTitle>
-          <PageIntro>{intro}</PageIntro>
-        </PageHeader>
+        <Top>
+          <Eyebrow>Garden</Eyebrow>
+          {count === 0 ? (
+            <Headline>
+              Your garden <span>is waiting.</span>
+            </Headline>
+          ) : (
+            <Headline>
+              {count} {count === 1 ? 'line' : 'lines'} kept, <span>{blooms > 0 ? `${blooms} in bloom.` : 'still growing.'}</span>
+            </Headline>
+          )}
+          {count > 0 && <p>{intro}</p>}
+        </Top>
 
         {count === 0 ? (
           <EmptyState />
         ) : (
           <>
-            <Tabs role="tablist" aria-label="Garden views">
-              {VIEWS.map((v) => (
-                <TabButton key={v.id} role="tab" aria-selected={view === v.id} $active={view === v.id} onClick={() => setView(v.id)}>
-                  {view === v.id && <TabPill layoutId="garden-tab" transition={springSnappy} />}
-                  <span className="label">{v.label}</span>
-                </TabButton>
-              ))}
-            </Tabs>
+            <Section id="lines" aria-labelledby="lines-heading">
+              <h2 id="lines-heading">Kept lines</h2>
+              {uniqueCategories.length > 1 && (
+                <CategoryFilter categories={uniqueCategories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+              )}
+              <VideoGrid videos={savedVideos} selectedCategory={selectedCategory} onEdit={setEditModalVideo} onDelete={setDeleteModalVideo} onPlay={setPlaying} onShare={setSharing} />
+            </Section>
 
-            {view === 'garden' && (
-              <>
-                <GardenView videos={savedVideos} selectedId={selectedId} onSelect={setSelectedId} />
-                <AnimatePresence mode="wait">
-                  {selected && (
-                    <Selected key={selected.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
-                      <StageLine>
-                        <b>{STAGE_LABEL[stageOf(selected)]}</b> · planted {new Date(selected.savedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
-                        {selected.revisits ? ` · watched again ${selected.revisits} ${selected.revisits === 1 ? 'time' : 'times'}` : ''}
-                      </StageLine>
-                      <VideoCard video={selected} onPlay={() => setPlaying(selected)} onEdit={() => setEditModalVideo(selected)} onDelete={() => setDeleteModalVideo(selected)} onShare={() => setSharing(selected)} />
-                    </Selected>
-                  )}
-                </AnimatePresence>
-              </>
-            )}
-
-            {view === 'lines' && (
-              <>
-                {uniqueCategories.length > 1 && (
-                  <CategoryFilter categories={uniqueCategories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-                )}
-                <VideoGrid videos={savedVideos} selectedCategory={selectedCategory} onEdit={setEditModalVideo} onDelete={setDeleteModalVideo} onPlay={setPlaying} onShare={setSharing} />
-              </>
-            )}
-
-            {view === 'journal' && <Journal videos={savedVideos} progress={pathProgress} weekNotes={weekNotes} />}
+            <Section id="journal" aria-labelledby="journal-heading">
+              <h2 id="journal-heading">Journal</h2>
+              <Journal videos={savedVideos} progress={pathProgress} weekNotes={weekNotes} />
+            </Section>
           </>
         )}
 
@@ -183,11 +141,7 @@ const Garden = () => {
         <DeleteConfirmationModal
           isOpen={deleteModalVideo !== null}
           onClose={() => setDeleteModalVideo(null)}
-          onConfirm={() => {
-            if (!deleteModalVideo) return;
-            dispatch(removeVideo(deleteModalVideo.id));
-            if (selectedId === deleteModalVideo.id) setSelectedId(null);
-          }}
+          onConfirm={() => deleteModalVideo && dispatch(removeVideo(deleteModalVideo.id))}
           title={deleteModalVideo?.title || ''}
         />
 
