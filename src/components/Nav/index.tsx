@@ -76,6 +76,7 @@ const BarPill = styled(motion.span)`
   inset: 0;
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.mint};
+  background-image: ${({ theme }) => theme.gradients.mint};
 `;
 
 /* ---------- Tablet and desktop: a labelled rail ---------- */
@@ -131,8 +132,9 @@ const RailItem = styled(NavLink)`
     stroke-width: 1.8;
   }
 
-  svg,
-  span {
+  /* Only the icon and label: a bare \`span\` rule would also catch the pill and un-position it. */
+  > svg,
+  > .label {
     position: relative;
     z-index: 1;
   }
@@ -152,6 +154,7 @@ const RailPill = styled(motion.span)`
   inset: 4px 6px;
   border-radius: var(--radius-m);
   background: ${({ theme }) => theme.colors.mint};
+  background-image: ${({ theme }) => theme.gradients.mint};
 `;
 
 const MarkLink = styled(NavLink)`
@@ -205,7 +208,7 @@ const Nav = () => {
               <RailItem to={to} end={to === '/'}>
                 {isActive(pathname, to) && <RailPill layoutId="rail-pill" transition={springSnappy} />}
                 <Icon aria-hidden />
-                <span>{label}</span>
+                <span className="label">{label}</span>
               </RailItem>
             </li>
           ))}
