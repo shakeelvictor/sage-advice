@@ -3,15 +3,50 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
-import { Eyebrow, PageHeader, PageTitle, PageIntro, Surface } from '../../components/ui';
+import { Eyebrow, ForestCard } from '../../components/ui';
 import { voicesByTradition, thinkerSlug } from '../../data/thinkers';
+import { videos } from '../../data/videos';
 import { spring } from '../../styles/motion';
 
 const Container = styled.div`
-  max-width: 1100px;
+  max-width: 980px;
   margin: 0 auto;
   display: grid;
-  gap: 2.5rem;
+  gap: 2.25rem;
+
+  > * {
+    min-width: 0;
+  }
+`;
+
+/* The page's one forest block: who is in the library, at a glance. */
+const Summary = styled(ForestCard)`
+  display: grid;
+  gap: 0.6rem;
+
+  small {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.mint};
+  }
+
+  h1 {
+    font-size: clamp(1.7rem, 6.5vw, 2.3rem);
+    letter-spacing: -0.035em;
+    color: ${({ theme }) => theme.colors.onForest};
+  }
+
+  h1 span {
+    font-weight: 400;
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 72%, transparent);
+  }
+
+  p {
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 78%, transparent);
+    max-width: 56ch;
+  }
 `;
 
 const Group = styled.section`
@@ -25,7 +60,7 @@ const GroupHead = styled.div`
   max-width: 62ch;
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 
   p {
@@ -39,8 +74,9 @@ const AllLink = styled(Link)`
   align-items: center;
   gap: 0.3rem;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-top: 0.2rem;
+  justify-self: start;
 
   svg {
     width: 15px;
@@ -55,19 +91,23 @@ const Grid = styled(motion.div)`
   gap: 0.9rem;
 `;
 
-const Card = styled(motion(Surface))`
+/* Cards are links, so their surface styles live here rather than on a wrapped Surface. */
+const Card = styled(motion(Link))`
   display: grid;
   gap: 0.4rem;
   padding: 1.1rem 1.2rem;
   color: inherit;
   min-width: 0;
-  transition: border-color 0.25s ease, transform 0.3s var(--ease-out);
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: var(--radius-l);
+  box-shadow: ${({ theme }) => theme.shadows.card};
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease;
 
   h3 {
-    font-family: ${({ theme }) => theme.fonts.display};
-    font-weight: 400;
-    font-size: 1.3rem;
-    line-height: 1.15;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
 
   small {
@@ -85,17 +125,17 @@ const Card = styled(motion(Surface))`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.sage};
     transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.float};
   }
 `;
 
 const Count = styled.span`
   font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.sage};
+  color: ${({ theme }) => theme.colors.emberInk};
 `;
 
 const list = { show: { transition: { staggerChildren: 0.04 } } };
@@ -103,15 +143,18 @@ const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transiti
 
 const Thinkers = () => {
   const groups = voicesByTradition();
+  const voiceCount = groups.reduce((n, g) => n + g.thinkers.length, 0);
 
   return (
     <PageTransition>
       <Container>
-        <PageHeader style={{ marginBottom: 0 }}>
-          <Eyebrow>Voices</Eyebrow>
-          <PageTitle>Thinkers</PageTitle>
-          <PageIntro>Who is speaking, and from which tradition. Every short is credited to the person whose idea it carries, when that is clear.</PageIntro>
-        </PageHeader>
+        <Summary aria-labelledby="thinkers-heading" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
+          <small>Thinkers</small>
+          <h1 id="thinkers-heading">
+            {voiceCount} voices, <span>{groups.length} traditions.</span>
+          </h1>
+          <p>Who is speaking across {videos.length} shorts, and from which tradition. Every short is credited to the person whose idea it carries, when that is clear.</p>
+        </Summary>
 
         {groups.map(({ tradition, thinkers, unattributed }) => (
           <Group key={tradition.id}>
@@ -126,7 +169,7 @@ const Thinkers = () => {
             {thinkers.length > 0 && (
               <Grid initial="hidden" animate="show" variants={list}>
                 {thinkers.map((t) => (
-                  <Card key={t.name} as={Link} to={`/thinkers/${thinkerSlug(t.name)}`} variants={item}>
+                  <Card key={t.name} to={`/thinkers/${thinkerSlug(t.name)}`} variants={item}>
                     <Count>
                       {t.count} {t.count === 1 ? 'short' : 'shorts'}
                     </Count>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
-import { Eyebrow, Button, TextButton, Surface } from '../../components/ui';
+import { Eyebrow, Headline, Button, MintButton, TextButton, Surface, ForestCard } from '../../components/ui';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { saveWeekNote } from '../../store/ritualSlice';
@@ -12,10 +12,14 @@ import { questionForWeek, summarizeWeek, weekHeadline, weekKey } from '../../uti
 import { spring, springSoft } from '../../styles/motion';
 
 const Container = styled.div`
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
   display: grid;
-  gap: 2.25rem;
+  gap: 1.75rem;
+
+  > * {
+    min-width: 0;
+  }
 `;
 
 const Back = styled(Link)`
@@ -23,8 +27,9 @@ const Back = styled(Link)`
   align-items: center;
   gap: 0.4rem;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.ink2};
+  justify-self: start;
 
   svg {
     width: 16px;
@@ -39,13 +44,6 @@ const Back = styled(Link)`
 const Head = styled.header`
   display: grid;
   gap: 0.7rem;
-
-  h1 {
-    font-size: clamp(2rem, 5.2vw, 3.1rem);
-    font-weight: 300;
-    font-variation-settings: 'SOFT' 80;
-    max-width: 18ch;
-  }
 
   p {
     color: ${({ theme }) => theme.colors.ink2};
@@ -64,28 +62,30 @@ const Count = styled(motion.div)`
   gap: 0.2rem;
   padding: 1rem 1.1rem;
   border-radius: var(--radius-m);
-  border: 1px solid ${({ theme }) => theme.colors.line};
   background: ${({ theme }) => theme.colors.surface};
+  box-shadow: ${({ theme }) => theme.shadows.card};
 
   dt {
     font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.ink3};
   }
 
   dd {
-    font-family: ${({ theme }) => theme.fonts.display};
     font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
     line-height: 1;
     color: ${({ theme }) => theme.colors.ink};
     font-variant-numeric: tabular-nums;
   }
 
   dd small {
-    font-family: ${({ theme }) => theme.fonts.primary};
     font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0;
     color: ${({ theme }) => theme.colors.ink2};
     margin-left: 0.35rem;
   }
@@ -96,7 +96,7 @@ const Section = styled.section`
   gap: 0.8rem;
 
   h2 {
-    font-size: 1.4rem;
+    font-size: 1.15rem;
   }
 `;
 
@@ -107,15 +107,16 @@ const Kept = styled.ul`
 `;
 
 const KeptLine = styled.li`
-  padding: 0.9rem 1.1rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.ember};
-  background: color-mix(in srgb, ${({ theme }) => theme.colors.ember} 8%, transparent);
-  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  padding: 1rem 1.15rem;
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: var(--radius-m);
+  box-shadow: ${({ theme }) => theme.shadows.card};
 
   p {
     font-family: ${({ theme }) => theme.fonts.display};
+    font-style: italic;
     font-weight: 300;
-    font-variation-settings: 'SOFT' 70;
+    font-variation-settings: 'opsz' 72, 'SOFT' 100;
     font-size: 1.15rem;
     line-height: 1.3;
     color: ${({ theme }) => theme.colors.ink};
@@ -129,37 +130,45 @@ const KeptLine = styled.li`
   }
 `;
 
-const Ask = styled(motion(Surface))`
+/* The page's one forest block: the week's single question. */
+const Ask = styled(ForestCard)`
   display: grid;
   gap: 0.9rem;
-  padding: 1.5rem;
+
+  small {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.ember};
+  }
 
   h2 {
-    font-weight: 300;
-    font-variation-settings: 'SOFT' 80;
-    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+    letter-spacing: -0.025em;
     line-height: 1.3;
+    color: ${({ theme }) => theme.colors.onForest};
   }
 
   textarea {
     width: 100%;
     min-height: 120px;
     padding: 0.9rem 1rem;
+    border: none;
     border-radius: var(--radius-m);
-    border: 1px solid ${({ theme }) => theme.colors.line};
-    background: ${({ theme }) => theme.colors.ground};
-    color: ${({ theme }) => theme.colors.ink};
+    background: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 9%, transparent);
+    color: ${({ theme }) => theme.colors.onForest};
     line-height: 1.6;
     resize: vertical;
   }
 
   textarea::placeholder {
-    color: ${({ theme }) => theme.colors.ink3};
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 70%, transparent);
   }
 
-  textarea:focus {
-    outline: none;
-    border-color: ${({ theme }) => theme.colors.sage};
+  textarea:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.mint};
+    outline-offset: 2px;
   }
 `;
 
@@ -172,7 +181,7 @@ const Row = styled.div`
 
 const Saved = styled.span`
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.sage};
+  color: ${({ theme }) => theme.colors.mint};
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
@@ -230,7 +239,9 @@ const Week = () => {
 
         <Head>
           <Eyebrow>The past seven days · {rangeLabel(summary.start, summary.end)}</Eyebrow>
-          <h1>{weekHeadline(summary)}</h1>
+          <Headline>
+            Your week. <span>{weekHeadline(summary)}</span>
+          </Headline>
           <p>
             {summary.empty
               ? 'Nothing was counted this week, and nothing is owed. The lines are here when you want them.'
@@ -303,19 +314,20 @@ const Week = () => {
           </Section>
         )}
 
-        <Ask initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: 0.3 }}>
-          <Eyebrow>A question to end the week</Eyebrow>
-          <h2>{question}</h2>
+        <Ask aria-labelledby="week-question" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: 0.3 }}>
+          <small>A question to end the week</small>
+          <h2 id="week-question">{question}</h2>
           <textarea
             id="week-note"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             placeholder="Answer in a line or a page. It joins your journal."
+            aria-labelledby="week-question"
           />
           <Row>
-            <Button onClick={save} disabled={draft.trim() === existing.trim() && !savedAt} whileTap={{ scale: 0.97 }}>
+            <MintButton onClick={save} disabled={draft.trim() === existing.trim() && !savedAt} whileTap={{ scale: 0.97 }}>
               {existing ? 'Update answer' : 'Keep this answer'}
-            </Button>
+            </MintButton>
             {(savedAt || existing) && (
               <Saved>
                 <Check /> {savedAt ? 'Kept in your journal' : 'Answered earlier this week'}

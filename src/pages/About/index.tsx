@@ -4,33 +4,51 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sun, Moon, Monitor } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import Logo from '../../components/Logo';
-import { Eyebrow, Button, Chip, Surface } from '../../components/ui';
+import { MintButton, Chip, Surface, ForestCard } from '../../components/ui';
 import { useTheme, themeLabel } from '../../context/theme';
 import { springSoft } from '../../styles/motion';
 
 const Container = styled.div`
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
   display: grid;
-  gap: 2.5rem;
-  padding-block: 1rem 2rem;
+  gap: 1.75rem;
+  padding-block: 0.25rem 1rem;
+
+  > * {
+    min-width: 0;
+  }
 `;
 
-const Hero = styled.div`
+/* The page's one forest block: what Sage Advice is for, and the way in. */
+const Hero = styled(ForestCard)`
   display: grid;
   justify-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   text-align: center;
+  padding-block: 2rem;
+  color: ${({ theme }) => theme.colors.onForest};
+
+  small {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.mint};
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    letter-spacing: -0.035em;
+    color: ${({ theme }) => theme.colors.onForest};
+  }
 `;
 
 const Tagline = styled.p`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-weight: 300;
-  font-variation-settings: 'SOFT' 80;
-  font-size: clamp(1.4rem, 3.6vw, 1.9rem);
-  line-height: 1.3;
-  color: ${({ theme }) => theme.colors.ink2};
-  max-width: 28ch;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 82%, transparent);
+  max-width: 30ch;
   text-wrap: balance;
 `;
 
@@ -53,8 +71,10 @@ const Paragraph = styled(motion.p)`
 const Principles = styled.dl`
   display: grid;
   gap: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
+  padding: 1.25rem;
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: var(--radius-l);
+  box-shadow: ${({ theme }) => theme.shadows.card};
 
   div {
     display: grid;
@@ -64,9 +84,22 @@ const Principles = styled.dl`
   }
 
   dt {
-    font-family: ${({ theme }) => theme.fonts.display};
-    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
     color: ${({ theme }) => theme.colors.ink};
+  }
+
+  dt::before {
+    content: '';
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.ember};
   }
 
   dd {
@@ -110,10 +143,9 @@ const THEMES = [
   { id: 'system', Icon: Monitor },
 ] as const;
 
-const Cta = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 0.5rem;
+/* The mark in mint on the forest block. */
+const LogoOnForest = styled(Logo)`
+  color: ${({ theme }) => theme.colors.mint};
 `;
 
 const About = () => {
@@ -123,11 +155,14 @@ const About = () => {
   return (
     <PageTransition>
       <Container>
-        <Hero>
-          <Logo size="medium" showText={false} />
-          <Eyebrow>Sage Advice</Eyebrow>
-          <h1>Where to go for wisdom</h1>
+        <Hero aria-labelledby="about-heading" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={springSoft}>
+          <LogoOnForest size="medium" showText={false} />
+          <small>Sage Advice</small>
+          <h1 id="about-heading">Where to go for wisdom</h1>
           <Tagline>One line a day, a short worth watching, and a place to be still.</Tagline>
+          <MintButton onClick={() => navigate('/')} whileTap={{ scale: 0.97 }}>
+            Begin <ArrowRight aria-hidden />
+          </MintButton>
         </Hero>
 
         <Body>
@@ -165,11 +200,6 @@ const About = () => {
           </ChipRow>
         </Settings>
 
-        <Cta>
-          <Button onClick={() => navigate('/')} whileTap={{ scale: 0.97 }}>
-            Begin <ArrowRight />
-          </Button>
-        </Cta>
       </Container>
     </PageTransition>
   );

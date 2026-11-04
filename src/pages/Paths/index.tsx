@@ -72,6 +72,14 @@ const Dots = styled.div`
   gap: 6px;
   align-items: center;
   flex-wrap: wrap;
+
+  small {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: ${({ theme }) => theme.colors.emberInk};
+  }
 `;
 
 /* Walked = the action color. Current = mint with a sage ring, since a mint ring alone is 1.2:1 on white. */
@@ -190,6 +198,9 @@ const Paths = () => {
                     {path.steps.map((_, i) => (
                       <Dot key={i} $state={walked.includes(i) ? 'done' : !finished && i === current ? 'current' : 'later'} />
                     ))}
+                    <small>
+                      {walked.length} of {path.steps.length}
+                    </small>
                   </Dots>
                   <Pill $finished={finished} aria-hidden>
                     {finished && <Check />}

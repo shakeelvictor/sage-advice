@@ -23,8 +23,9 @@ const Tags = styled.div`
 
 const Wisdom = styled.p`
   font-family: ${({ theme }) => theme.fonts.display};
+  font-style: italic;
   font-weight: 300;
-  font-variation-settings: 'SOFT' 70;
+  font-variation-settings: 'opsz' 72, 'SOFT' 100;
   font-size: 1.25rem;
   line-height: 1.32;
   color: ${({ theme }) => theme.colors.ink};
@@ -37,7 +38,7 @@ const Meta = styled.div`
 
   strong {
     color: ${({ theme }) => theme.colors.ink};
-    font-weight: 700;
+    font-weight: 600;
   }
 `;
 
@@ -81,15 +82,23 @@ const ShortCard = ({ video, onPlay, onShare, hideThinker }: ShortCardProps) => {
         {video.creatorChannel && <> · via {video.creatorChannel}</>}
       </Meta>
       <Actions>
-        <IconButton $tone="forest" onClick={() => onPlay(video)} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
-          <Play />
+        <IconButton $tone="forest" $size={44} onClick={() => onPlay(video)} aria-label={`Watch ${video.title}`} whileTap={{ scale: 0.92 }}>
+          <Play aria-hidden />
         </IconButton>
-        <IconButton $tone={isSaved ? 'ember' : 'ghost'} onClick={toggleLove} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.92 }}>
-          <Heart fill={isSaved ? 'currentColor' : 'none'} />
+        <IconButton
+          $tone={isSaved ? 'ember' : 'ghost'}
+          $size={44}
+          onClick={toggleLove}
+          aria-label={isSaved ? 'Remove from your garden' : 'Keep this line'}
+          aria-pressed={isSaved}
+          whileTap={{ scale: 0.92 }}
+          style={isSaved ? undefined : { color: 'var(--ember-ink)' }}
+        >
+          <Heart fill={isSaved ? 'currentColor' : 'none'} aria-hidden />
         </IconButton>
         {onShare && (
-          <IconButton onClick={() => onShare(video)} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
-            <Share2 />
+          <IconButton $size={44} onClick={() => onShare(video)} aria-label="Share as a card" whileTap={{ scale: 0.92 }}>
+            <Share2 aria-hidden />
           </IconButton>
         )}
       </Actions>

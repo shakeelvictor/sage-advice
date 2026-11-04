@@ -7,17 +7,21 @@ import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
 import ShortCard from '../../components/ShortCard';
 import WisdomCardModal from '../../components/WisdomCardModal';
-import { Eyebrow } from '../../components/ui';
+import { ForestCard } from '../../components/ui';
 import { Video } from '../../data/videos';
 import { Tradition, TRADITIONS, thinkerBySlug, traditionMeta, videosByThinker, videosByTradition } from '../../data/thinkers';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { logPractice } from '../../store/ritualSlice';
 
 const Container = styled.div`
-  max-width: 1000px;
+  max-width: 980px;
   margin: 0 auto;
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
+
+  > * {
+    min-width: 0;
+  }
 `;
 
 const Back = styled(Link)`
@@ -25,8 +29,9 @@ const Back = styled(Link)`
   align-items: center;
   gap: 0.4rem;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.ink2};
+  justify-self: start;
 
   svg {
     width: 16px;
@@ -38,36 +43,53 @@ const Back = styled(Link)`
   }
 `;
 
-const Head = styled.header`
+/* The page's one forest block: who this is, or what the tradition holds. */
+const Head = styled(ForestCard)`
   display: grid;
   gap: 0.6rem;
-  max-width: 64ch;
+
+  .eyebrow {
+    justify-self: start;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.mint};
+  }
+
+  a.eyebrow:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 
   h1 {
-    font-size: clamp(2.1rem, 5vw, 3rem);
-    font-variation-settings: 'SOFT' 60;
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+    letter-spacing: -0.035em;
+    color: ${({ theme }) => theme.colors.onForest};
   }
 
   small {
     font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.ink3};
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 72%, transparent);
   }
 
   p {
-    color: ${({ theme }) => theme.colors.ink2};
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 84%, transparent);
     font-size: 1.02rem;
+    max-width: 62ch;
   }
-`;
 
-const TraditionLink = styled(Link)`
-  font-size: 0.85rem;
-  font-weight: 700;
+  .count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.ember};
+  }
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 1.1rem;
+  gap: 1rem;
   align-items: start;
 `;
 
@@ -110,11 +132,18 @@ export const ThinkerPage = () => {
         <Back to="/thinkers">
           <ArrowLeft /> All thinkers
         </Back>
-        <Head>
-          {tradition && <Eyebrow as={TraditionLink} to={`/traditions/${tradition.id}`}>{tradition.label}</Eyebrow>}
+        <Head as="header">
+          {tradition && (
+            <Link className="eyebrow" to={`/traditions/${tradition.id}`}>
+              {tradition.label}
+            </Link>
+          )}
           <h1>{thinker.name}</h1>
           {thinker.dates && <small>{thinker.dates}</small>}
-          {thinker.bio ? <p>{thinker.bio}</p> : <p>Featured in {shorts.length} {shorts.length === 1 ? 'short' : 'shorts'} in the library.</p>}
+          {thinker.bio && <p>{thinker.bio}</p>}
+          <span className="count">
+            {shorts.length} {shorts.length === 1 ? 'short' : 'shorts'} in the library
+          </span>
         </Head>
         {shorts.length === 0 ? (
           <Empty>No shorts from this voice yet.</Empty>
@@ -145,10 +174,13 @@ export const TraditionPage = () => {
         <Back to="/thinkers">
           <ArrowLeft /> All thinkers
         </Back>
-        <Head>
-          <Eyebrow>Tradition</Eyebrow>
+        <Head as="header">
+          <span className="eyebrow">Tradition</span>
           <h1>{meta.label}</h1>
           <p>{meta.blurb}</p>
+          <span className="count">
+            {shorts.length} {shorts.length === 1 ? 'short' : 'shorts'} in the library
+          </span>
         </Head>
         {shorts.length === 0 ? (
           <Empty>Nothing from this tradition in the library yet.</Empty>
