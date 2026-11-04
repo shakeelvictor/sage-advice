@@ -17,6 +17,7 @@ import { useSessionStorage } from '../../hooks/useSessionStorage';
 import { addVideo, removeVideo } from '../../store/lovedVideosSlice';
 import { logPractice, setToday } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
+import { warmGround } from '../../utils/ground';
 
 type Stage = 'line' | 'watch' | 'after';
 
@@ -374,6 +375,7 @@ const Home = () => {
     }
     dispatch(addVideo({ ...video, notes: '', savedAt: Date.now() }));
     setRipple((n) => n + 1);
+    warmGround();
   }, [dispatch, isSaved, video]);
 
   const watch = () => {

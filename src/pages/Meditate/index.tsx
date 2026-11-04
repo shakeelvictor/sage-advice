@@ -9,6 +9,7 @@ import { useWakeLock } from '../../hooks/useWakeLock';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { logPractice } from '../../store/ritualSlice';
 import { PATTERNS, PHASE_LABEL, PatternId, breathAt } from '../../utils/breathing';
+import { warmGround } from '../../utils/ground';
 
 const Container = styled.div`
   max-width: 640px;
@@ -281,6 +282,7 @@ const Meditate = () => {
     if (finished && finishedRef.current) {
       finishedRef.current = false;
       dispatch(logPractice({ kind: 'sit', at: Date.now(), minutes: duration, pattern: patternId }));
+      warmGround();
     }
   }, [finished, dispatch, duration, patternId]);
 

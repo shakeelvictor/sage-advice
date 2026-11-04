@@ -10,6 +10,8 @@ import { createGlobalStyle } from 'styled-components';
  * Three values differ from the brief because the brief's values did not clear it:
  * light --ink-3 (#6B7F70 was 4.0:1 on ground), light --ember-ink (#9A6A2C was 4.4:1),
  * dark --ink-3 (#7E9486 was 3.8:1 on surface-2). --on-mint exists because dark --ink on --mint is 1.7:1.
+ * Light --ink-3 and --ember-ink are darker again so text keeps 4.5:1 where the living ground's
+ * mint blobs peak (see components/LivingGround).
  */
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -40,10 +42,10 @@ export const GlobalStyles = createGlobalStyle`
     --on-action: var(--on-forest);
     --ink: #1E3A34;
     --ink-2: #4F6B5A;
-    --ink-3: #5F7366;
+    --ink-3: #526659;
     --sage: #4F6B5A;
     --ember: #D9A05B;
-    --ember-ink: #8F6226;
+    --ember-ink: #875C23;
     --line: rgba(30, 58, 52, 0.10);
     --shadow-card: 0 10px 26px rgba(30, 58, 52, 0.08);
     --shadow-float: 0 12px 30px rgba(30, 58, 52, 0.14);
@@ -109,13 +111,13 @@ export const GlobalStyles = createGlobalStyle`
     font-family: var(--font-primary);
     font-weight: 400;
     color: var(--ink);
-    background: var(--ground);
+    /* No body background: the living ground (a fixed layer at z-index -1) shows through. html holds the ground colour. */
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: color 0.4s ease, background-color 0.4s ease;
+    transition: color 0.4s ease;
   }
 
   #root {

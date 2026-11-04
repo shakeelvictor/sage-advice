@@ -6,6 +6,7 @@ import PageTransition from '../../components/PageTransition';
 import Logo from '../../components/Logo';
 import { MintButton, Chip, Surface, ForestCard } from '../../components/ui';
 import { useTheme, themeLabel } from '../../context/theme';
+import { useCalmBackground } from '../../utils/ground';
 import { springSoft } from '../../styles/motion';
 
 const Container = styled.div`
@@ -151,6 +152,7 @@ const LogoOnForest = styled(Logo)`
 const About = () => {
   const navigate = useNavigate();
   const { theme, setTheme } = useTheme();
+  const [calm, setCalm] = useCalmBackground();
 
   return (
     <PageTransition>
@@ -198,6 +200,16 @@ const About = () => {
               </Chip>
             ))}
           </ChipRow>
+          <h2 id="calm-heading">Calm background</h2>
+          <ChipRow role="group" aria-labelledby="calm-heading">
+            <Chip $active={calm} aria-pressed={calm} onClick={() => setCalm(true)}>
+              On
+            </Chip>
+            <Chip $active={!calm} aria-pressed={!calm} onClick={() => setCalm(false)}>
+              Off
+            </Chip>
+          </ChipRow>
+          <p>A slow drift of colour behind every screen. Off, or with reduced motion set on your device, it stays still.</p>
         </Settings>
 
       </Container>

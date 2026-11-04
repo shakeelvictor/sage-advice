@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Nav from '../Nav';
+import LivingGround from '../LivingGround';
 
 const Shell = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <Shell>
+      <LivingGround />
       <Nav />
       <Main>
         <AnimatePresence mode="wait">

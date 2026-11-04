@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { addVideo, removeVideo } from '../../store/lovedVideosSlice';
 import { spring } from '../../styles/motion';
+import { warmGround } from '../../utils/ground';
 
 const Card = styled(motion(Surface))`
   display: grid;
@@ -63,7 +64,10 @@ const ShortCard = ({ video, onPlay, onShare, hideThinker }: ShortCardProps) => {
 
   const toggleLove = () => {
     if (isSaved) dispatch(removeVideo(video.id));
-    else dispatch(addVideo({ ...video, notes: '', savedAt: Date.now() }));
+    else {
+      dispatch(addVideo({ ...video, notes: '', savedAt: Date.now() }));
+      warmGround();
+    }
   };
 
   return (
