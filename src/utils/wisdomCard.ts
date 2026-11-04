@@ -5,13 +5,14 @@ export type CardTheme = 'dark' | 'light';
 const W = 1080;
 const H = 1350;
 
-const PALETTE: Record<CardTheme, { ground: string; ink: string; ink2: string; ink3: string; sage: string; amber: string; glow: string }> = {
-  dark: { ground: '#0F1A17', ink: '#EDE7DA', ink2: '#A8B3A6', ink3: '#6F7E74', sage: '#8FA98F', amber: '#D4A373', glow: 'rgba(233,184,114,0.34)' },
-  light: { ground: '#EEF1EA', ink: '#1C2622', ink2: '#5B6B61', ink3: '#8B9890', sage: '#4F6B5A', amber: '#B8853F', glow: 'rgba(212,163,115,0.42)' },
+/** Clearing palettes: "dark" is the forest surface, "light" the morning ground. Ember marks the card. */
+const PALETTE: Record<CardTheme, { ground: string; ink: string; ink2: string; ink3: string; label: string; ember: string; glow: string }> = {
+  dark: { ground: '#1E3A34', ink: '#F6F8EF', ink2: 'rgba(246,248,239,0.78)', ink3: 'rgba(246,248,239,0.62)', label: '#CDE9D3', ember: '#D9A05B', glow: 'rgba(205,233,211,0.16)' },
+  light: { ground: '#F6F8EF', ink: '#1E3A34', ink2: '#4F6B5A', ink3: '#5F7366', label: '#4F6B5A', ember: '#D9A05B', glow: 'rgba(205,233,211,0.75)' },
 };
 
 const DISPLAY = "'Fraunces', Georgia, 'Times New Roman', serif";
-const UI = "'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif";
+const UI = "'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif";
 
 const wrap = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number) => {
   const words = text.split(/\s+/);
@@ -53,11 +54,11 @@ const drawMark = (ctx: CanvasRenderingContext2D, cx: number, cy: number, size: n
   ctx.restore();
 };
 
-/** Render a kept line as a 1080×1350 image in the Lamplight style. Resolves to a PNG blob. */
+/** Render a kept line as a 1080×1350 image in the Clearing style. Resolves to a PNG blob. */
 export const renderWisdomCard = async (video: Video, theme: CardTheme = 'dark'): Promise<Blob> => {
   await Promise.all([
-    document.fonts.load(`300 72px ${DISPLAY}`),
-    document.fonts.load(`700 28px ${UI}`),
+    document.fonts.load(`italic 300 72px ${DISPLAY}`),
+    document.fonts.load(`600 28px ${UI}`),
     document.fonts.load(`500 28px ${UI}`),
   ]).catch(() => undefined);
 
@@ -68,22 +69,22 @@ export const renderWisdomCard = async (video: Video, theme: CardTheme = 'dark'):
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Canvas is not available');
 
-  // Ground and lamp.
+  // Ground and one soft mint clearing.
   ctx.fillStyle = p.ground;
   ctx.fillRect(0, 0, W, H);
-  const glow = ctx.createRadialGradient(W / 2, -120, 40, W / 2, -120, 980);
+  const glow = ctx.createRadialGradient(W * 0.3, H * 0.2, 40, W * 0.3, H * 0.2, 900);
   glow.addColorStop(0, p.glow);
   glow.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
 
-  drawMark(ctx, W / 2, 150, 64, p.amber);
+  drawMark(ctx, W / 2, 150, 64, p.ember);
 
   // Eyebrow.
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
-  ctx.fillStyle = p.sage;
-  ctx.font = `700 24px ${UI}`;
+  ctx.fillStyle = p.label;
+  ctx.font = `600 24px ${UI}`;
   if ('letterSpacing' in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = '5px';
   ctx.fillText('A LINE TO SIT WITH', W / 2, 262);
   if ('letterSpacing' in ctx) (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = '0px';
@@ -93,7 +94,7 @@ export const renderWisdomCard = async (video: Video, theme: CardTheme = 'dark'):
   let size = 76;
   let lines: string[] = [];
   for (; size >= 44; size -= 4) {
-    ctx.font = `300 ${size}px ${DISPLAY}`;
+    ctx.font = `italic 300 ${size}px ${DISPLAY}`;
     lines = wrap(ctx, video.wisdom, maxWidth);
     if (lines.length * size * 1.22 <= 620) break;
   }
@@ -101,7 +102,7 @@ export const renderWisdomCard = async (video: Video, theme: CardTheme = 'dark'):
   const blockHeight = lines.length * lineHeight;
   const top = 330 + (660 - blockHeight) / 2;
   ctx.fillStyle = p.ink;
-  ctx.font = `300 ${size}px ${DISPLAY}`;
+  ctx.font = `italic 300 ${size}px ${DISPLAY}`;
   lines.forEach((l, i) => ctx.fillText(l, W / 2, top + lineHeight * (i + 0.8)));
 
   // Attribution.
@@ -109,7 +110,7 @@ export const renderWisdomCard = async (video: Video, theme: CardTheme = 'dark'):
   const rest = [video.thinker ? video.title : null, video.creatorChannel ? `via ${video.creatorChannel}` : null].filter(Boolean).join(' · ');
   let y = top + blockHeight + 70;
   ctx.fillStyle = p.ink;
-  ctx.font = `700 30px ${UI}`;
+  ctx.font = `600 30px ${UI}`;
   ctx.fillText(who, W / 2, y);
   if (rest) {
     y += 44;

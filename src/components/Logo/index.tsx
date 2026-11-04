@@ -29,8 +29,8 @@ const Svg = styled(motion.svg)<{ $size: 'small' | 'medium' | 'large' }>`
 `;
 
 const Text = styled(motion.div)<{ $size: 'small' | 'medium' | 'large' }>`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-variation-settings: 'SOFT' 60;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   font-size: ${({ $size }) => ($size === 'small' ? '1.25rem' : $size === 'medium' ? '1.75rem' : '3rem')};
   line-height: 1.1;
   color: ${({ theme }) => theme.colors.ink};
