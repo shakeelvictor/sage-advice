@@ -77,11 +77,11 @@ const buttonBase = css`
   }
 `;
 
-/** The primary action: a forest pill. */
+/** The primary action: a forest pill (mint in dark). */
 export const Button = styled(motion.button)`
   ${buttonBase}
-  background: ${({ theme }) => theme.colors.forest};
-  color: ${({ theme }) => theme.colors.onForest};
+  background: ${({ theme }) => theme.colors.action};
+  color: ${({ theme }) => theme.colors.onAction};
   box-shadow: ${({ theme }) => theme.shadows.float};
 
   &:hover:not(:disabled) {
@@ -145,8 +145,8 @@ export const IconButton = styled(motion.button)<{ $tone?: IconTone; $size?: numb
     switch ($tone) {
       case 'forest':
         return css`
-          background: ${theme.colors.forest};
-          color: ${theme.colors.onForest};
+          background: ${theme.colors.action};
+          color: ${theme.colors.onAction};
           box-shadow: ${theme.shadows.float};
         `;
       case 'ember':

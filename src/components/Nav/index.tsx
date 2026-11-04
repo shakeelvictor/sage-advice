@@ -159,7 +159,7 @@ const MarkLink = styled(NavLink)`
   place-items: center;
   width: 48px;
   height: 48px;
-  color: ${({ theme }) => theme.colors.forest};
+  color: ${({ theme }) => theme.colors.action};
 `;
 
 const ThemeButton = styled.button`

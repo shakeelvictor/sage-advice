@@ -1,12 +1,14 @@
 export const theme = {
   colors: {
-    /** Legacy alias: the primary action color, now forest. */
-    primary: 'var(--forest)',
+    /** Legacy alias for the primary action color. */
+    primary: 'var(--action)',
     ground: 'var(--ground)',
     surface: 'var(--surface)',
     surface2: 'var(--surface-2)',
     forest: 'var(--forest)',
     onForest: 'var(--on-forest)',
+    action: 'var(--action)',
+    onAction: 'var(--on-action)',
     mint: 'var(--mint)',
     onMint: 'var(--on-mint)',
     ink: 'var(--ink)',

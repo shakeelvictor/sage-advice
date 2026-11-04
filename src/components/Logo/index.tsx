@@ -20,7 +20,7 @@ const Container = styled(motion.div)<{ $size: 'small' | 'medium' | 'large' }>`
   flex-direction: column;
   align-items: center;
   gap: ${({ $size }) => ($size === 'small' ? '0.75rem' : $size === 'medium' ? '1rem' : '1.5rem')};
-  color: ${({ theme }) => theme.colors.forest};
+  color: ${({ theme }) => theme.colors.action};
 `;
 
 const Svg = styled(motion.svg)<{ $size: 'small' | 'medium' | 'large' }>`

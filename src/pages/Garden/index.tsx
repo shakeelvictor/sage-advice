@@ -53,7 +53,7 @@ const TabButton = styled.button<{ $active?: boolean }>`
   border-radius: 999px;
   font-size: 0.88rem;
   font-weight: 700;
-  color: ${({ $active, theme }) => ($active ? theme.colors.onForest : theme.colors.ink2)};
+  color: ${({ $active, theme }) => ($active ? theme.colors.onAction : theme.colors.ink2)};
   transition: color 0.25s ease;
 
   .label {
@@ -66,7 +66,7 @@ const TabPill = styled(motion.span)`
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: ${({ theme }) => theme.colors.forest};
+  background: ${({ theme }) => theme.colors.action};
 `;
 
 const Selected = styled(motion.div)`

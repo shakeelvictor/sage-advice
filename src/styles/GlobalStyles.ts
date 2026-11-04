@@ -35,6 +35,9 @@ export const GlobalStyles = createGlobalStyle`
     --on-forest: #F6F8EF;
     --mint: #CDE9D3;
     --on-mint: #1E3A34;
+    /* The primary action. Forest in light; mint in dark, where forest sits below the ground and would vanish. */
+    --action: var(--forest);
+    --on-action: var(--on-forest);
     --ink: #1E3A34;
     --ink-2: #4F6B5A;
     --ink-3: #5F7366;
@@ -58,6 +61,8 @@ export const GlobalStyles = createGlobalStyle`
     --on-forest: #F6F8EF;
     --mint: #8FC9A6;
     --on-mint: #0A1714;
+    --action: var(--mint);
+    --on-action: var(--on-mint);
     --ink: #EDF3EA;
     --ink-2: #A9BFAE;
     --ink-3: #90A697;
@@ -79,7 +84,14 @@ export const GlobalStyles = createGlobalStyle`
     --bg-secondary: var(--surface);
     --text-primary: var(--ink);
     --text-secondary: var(--ink-2);
-    --accent: var(--forest);
+    --accent: var(--action);
+  }
+
+  /* Animatable progress for the Still halo (0 to 1). Browsers without @property step instead of easing. */
+  @property --halo {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
   }
 
   *, *::before, *::after {

@@ -106,9 +106,9 @@ const Num = styled.div<{ $done?: boolean }>`
   place-items: center;
   font-family: ${({ theme }) => theme.fonts.display};
   font-size: 1.05rem;
-  color: ${({ $done, theme }) => ($done ? theme.colors.onForest : theme.colors.ink2)};
-  background: ${({ $done, theme }) => ($done ? theme.colors.forest : 'transparent')};
-  border: 1px solid ${({ $done, theme }) => ($done ? theme.colors.forest : theme.colors.line)};
+  color: ${({ $done, theme }) => ($done ? theme.colors.onAction : theme.colors.ink2)};
+  background: ${({ $done, theme }) => ($done ? theme.colors.action : 'transparent')};
+  border: 1px solid ${({ $done, theme }) => ($done ? theme.colors.action : theme.colors.line)};
 
   svg {
     width: 16px;

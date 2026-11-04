@@ -64,8 +64,8 @@ const Dot = styled.span<{ $done?: boolean; $next?: boolean }>`
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: ${({ $done, theme }) => ($done ? theme.colors.forest : 'transparent')};
-  border: 1.5px solid ${({ $done, $next, theme }) => ($done ? theme.colors.forest : $next ? theme.colors.sage : theme.colors.line)};
+  background: ${({ $done, theme }) => ($done ? theme.colors.action : 'transparent')};
+  border: 1.5px solid ${({ $done, $next, theme }) => ($done ? theme.colors.action : $next ? theme.colors.sage : theme.colors.line)};
 `;
 
 const Action = styled.span<{ $finished?: boolean }>`
