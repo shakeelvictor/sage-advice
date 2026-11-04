@@ -18,6 +18,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Onest:wght@300..800&display=swap" rel="stylesheet">
     <title>Sage Advice</title>
+    <!-- Apply the saved theme before the first paint, so dark mode never flashes the light ground.
+         ThemeProvider takes over once React mounts; this only mirrors its rule. -->
+    <script>
+      (function () {
+        var theme = 'system';
+        try { theme = localStorage.getItem('theme') || 'system'; } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
