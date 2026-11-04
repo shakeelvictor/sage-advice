@@ -47,7 +47,7 @@ const YouTubeShort: React.FC<YouTubeShortProps> = ({
           if (data.event === 'onStateChange' && data.info === 0) {
             onEnded?.();
           }
-        } catch (error) {
+        } catch {
           // Ignore parsing errors from other messages
         }
       }

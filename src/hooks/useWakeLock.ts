@@ -10,7 +10,7 @@ export const useWakeLock = (isActive: boolean) => {
           const lock = await navigator.wakeLock.request('screen');
           setWakeLock(lock);
         }
-      } catch (err) {
+      } catch {
         console.info('Wake Lock not supported or permission denied');
       }
     };
@@ -20,7 +20,7 @@ export const useWakeLock = (isActive: boolean) => {
         try {
           await wakeLock.release();
           setWakeLock(null);
-        } catch (err) {
+        } catch {
           console.info('Error releasing wake lock');
         }
       }
