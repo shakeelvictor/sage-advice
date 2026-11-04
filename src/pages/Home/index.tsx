@@ -2,14 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Play, Heart, RotateCcw, SkipForward, Shuffle, Undo2, Share2 } from 'lucide-react';
+import { Play, Heart, RotateCcw, Share2, Sprout, ChevronRight, Shuffle, Undo2 } from 'lucide-react';
 import PageTransition from '../../components/PageTransition';
 import PlayerSheet from '../../components/Player/PlayerSheet';
 import WisdomCardModal from '../../components/WisdomCardModal';
-import IntentPicker from '../../components/IntentPicker';
-import { Eyebrow, Button, IconButton, TextButton, Surface, Chip } from '../../components/ui';
+import { Eyebrow, Headline, Button, MintButton, IconButton, TextButton, Surface, Chip, ForestCard } from '../../components/ui';
 import { videos, Video } from '../../data/videos';
-import { Intent, intentLabel, pickAnother, pickDaily, todayKey } from '../../utils/ritual';
+import { paths } from '../../data/paths';
+import { INTENTS, Intent, pickAnother, pickDaily, todayKey } from '../../utils/ritual';
 import { thinkerSlug } from '../../data/thinkers';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -18,37 +18,21 @@ import { addVideo, removeVideo } from '../../store/lovedVideosSlice';
 import { logPractice, setToday } from '../../store/ritualSlice';
 import { spring, springSoft } from '../../styles/motion';
 
-type Stage = 'intent' | 'line' | 'watch' | 'after';
+type Stage = 'line' | 'watch' | 'after';
 
 const WORD_STAGGER = 0.085;
-const WORD_DELAY = 0.35;
+const WORD_DELAY = 0.25;
 
 const Scene = styled.div`
-  position: relative;
-  min-height: calc(100vh - var(--nav-h) - 4rem);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 2rem;
   max-width: 680px;
   margin: 0 auto;
-  padding-block: 1rem;
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 0.25rem 1rem;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    min-height: calc(100vh - 6rem);
+  > * {
+    min-width: 0;
   }
-`;
-
-const Orb = styled(motion.div)`
-  position: absolute;
-  left: 50%;
-  top: 34%;
-  width: min(70vw, 420px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--ember) 35%, transparent), transparent 68%);
-  filter: blur(14px);
-  pointer-events: none;
-  z-index: -1;
 `;
 
 const TopRow = styled.div`
@@ -56,30 +40,71 @@ const TopRow = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  flex-wrap: wrap;
-  min-height: 36px;
+  min-height: 32px;
+`;
 
-  /* Clear the floating theme button on phones. */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding-right: 3.25rem;
+const SproutMark = styled.span`
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.surface2};
+  color: ${({ theme }) => theme.colors.sage};
+
+  svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 2;
   }
 `;
 
-const Centre = styled.div`
+const Intents = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: -4px;
+  padding: 4px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  button {
+    flex: none;
+    padding: 0 0.95rem;
+  }
+`;
+
+const Below = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: -0.5rem;
+`;
+
+const Card = styled(ForestCard)`
   display: grid;
-  align-content: center;
-  gap: 1.25rem;
+  min-height: 300px;
+  align-content: space-between;
+`;
+
+const CardBody = styled(motion.div)`
+  display: grid;
+  gap: 1.1rem;
 `;
 
 const Line = styled(motion.p)`
   font-family: ${({ theme }) => theme.fonts.display};
+  font-style: italic;
   font-weight: 300;
-  font-variation-settings: 'SOFT' 80;
-  font-size: clamp(1.75rem, 4.6vw, 2.9rem);
-  line-height: 1.22;
-  letter-spacing: -0.012em;
-  text-wrap: balance;
-  color: ${({ theme }) => theme.colors.ink};
+  font-variation-settings: 'opsz' 72, 'SOFT' 100;
+  font-size: clamp(1.6rem, 6vw, 1.9rem);
+  line-height: 1.24;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  color: ${({ theme }) => theme.colors.onForest};
 `;
 
 const Word = styled(motion.span)`
@@ -87,119 +112,162 @@ const Word = styled(motion.span)`
   white-space: pre;
 `;
 
-const Attribution = styled(motion.div)`
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.ink2};
-
-  strong {
-    color: ${({ theme }) => theme.colors.ink};
-    font-weight: 700;
-  }
-
-  a strong {
-    border-bottom: 1px solid color-mix(in srgb, ${({ theme }) => theme.colors.forest} 50%, transparent);
-    transition: border-color 0.25s ease, color 0.25s ease;
-  }
-
-  a:hover strong {
-    color: ${({ theme }) => theme.colors.forest};
-    border-color: ${({ theme }) => theme.colors.forest};
-  }
-`;
-
-const Prompt = styled(motion.p)`
-  font-size: 1.02rem;
-  color: ${({ theme }) => theme.colors.ink2};
-  border-left: 2px solid ${({ theme }) => theme.colors.forest};
-  padding-left: 1rem;
-  max-width: 48ch;
-`;
-
-const Card = styled(motion(Surface))`
+const Meta = styled(motion.div)`
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem;
-  align-items: center;
-  padding: 0.9rem;
+  gap: 0.15rem;
+  font-size: 0.86rem;
+
+  .who {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: ${({ theme }) => theme.colors.mint};
+    justify-self: start;
+  }
+
+  a.who:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .what {
+    color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 72%, transparent);
+  }
 `;
 
-const Thumb = styled.button`
-  position: relative;
-  width: 72px;
-  aspect-ratio: 9 / 16;
+const Prompt = styled(motion.div)`
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem;
   border-radius: var(--radius-m);
-  overflow: hidden;
-  background: ${({ theme }) => theme.colors.surface2};
+  background: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 8%, transparent);
+
+  small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.ember};
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: ${({ theme }) => theme.colors.onForest};
+  }
+`;
+
+const Actions = styled(motion.div)`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+
+  > button:first-child {
+    padding: 0 1.15rem;
+  }
+
+  > button:last-child {
+    margin-left: auto;
+  }
+`;
+
+const OnForestText = styled(TextButton)`
+  color: color-mix(in srgb, ${({ theme }) => theme.colors.onForest} 82%, transparent);
+  padding: 0 0.4rem;
+
+  &:hover:not(:disabled) {
+    color: ${({ theme }) => theme.colors.onForest};
+  }
+`;
+
+const HeartWrap = styled.span`
+  position: relative;
   display: grid;
   place-items: center;
-
-  img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.85;
-  }
-
-  span {
-    position: relative;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: ${({ theme }) => theme.colors.forest};
-    color: ${({ theme }) => theme.colors.onForest};
-    box-shadow: 0 0 0 6px color-mix(in srgb, ${({ theme }) => theme.colors.forest} 25%, transparent);
-  }
-
-  svg {
-    width: 16px;
-    height: 16px;
-    margin-left: 2px;
-  }
 `;
 
-const CardBody = styled.div`
-  min-width: 0;
+const Ripple = styled(motion.span)`
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid ${({ theme }) => theme.colors.ember};
+  pointer-events: none;
+`;
+
+const HeartButton = styled(IconButton)<{ $loved: boolean }>`
+  ${({ $loved, theme }) => (!$loved ? `color: ${theme.colors.ember};` : '')}
+`;
+
+const PathCard = styled(Surface).attrs({ as: Link })`
   display: grid;
-  gap: 0.25rem;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  color: ${({ theme }) => theme.colors.ink};
+  transition: transform 0.25s var(--ease-out);
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  .tile {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-s);
+    background: ${({ theme }) => theme.colors.mint};
+    color: ${({ theme }) => theme.colors.onMint};
+  }
+
+  .tile svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+  }
+
+  .text {
+    display: grid;
+    min-width: 0;
+  }
 
   strong {
     font-size: 0.98rem;
-    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   small {
-    font-size: 0.78rem;
+    font-size: 0.82rem;
+    color: ${({ theme }) => theme.colors.ink2};
+  }
+
+  > svg {
+    width: 20px;
+    height: 20px;
     color: ${({ theme }) => theme.colors.ink3};
-    text-transform: capitalize;
   }
 `;
 
-const CardActions = styled.div`
-  grid-column: 1 / -1;
+const Footer = styled.p`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
   flex-wrap: wrap;
-`;
-
-const AfterControls = styled(motion.div)`
-  display: flex;
   justify-content: center;
-  gap: 1rem;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  padding-top: 0.25rem;
   color: ${({ theme }) => theme.colors.ink3};
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   text-align: center;
+
+  a {
+    color: ${({ theme }) => theme.colors.sage};
+    font-weight: 600;
+  }
 `;
 
 const Done = styled(Surface)`
@@ -220,12 +288,15 @@ const wordVariants = {
 };
 
 const weekday = () => new Date().toLocaleDateString(undefined, { weekday: 'long' });
+const greeting = (hour = new Date().getHours()) =>
+  hour < 5 ? 'Still up,' : hour < 12 ? 'Good morning,' : hour < 17 ? 'Good afternoon,' : 'Good evening,';
 const byId = (id: string) => videos.find((v) => v.id === id);
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const saved = useAppSelector((s) => s.lovedVideos.videos);
   const ritual = useAppSelector((s) => s.ritual);
+  const pathProgress = useAppSelector((s) => s.paths.progress);
   const savedIds = useMemo(() => saved.map((v) => v.id), [saved]);
   const date = todayKey();
 
@@ -233,66 +304,87 @@ const Home = () => {
   const intent = today?.intent ?? null;
   const dailyVideo = useMemo(() => (today ? byId(today.videoId) : undefined), [today]);
 
-  const [video, setVideo] = useState<Video | null>(dailyVideo ?? null);
-  const [stage, setStage] = useState<Stage>(dailyVideo ? 'line' : 'intent');
+  // No choice yet today: the line is today's surprise until an intent is picked.
+  // savedIds is read once on purpose, so keeping a line does not swap today's line out from under you.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fallback = useMemo(() => pickDaily(date, null, savedIds), [date]);
+  const todaysVideo = dailyVideo ?? fallback;
+
+  const [video, setVideo] = useState<Video>(todaysVideo);
+  const [stage, setStage] = useState<Stage>('line');
   const [watched, setWatched] = useSessionStorage<string[]>('watchedVideos', []);
   const [seenBefore, setSeenBefore] = useState(false);
   const [sharing, setSharing] = useState<Video | null>(null);
+  const [ripple, setRipple] = useState(0);
 
-  // A new day, or a stored pick that no longer exists in the library, asks the question again.
+  // Record today's surprise so it stays put across visits, and follow the day when it rolls over.
   useEffect(() => {
-    if (!dailyVideo && stage !== 'intent') setStage('intent');
-  }, [dailyVideo, stage]);
+    if (!dailyVideo) {
+      dispatch(setToday({ date, intent: null, videoId: fallback.id }));
+      setVideo(fallback);
+      setStage('line');
+    }
+  }, [dailyVideo, date, dispatch, fallback]);
 
-  const isSaved = video ? savedIds.includes(video.id) : false;
-  const isWandering = video !== null && dailyVideo !== undefined && video.id !== dailyVideo.id;
+  const isSaved = savedIds.includes(video.id);
+  const isWandering = video.id !== todaysVideo.id;
   const allLoved = saved.length >= videos.length;
-  const words = video?.wisdom.split(' ') ?? [];
-  const settleAt = WORD_DELAY + words.length * WORD_STAGGER + 0.15;
+  const words = video.wisdom.split(' ');
+  const settleAt = WORD_DELAY + words.length * WORD_STAGGER + 0.1;
   const practiceDays = ritual.practiceDays.length;
+
+  /** The path walked most recently that still has steps left. */
+  const continuing = useMemo(() => {
+    const open = paths
+      .map((path) => ({ path, progress: pathProgress[path.id] }))
+      .filter(({ path, progress }) => progress && !progress.finishedAt && progress.done.length > 0 && progress.done.length < path.steps.length);
+    const lastTouched = (p: (typeof open)[number]['progress']) => Math.max(p.startedAt, ...Object.values(p.completedAt ?? {}));
+    return open.sort((a, b) => lastTouched(b.progress) - lastTouched(a.progress))[0];
+  }, [pathProgress]);
 
   const choose = useCallback(
     (picked: Intent | null) => {
-      const chosen = pickDaily(date, picked, savedIds);
-      dispatch(setToday({ date, intent: picked, videoId: chosen.id }));
-      setVideo(chosen);
+      if (picked === null && intent === null && !isWandering) {
+        // Already on today's surprise: surprise again.
+        setVideo((current) => pickAnother(null, current.id, savedIds));
+      } else {
+        const chosen = pickDaily(date, picked, savedIds);
+        dispatch(setToday({ date, intent: picked, videoId: chosen.id }));
+        setVideo(chosen);
+      }
       setStage('line');
     },
-    [date, dispatch, savedIds],
+    [date, dispatch, intent, isWandering, savedIds],
   );
 
   const wander = useCallback(() => {
-    setVideo((current) => pickAnother(intent, current?.id ?? '', savedIds));
+    setVideo((current) => pickAnother(intent, current.id, savedIds));
     setStage('line');
   }, [intent, savedIds]);
 
   const backToToday = useCallback(() => {
-    if (dailyVideo) {
-      setVideo(dailyVideo);
-      setStage('line');
-    }
-  }, [dailyVideo]);
+    setVideo(todaysVideo);
+    setStage('line');
+  }, [todaysVideo]);
 
   const love = useCallback(() => {
-    if (!video) return;
     if (isSaved) {
       dispatch(removeVideo(video.id));
       return;
     }
     dispatch(addVideo({ ...video, notes: '', savedAt: Date.now() }));
-    window.setTimeout(wander, 700);
-  }, [dispatch, isSaved, video, wander]);
+    setRipple((n) => n + 1);
+  }, [dispatch, isSaved, video]);
 
   const watch = () => {
-    if (!video) return;
     setSeenBefore(watched.includes(video.id));
     if (!watched.includes(video.id)) setWatched([...watched, video.id]);
     setStage('watch');
   };
 
-  const closePlayer = useCallback(() => setStage('line'), []);
+  const closePlayer = useCallback(() => setStage((s) => (s === 'watch' ? 'line' : s)), []);
   const endPlayer = useCallback(() => {
-    if (video) dispatch(logPractice({ kind: 'watch', at: Date.now(), id: video.id }));
+    dispatch(logPractice({ kind: 'watch', at: Date.now(), id: video.id }));
     setStage('after');
   }, [dispatch, video]);
 
@@ -300,121 +392,156 @@ const Home = () => {
     return (
       <PageTransition>
         <Scene>
-          <Centre>
-            <Done>
-              <Eyebrow>Every line, kept</Eyebrow>
-              <h2>You have loved the whole library.</h2>
-              <p>Tend what stayed with you. New shorts arrive as the library grows.</p>
-              <Button as={Link} to="/garden">Open the Garden</Button>
-            </Done>
-          </Centre>
+          <Done>
+            <Eyebrow>Every line, kept</Eyebrow>
+            <h2>You have loved the whole library.</h2>
+            <p>Tend what stayed with you. New shorts arrive as the library grows.</p>
+            <Button as={Link} to="/garden">Open the Garden</Button>
+          </Done>
         </Scene>
       </PageTransition>
     );
   }
 
-  const eyebrow = stage === 'after' ? 'Sit with it' : isWandering ? 'Wandering' : "Today's sage";
+  const label = stage === 'after' ? 'Sit with it' : isWandering ? 'Wandering' : "Today's sage";
+  const detail = [video.thinker ? video.title : null, video.creatorChannel].filter(Boolean).join(' · ');
 
   return (
     <PageTransition>
       <Scene>
-        <Orb style={{ x: '-50%', y: '-50%' }} animate={{ scale: [1, 1.14, 1], opacity: [0.7, 1, 0.7] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
-
         <TopRow>
-          <Eyebrow as={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-            {eyebrow} · {weekday()}
+          <Eyebrow>
+            {weekday()} · {label}
           </Eyebrow>
-          {stage !== 'intent' && (
-            <Chip onClick={() => setStage('intent')} aria-label="Change what you need today" title="Change what you need today">
-              {intent ? intentLabel(intent) : 'Surprise me'} · change
-            </Chip>
-          )}
+          <SproutMark aria-hidden>
+            <Sprout />
+          </SproutMark>
         </TopRow>
 
-        <Centre>
-          <AnimatePresence mode="wait">
-            {stage === 'intent' || !video ? (
-              <IntentPicker key="intent" current={intent} onPick={choose} />
-            ) : (
-              <motion.div key={video.id + stage} style={{ display: 'grid', gap: '1.25rem' }} exit={{ opacity: 0, y: -8, transition: { duration: 0.3 } }}>
-                <Line initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: WORD_STAGGER, delayChildren: WORD_DELAY } } }}>
-                  {words.map((w, i) => (
-                    <Word key={`${w}-${i}`} variants={wordVariants}>
-                      {w}{i < words.length - 1 ? ' ' : ''}
-                    </Word>
-                  ))}
-                </Line>
+        <Headline>
+          {greeting()} <span>what do you need?</span>
+        </Headline>
 
-                <Attribution initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt }}>
-                  {video.thinker ? (
-                    <Link to={`/thinkers/${thinkerSlug(video.thinker)}`}>
-                      <strong>{video.thinker}</strong>
-                    </Link>
-                  ) : (
-                    <strong>{video.title}</strong>
-                  )}
-                  {video.thinker && <> · {video.title}</>}
-                  {video.creatorChannel && <> · via {video.creatorChannel}</>}
-                </Attribution>
+        <Intents role="group" aria-label="What do you need today?">
+          {INTENTS.map(({ id, label: text, blurb }) => (
+            <Chip key={id} $active={intent === id && !isWandering} aria-pressed={intent === id && !isWandering} onClick={() => choose(id)} title={blurb}>
+              {text}
+            </Chip>
+          ))}
+        </Intents>
 
-                {stage === 'after' && video.prompt && (
-                  <Prompt initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt + 0.2 }}>
-                    {video.prompt}
-                  </Prompt>
+        <Below>
+          <TextButton onClick={() => choose(null)}>
+            <Shuffle aria-hidden /> Surprise me
+          </TextButton>
+          {isWandering && (
+            <TextButton onClick={backToToday}>
+              <Undo2 aria-hidden /> Back to today's line
+            </TextButton>
+          )}
+        </Below>
+
+        <Card aria-label="Today's line" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
+          <AnimatePresence mode="wait" initial={false}>
+            <CardBody
+              key={video.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.22 } }}
+              transition={{ duration: 0.3 }}
+            >
+              <Line initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: WORD_STAGGER, delayChildren: WORD_DELAY } } }}>
+                {words.map((w, i) => (
+                  <Word key={`${w}-${i}`} variants={wordVariants}>
+                    {w}
+                    {i < words.length - 1 ? ' ' : ''}
+                  </Word>
+                ))}
+              </Line>
+
+              <Meta initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ...springSoft, delay: settleAt }}>
+                {video.thinker ? (
+                  <Link className="who" to={`/thinkers/${thinkerSlug(video.thinker)}`}>
+                    {video.thinker}
+                  </Link>
+                ) : (
+                  <span className="who">{video.title}</span>
                 )}
+                {detail && <span className="what">{detail}</span>}
+              </Meta>
 
-                {stage === 'line' && (
-                  <Card initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.35 }}>
-                    <Thumb onClick={watch} aria-label={`Watch ${video.title}`}>
-                      <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt="" loading="lazy" />
-                      <span><Play /></span>
-                    </Thumb>
-                    <CardBody>
-                      <strong>{video.title}</strong>
-                      <small>Short · {video.categories.join(' · ')}</small>
-                    </CardBody>
-                    <CardActions>
-                      <Button onClick={watch} whileTap={{ scale: 0.97 }}>
-                        <Play /> Watch the short
-                      </Button>
-                      {isWandering ? (
-                        <TextButton onClick={backToToday}>
-                          <Undo2 /> Back to today's line
-                        </TextButton>
-                      ) : (
-                        <TextButton onClick={wander}>
-                          <Shuffle /> Another line
-                        </TextButton>
-                      )}
-                    </CardActions>
-                  </Card>
-                )}
-
-                {stage === 'after' && (
-                  <AfterControls initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: settleAt + 0.4 }}>
-                    <IconButton $size={52} onClick={() => setStage('watch')} aria-label="Watch again" whileTap={{ scale: 0.9 }}>
-                      <RotateCcw />
-                    </IconButton>
-                    <IconButton $tone={isSaved ? 'ember' : 'ghost'} $size={64} onClick={love} aria-label={isSaved ? 'Remove from loved' : 'Love this'} aria-pressed={isSaved} whileTap={{ scale: 0.9 }}>
-                      <Heart fill={isSaved ? 'currentColor' : 'none'} />
-                    </IconButton>
-                    <IconButton $size={52} onClick={wander} aria-label="Another line" whileTap={{ scale: 0.9 }}>
-                      <SkipForward />
-                    </IconButton>
-                    <IconButton $size={52} onClick={() => setSharing(video)} aria-label="Share as a card" whileTap={{ scale: 0.9 }}>
-                      <Share2 />
-                    </IconButton>
-                  </AfterControls>
-                )}
-              </motion.div>
-            )}
+              {stage === 'after' && video.prompt && (
+                <Prompt initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={springSoft}>
+                  <small>Sit with it</small>
+                  <p>{video.prompt}</p>
+                </Prompt>
+              )}
+            </CardBody>
           </AnimatePresence>
-        </Centre>
+
+          <Actions initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ ...spring, delay: 0.3 }}>
+            <MintButton onClick={watch} whileTap={{ scale: 0.97 }}>
+              {stage === 'after' ? <RotateCcw aria-hidden /> : <Play aria-hidden />}
+              {stage === 'after' ? 'Again' : 'Watch'}
+            </MintButton>
+            <HeartWrap>
+              <AnimatePresence>
+                {ripple > 0 && (
+                  <Ripple
+                    key={ripple}
+                    initial={{ scale: 1, opacity: 0.7 }}
+                    animate={{ scale: 1.9, opacity: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                  />
+                )}
+              </AnimatePresence>
+              <HeartButton
+                $size={44}
+                $tone={isSaved ? 'ember' : 'onForest'}
+                $loved={isSaved}
+                onClick={love}
+                aria-label={isSaved ? 'Remove from your garden' : 'Keep this line'}
+                aria-pressed={isSaved}
+                whileTap={{ scale: 0.88 }}
+              >
+                <Heart fill={isSaved ? 'currentColor' : 'none'} aria-hidden />
+              </HeartButton>
+            </HeartWrap>
+            <IconButton $size={44} $tone="onForest" onClick={() => setSharing(video)} aria-label="Share as a card" whileTap={{ scale: 0.9 }}>
+              <Share2 aria-hidden />
+            </IconButton>
+            <OnForestText onClick={wander}>Another</OnForestText>
+          </Actions>
+        </Card>
+
+        {continuing && (
+          <PathCard to={`/paths/${continuing.path.id}`}>
+            <span className="tile" aria-hidden>
+              <Sprout />
+            </span>
+            <span className="text">
+              <strong>{continuing.path.title}</strong>
+              <small>
+                {continuing.progress.done.length} of {continuing.path.steps.length} walked · continue your path
+              </small>
+            </span>
+            <ChevronRight aria-hidden />
+          </PathCard>
+        )}
 
         <Footer>
-          {practiceDays > 0 && <span>{practiceDays} {practiceDays === 1 ? 'day' : 'days'} of practice</span>}
+          {practiceDays > 0 && (
+            <span>
+              {practiceDays} {practiceDays === 1 ? 'day' : 'days'} of practice
+            </span>
+          )}
           {practiceDays > 0 && saved.length > 0 && <span aria-hidden>·</span>}
-          {saved.length > 0 && <span>{saved.length} {saved.length === 1 ? 'line' : 'lines'} kept</span>}
+          {saved.length > 0 && (
+            <span>
+              {saved.length} {saved.length === 1 ? 'line' : 'lines'} kept
+            </span>
+          )}
           {practiceDays === 0 && saved.length === 0 && <span>Watch one short to the end and the day counts</span>}
           {(practiceDays > 0 || saved.length > 0) && (
             <>
@@ -427,7 +554,7 @@ const Home = () => {
         <WisdomCardModal video={sharing} onClose={() => setSharing(null)} />
 
         <AnimatePresence>
-          {stage === 'watch' && video && (
+          {stage === 'watch' && (
             <PlayerSheet
               key="player"
               video={video}
